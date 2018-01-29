@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelBuilder : MonoBehaviour
+public class LevelGenerator : MonoBehaviour
 {
 
     void Start()
