@@ -15,6 +15,7 @@ public static class LevelBuilder
     static GameObject floorPrefab;
     static GameObject wallPrefab;
     static GameObject coverPrefab;
+    static GameObject playerPrefab;
 
     static Dictionary<TileType, GameObject> wallTypeToPrefab = new Dictionary<TileType, GameObject>();
 
