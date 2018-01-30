@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
 
     void Start()
     {
-
+        GetComponent<TrailRenderer>().sortingLayerName = "FX";
     }
 
     void Update()

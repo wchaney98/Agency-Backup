@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-
+        Player = GameObject.FindObjectOfType<PlayerController>().gameObject;
     }
 
     void LateUpdate()

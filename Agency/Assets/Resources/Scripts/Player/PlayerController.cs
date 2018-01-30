@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private const float MOVE_SPEED = 3f;
 
     private GameObject bulletPrefab;
+    private Rigidbody2D rb;
 
 
     void Start()
@@ -17,9 +18,27 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("bulletPrefab not found");
         }
+
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
+    {
+        // Handle looking at cursor
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg);
+
+        // Handle shooting
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            Bullet scr = b.GetComponent<Bullet>();
+            scr.Direction = mousePos - transform.position;
+            scr.Speed = 30f;
+        }
+    }
+
+    private void FixedUpdate()
     {
         // Handle WASD movement
         Vector2 movementVector = Vector2.zero;
@@ -39,19 +58,6 @@ public class PlayerController : MonoBehaviour
         {
             movementVector.x += MOVE_SPEED * Time.deltaTime;
         }
-        transform.position += (Vector3) (movementVector);
-
-        // Handle looking at cursor
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg);
-
-        // Handle shooting
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            Bullet scr = b.GetComponent<Bullet>();
-            scr.Direction = mousePos - transform.position;
-            scr.Speed = 30f;
-        }
+        rb.position += (movementVector);
     }
 }
