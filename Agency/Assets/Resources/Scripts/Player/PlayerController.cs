@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private GameObject bulletPrefab;
     private Rigidbody2D rb;
 
+    private Coroutine zoomingCoroutine;
 
     void Start()
     {
@@ -35,6 +36,11 @@ public class PlayerController : MonoBehaviour
             Bullet scr = b.GetComponent<Bullet>();
             scr.Direction = mousePos - transform.position;
             scr.Speed = 30f;
+
+            if (zoomingCoroutine != null)
+                StopCoroutine(zoomingCoroutine);
+            Camera.main.orthographicSize = 4.8f;
+            zoomingCoroutine = StartCoroutine(ZoomIn());
         }
     }
 
@@ -59,5 +65,21 @@ public class PlayerController : MonoBehaviour
             movementVector.x += MOVE_SPEED * Time.deltaTime;
         }
         rb.position += (movementVector);
+    }
+
+    IEnumerator ZoomIn()
+    {
+        Debug.Log("yuih");
+        float start = Camera.main.orthographicSize;
+        float goal = 5f;
+        float length = 0.35f;
+        float time = 0f;
+        while (Camera.main.orthographicSize < 5)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.Sin(time * Mathf.PI * 0.5f);
+            Camera.main.orthographicSize = Mathf.Lerp(start, goal, t / length);
+            yield return null;
+        }
     }
 }
