@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Character
 {
+    public GameObject MuzzleFlashObject;
 
     private const float MOVE_SPEED = 3f;
 
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
 
     private Coroutine zoomingCoroutine;
 
-    void Start()
+    public override void Start()
     {
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
         if (bulletPrefab == null)
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    public override void Update()
     {
         // Handle looking at cursor
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -35,12 +36,17 @@ public class PlayerController : MonoBehaviour
             GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             Bullet scr = b.GetComponent<Bullet>();
             scr.Direction = mousePos - transform.position;
-            scr.Speed = 30f;
+            scr.Speed = 50f;
 
             if (zoomingCoroutine != null)
                 StopCoroutine(zoomingCoroutine);
             Camera.main.orthographicSize = 4.8f;
             zoomingCoroutine = StartCoroutine(ZoomIn());
+
+            if (!MuzzleFlashObject.activeInHierarchy)
+                MuzzleFlashObject.SetActive(true);
+            MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
+            Debug.Log(MuzzleFlashObject.GetComponent<ParticleSystem>().isPlaying);
         }
     }
 
@@ -69,7 +75,6 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator ZoomIn()
     {
-        Debug.Log("yuih");
         float start = Camera.main.orthographicSize;
         float goal = 5f;
         float length = 0.35f;

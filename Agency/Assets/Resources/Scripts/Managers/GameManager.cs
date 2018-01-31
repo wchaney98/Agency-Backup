@@ -23,6 +23,8 @@ class GameManager : MonoBehaviour
         testLevel[4, 6] = TileType.Cover;
 
         testLevel[8, 4] = TileType.PlayerSpawn;
+        testLevel[4, 7] = TileType.BasicEnemySpawn;
+        testLevel[5, 7] = TileType.BasicEnemySpawn;
 
         LevelBuilder.Inititialize();
         LevelBuilder.BuildLevel(testLevel);
