@@ -16,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - CoverArea
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: World
     uniqueID: 1044279779
+    locked: 0
+  - name: CoverArea
+    uniqueID: 1039720309
     locked: 0
   - name: Characters
     uniqueID: 1821684681

@@ -83,7 +83,12 @@ public class PlayerController : Character
         {
             time += Time.deltaTime;
             float t = Mathf.Sin(time * Mathf.PI * 0.5f);
-            Camera.main.orthographicSize = Mathf.Lerp(start, goal, t / length);
+            Camera[] cams = Camera.allCameras;
+            for (int i = 0; i < cams.Length; i++)
+            {
+                cams[i].orthographicSize = Mathf.Lerp(start, goal, t / length);
+            }
+            //Camera.main.orthographicSize = Mathf.Lerp(start, goal, t / length);
             yield return null;
         }
     }
