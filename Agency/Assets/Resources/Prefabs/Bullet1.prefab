@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4140187744951230}
   - component: {fileID: 96494945721982690}
   - component: {fileID: 114146081920908334}
+  - component: {fileID: 58682165915980822}
   m_Layer: 0
   m_Name: Bullet1
   m_TagString: Untagged
@@ -41,6 +42,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58682165915980822
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231950237953180}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.09
 --- !u!96 &96494945721982690
 TrailRenderer:
   serializedVersion: 2
@@ -74,12 +90,12 @@ TrailRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 895442413
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Time: 0.27
+  m_Time: 0.66
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.47
+    widthMultiplier: 0.56
     widthCurve:
       serializedVersion: 2
       m_Curve:

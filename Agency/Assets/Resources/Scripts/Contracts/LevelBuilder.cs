@@ -30,7 +30,7 @@ public static class LevelBuilder
         floorPrefab = Resources.Load<GameObject>("Prefabs/World/floor_grey");
         wallPrefab = Resources.Load<GameObject>("Prefabs/World/wall_grey");
         coverPrefab = Resources.Load<GameObject>("Prefabs/World/cover_grey");
-        playerPrefab = Resources.Load<GameObject>("Prefabs/Characters/Player");
+        playerPrefab = Resources.Load<GameObject>("Prefabs/Characters/PlayerContainer");
         basicEnemyPrefab = Resources.Load<GameObject>("Prefabs/Characters/BasicEnemy");
         coverAreaPrefab = Resources.Load<GameObject>("Prefabs/World/cover_area");
 

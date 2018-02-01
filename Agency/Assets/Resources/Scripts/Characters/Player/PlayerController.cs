@@ -10,8 +10,14 @@ public class PlayerController : Character
 
     private GameObject bulletPrefab;
     private Rigidbody2D rb;
+    private ContactFilter2D contactFilter;
+    private SpriteRenderer spriteRenderer;
 
     private Coroutine zoomingCoroutine;
+
+    private bool inCover = false;
+
+    private List<Collider2D> occupiedCoverAreas = new List<Collider2D>();
 
     public override void Start()
     {
@@ -22,6 +28,8 @@ public class PlayerController : Character
         }
 
         rb = GetComponent<Rigidbody2D>();
+        contactFilter = new ContactFilter2D();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public override void Update()
@@ -43,11 +51,13 @@ public class PlayerController : Character
             Camera.main.orthographicSize = 4.8f;
             zoomingCoroutine = StartCoroutine(ZoomIn());
 
-            if (!MuzzleFlashObject.activeInHierarchy)
-                MuzzleFlashObject.SetActive(true);
             MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
-            Debug.Log(MuzzleFlashObject.GetComponent<ParticleSystem>().isPlaying);
         }
+    }
+
+    public void LerpToCover(Vector3 pos)
+    {
+        StartCoroutine(JumpToCover(pos));
     }
 
     private void FixedUpdate()
@@ -71,6 +81,31 @@ public class PlayerController : Character
             movementVector.x += MOVE_SPEED * Time.deltaTime;
         }
         rb.position += (movementVector);
+
+        if (inCover)
+        {
+            if (occupiedCoverAreas.Count == 0)
+            {
+                inCover = false;
+                spriteRenderer.color = Color.white;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "CoverArea")
+        {
+            inCover = true;
+            spriteRenderer.color = new Color(.7f, .7f, .7f, 1f);
+            occupiedCoverAreas.Add(collision);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "CoverArea" && occupiedCoverAreas.Contains(collision))
+            occupiedCoverAreas.Remove(collision);
     }
 
     IEnumerator ZoomIn()
@@ -88,7 +123,19 @@ public class PlayerController : Character
             {
                 cams[i].orthographicSize = Mathf.Lerp(start, goal, t / length);
             }
-            //Camera.main.orthographicSize = Mathf.Lerp(start, goal, t / length);
+            yield return null;
+        }
+    }
+
+    IEnumerator JumpToCover(Vector3 goal)
+    {
+        Vector3 start = transform.position;
+        float length = 0.05f;
+        float time = 0f;
+        while (time <= length)
+        {
+            time += Time.deltaTime;
+            transform.position = Vector3.Lerp(start, goal, time / length);
             yield return null;
         }
     }
