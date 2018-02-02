@@ -14,6 +14,15 @@ public abstract class Character : MonoBehaviour
 
     public virtual void Update()
     {
+        if (health <= 0)
+        {
+            //TODO: Death anim
+            Destroy(gameObject);
+        }
+    }
 
+    public void TakeDamage(int amount)
+    {
+        health -= amount;
     }
 }

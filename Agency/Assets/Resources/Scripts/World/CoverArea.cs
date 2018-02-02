@@ -10,27 +10,31 @@ public class CoverArea : MonoBehaviour
     private Color previousColor;
     private SpriteRenderer spriteRenderer;
 
+    private MouseRaycaster mouseRaycaster;
     private bool mouseIsOver = false;
+    private List<GameObject> mouseOverObjects;
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        mouseRaycaster = GameObject.FindObjectOfType<MouseRaycaster>();
     }
 
-    private void OnMouseEnter()
-    {
-        previousColor = spriteRenderer.color;
-        mouseIsOver = true;
-    }
-
-    private void Update()
+    private void FixedUpdate()
     {
         if (mouseIsOver)
         {
-            Debug.Log("heyeye");
+            mouseOverObjects = mouseRaycaster.GetObjectsMouseIsOver();
+            if (!mouseOverObjects.Contains(gameObject))
+            {
+                spriteRenderer.color = previousColor;
+                mouseIsOver = false;
+                return;
+            }
+
             if (InPlayerRadius)
             {
-                spriteRenderer.color = Color.green;
+                spriteRenderer.color = Color.blue;
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     //TODO: EventManager
@@ -38,11 +42,14 @@ public class CoverArea : MonoBehaviour
                 }
             }
         }
-    }
-
-    private void OnMouseExit()
-    {
-        spriteRenderer.color = previousColor;
-        mouseIsOver = false;
+        else
+        {
+            mouseOverObjects = mouseRaycaster.GetObjectsMouseIsOver();
+            if (mouseOverObjects.Contains(gameObject))
+            {
+                previousColor = spriteRenderer.color;
+                mouseIsOver = true;
+            }
+        }
     }
 }

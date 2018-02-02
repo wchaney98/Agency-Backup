@@ -34,6 +34,8 @@ public class PlayerController : Character
 
     public override void Update()
     {
+        base.Update();
+
         // Handle looking at cursor
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg);
@@ -45,6 +47,7 @@ public class PlayerController : Character
             Bullet scr = b.GetComponent<Bullet>();
             scr.Direction = mousePos - transform.position;
             scr.Speed = 50f;
+            scr.Creator = gameObject;
 
             if (zoomingCoroutine != null)
                 StopCoroutine(zoomingCoroutine);
