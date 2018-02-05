@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
+    public bool InCover = false;
+
     protected int health = 1;
     protected bool flashed = false;
 

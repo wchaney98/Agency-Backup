@@ -8,6 +8,7 @@ TagManager:
   - Wall
   - CoverArea
   - Character
+  - CoverBlock
   layers:
   - Default
   - TransparentFX

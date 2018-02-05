@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 58920149892553004}
   - component: {fileID: 50185012551848124}
   - component: {fileID: 114744641390859948}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: BasicEnemy
   m_TagString: Character
   m_Icon: {fileID: 0}
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f916642ce46e744e82a9d05e709203f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InCover: 1
 --- !u!212 &212106531609284518
 SpriteRenderer:
   m_ObjectHideFlags: 1

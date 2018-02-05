@@ -15,8 +15,6 @@ public class PlayerController : Character
 
     private Coroutine zoomingCoroutine;
 
-    private bool inCover = false;
-
     private List<Collider2D> occupiedCoverAreas = new List<Collider2D>();
 
     public override void Start()
@@ -48,6 +46,7 @@ public class PlayerController : Character
             scr.Direction = mousePos - transform.position;
             scr.Speed = 50f;
             scr.Creator = gameObject;
+            scr.CheckPath();
 
             if (zoomingCoroutine != null)
                 StopCoroutine(zoomingCoroutine);
@@ -85,11 +84,11 @@ public class PlayerController : Character
         }
         rb.position += (movementVector);
 
-        if (inCover)
+        if (InCover)
         {
             if (occupiedCoverAreas.Count == 0)
             {
-                inCover = false;
+                InCover = false;
                 spriteRenderer.color = Color.white;
             }
         }
@@ -99,7 +98,7 @@ public class PlayerController : Character
     {
         if (collision.gameObject.tag == "CoverArea")
         {
-            inCover = true;
+            InCover = true;
             spriteRenderer.color = new Color(.7f, .7f, .7f, 1f);
             occupiedCoverAreas.Add(collision);
         }
