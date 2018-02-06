@@ -11,14 +11,13 @@ public class PlayerController : Character
     private GameObject bulletPrefab;
     private Rigidbody2D rb;
     private ContactFilter2D contactFilter;
-    private SpriteRenderer spriteRenderer;
 
     private Coroutine zoomingCoroutine;
 
-    private List<Collider2D> occupiedCoverAreas = new List<Collider2D>();
-
     public override void Start()
     {
+        base.Start();
+
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
         if (bulletPrefab == null)
         {
@@ -27,7 +26,6 @@ public class PlayerController : Character
 
         rb = GetComponent<Rigidbody2D>();
         contactFilter = new ContactFilter2D();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public override void Update()
@@ -83,31 +81,7 @@ public class PlayerController : Character
             movementVector.x += MOVE_SPEED * Time.deltaTime;
         }
         rb.position += (movementVector);
-
-        if (InCover)
-        {
-            if (occupiedCoverAreas.Count == 0)
-            {
-                InCover = false;
-                spriteRenderer.color = Color.white;
-            }
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "CoverArea")
-        {
-            InCover = true;
-            spriteRenderer.color = new Color(.7f, .7f, .7f, 1f);
-            occupiedCoverAreas.Add(collision);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "CoverArea" && occupiedCoverAreas.Contains(collision))
-            occupiedCoverAreas.Remove(collision);
+        
     }
 
     IEnumerator ZoomIn()

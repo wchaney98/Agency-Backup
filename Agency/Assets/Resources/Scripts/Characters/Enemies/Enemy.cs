@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    Transform playerTransform;
+    protected Transform playerTransform;
 
     public override void Start()
     {
+        base.Start();
+
         playerTransform = GameObject.FindObjectOfType<PlayerController>().transform;
     }
 

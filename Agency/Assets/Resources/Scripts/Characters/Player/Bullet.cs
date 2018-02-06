@@ -13,6 +13,9 @@ public class Bullet : MonoBehaviour
     private bool passedThroughCover = false;
     private RaycastHit2D[] hitPoint = new RaycastHit2D[10];
 
+    /// <summary>
+    /// Checks if the bullet is going over cover
+    /// </summary>
     public void CheckPath()
     {
         Ray2D ray = new Ray2D(Creator.transform.position, Direction);
@@ -22,7 +25,6 @@ public class Bullet : MonoBehaviour
         {
             if (hit.collider.gameObject.tag == "CoverBlock")
             {
-                Debug.Log("Bullet hit cover");
                 passedThroughCover = true;
             }
         }
@@ -32,13 +34,14 @@ public class Bullet : MonoBehaviour
     {
         GetComponent<TrailRenderer>().sortingLayerName = "FX";
         Creator = null;
+        GetComponent<Rigidbody2D>().collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
     void FixedUpdate()
     {
         transform.position += (Vector3)Direction.normalized * Speed * Time.deltaTime;
         timer += Time.deltaTime;
-        if (timer > 3f)
+        if (timer > 1f)
         {
             Destroy(gameObject);
         }
@@ -50,7 +53,10 @@ public class Bullet : MonoBehaviour
         {
             Character chr = collision.gameObject.GetComponent<Character>();
             if (Creator != collision.gameObject && (!passedThroughCover || (passedThroughCover && !chr.InCover)))
+            {
                 chr.TakeDamage(1);
+                Destroy(gameObject);
+            }
         }
     }
 
