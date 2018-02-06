@@ -102,20 +102,20 @@ MonoBehaviour:
   Pixelate: 0
   Grain: 0
   Grain_Old: 0
-  Grain_New: 0
+  Grain_New: 1
   grain:
-    m_Enabled: 0
+    m_Enabled: 1
     m_Settings:
       colored: 0
-      intensity: 0.2
-      size: 0.4
-      luminanceContribution: 0
-      animated: 0
+      intensity: 0.03
+      size: 0.65
+      luminanceContribution: 0.47
+      animated: 1
   colored: 0
-  intensity: 0.2
-  size: 0.4
-  luminanceContribution: 0
-  animated: 0
+  intensity: 0.03
+  size: 0.65
+  luminanceContribution: 0.47
+  animated: 1
   _palette: {fileID: 11400000, guid: 33a48c46bd6d3c34db06b516887c5d4f, type: 2}
   _pattern: {fileID: 11400000, guid: a5205f6c2ce0473499ead6549adb16f7, type: 2}
   _patternTexture: {fileID: 2800000, guid: f71a34128a6b2b746bc1436e8127156b, type: 3}
@@ -157,7 +157,7 @@ MonoBehaviour:
   stopNaNPropagation: 1
   antialiasingMode: 3
   temporalAntialiasing:
-    jitterSpread: 0.15
+    jitterSpread: 0.185
     sharpness: 0.25
     stationaryBlending: 0.544
     motionBlending: 0.351

@@ -38,7 +38,7 @@ MonoBehaviour:
     value: 0.315
   fastMode:
     overrideState: 1
-    value: 1
+    value: 0
 --- !u!114 &114228574114948286
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -320,13 +320,13 @@ MonoBehaviour:
     value: 6.11
   anamorphicRatio:
     overrideState: 1
-    value: 1
+    value: 0.64
   color:
     overrideState: 1
     value: {r: 1, g: 1, b: 1, a: 1}
   fastMode:
     overrideState: 1
-    value: 1
+    value: 0
   dirtTexture:
     overrideState: 1
     value: {fileID: 2800000, guid: 7a051dbda2d7bc447bee412427cd311e, type: 3}
