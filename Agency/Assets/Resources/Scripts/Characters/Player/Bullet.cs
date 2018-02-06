@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
+public enum Team
+{
+    Player,
+    Enemy
+}
 public class Bullet : MonoBehaviour
 {
     public Vector2 Direction { get; set; }
     public float Speed { get; set; }
     public GameObject Creator { get; set; }
+    public Team Team { get; set; }
     public LayerMask LayerMask;
 
     private float timer = 0f;
@@ -49,23 +56,31 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.tag);
+
         if (collision.gameObject.tag == "Character")
         {
             Character chr = collision.gameObject.GetComponent<Character>();
-            if (Creator != collision.gameObject && (!passedThroughCover || (passedThroughCover && !chr.InCover)))
+
+            if (Creator != collision.gameObject && ((chr.InCover && !passedThroughCover) || !chr.InCover))
             {
-                chr.TakeDamage(1);
-                Destroy(gameObject);
+                if (chr.Team == Team.Player)
+                    SceneManager.LoadScene("MainGame");
+                if (chr.Team != Team)
+                {
+                    chr.TakeDamage(1);
+                    SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
             }
         }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        //if (collision.gameObject.tag == "CoverBlock")
-        //{
-        //    passedThroughCover = true;
-        //    Debug.Log("hitcover");
-        //}
+        if (collision.gameObject.tag == "Wall")
+        {
+            Speed = 0;
+        }
     }
 }

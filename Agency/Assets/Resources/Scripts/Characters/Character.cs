@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     public bool InCover = false;
+    public Team Team { get; set; }
 
     protected int health = 1;
     protected bool flashed = false;
@@ -15,7 +16,6 @@ public abstract class Character : MonoBehaviour
     public virtual void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Debug.Log(gameObject.name + ": " + spriteRenderer);
         GetComponent<Rigidbody2D>().collisionDetectionMode = CollisionDetectionMode2D.Continuous;
     }
 
@@ -35,6 +35,11 @@ public abstract class Character : MonoBehaviour
                 if (spriteRenderer != null)
                     spriteRenderer.color = Color.white;
             }
+            else
+            {
+                if (spriteRenderer != null)
+                    spriteRenderer.color = new Color(.5f, .5f, .5f, 1f);
+            }
         }
     }
 
@@ -44,7 +49,7 @@ public abstract class Character : MonoBehaviour
         {
             InCover = true;
             if (spriteRenderer != null)
-                spriteRenderer.color = new Color(.7f, .7f, .7f, 1f);
+                spriteRenderer.color = new Color(.5f, .5f, .5f, 1f);
             occupiedCoverAreas.Add(collision);
         }
     }

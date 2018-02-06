@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 50011510745189694}
   m_Layer: 0
   m_Name: Bullet1
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113,22 +113,22 @@ TrailRenderer:
   m_SortingLayerID: 895442413
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Time: 0.66
+  m_Time: 0.11
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.56
+    widthMultiplier: 0.39
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 0.1489296
+        value: 0.20825577
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 1
-        value: 0
+        time: 0.98651123
+        value: 0.16949463
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -137,10 +137,10 @@ TrailRenderer:
       m_RotationOrder: 0
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.92941177, b: 0, a: 1}
-      key1: {r: 1, g: 0.36176467, b: 0.36176467, a: 1}
-      key2: {r: 0.67334706, g: 0.34117642, b: 0.882353, a: 0.9637433}
-      key3: {r: 1, g: 1, b: 1, a: 0.11372549}
+      key0: {r: 0, g: 0.83448267, b: 1, a: 1}
+      key1: {r: 0.015686275, g: 0.40784317, b: 0.4901961, a: 1}
+      key2: {r: 0, g: 1, b: 0.95862055, a: 0.9637433}
+      key3: {r: 1, g: 1, b: 1, a: 0}
       key4: {r: 0.67334706, g: 0.34117642, b: 0.882353, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
@@ -169,7 +169,7 @@ TrailRenderer:
     alignment: 0
     textureMode: 1
     generateLightingData: 1
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0
   m_Autodestruct: 1
 --- !u!114 &114146081920908334
 MonoBehaviour:

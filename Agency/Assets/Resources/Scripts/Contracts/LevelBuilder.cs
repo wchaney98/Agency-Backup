@@ -23,10 +23,12 @@ public static class LevelBuilder
 
     static GameObject parent;
 
-    static Dictionary<TileType, GameObject> wallTypeToPrefab = new Dictionary<TileType, GameObject>();
+    static Dictionary<TileType, GameObject> wallTypeToPrefab;
 
     public static bool Inititialize()
     {
+        wallTypeToPrefab = new Dictionary<TileType, GameObject>();
+
         floorPrefab = Resources.Load<GameObject>("Prefabs/World/floor_grey");
         wallPrefab = Resources.Load<GameObject>("Prefabs/World/wall_grey");
         coverPrefab = Resources.Load<GameObject>("Prefabs/World/cover_grey");

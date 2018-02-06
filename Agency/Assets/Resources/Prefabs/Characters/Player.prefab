@@ -122,7 +122,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &58101294887933194
 CircleCollider2D:
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b041e891f166a44419d8c1d01ad51a28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InCover: 0
   MuzzleFlashObject: {fileID: 1361235240828810}
 --- !u!198 &198740465339029670
 ParticleSystem:

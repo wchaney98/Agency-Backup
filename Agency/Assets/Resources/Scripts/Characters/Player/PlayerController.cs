@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : Character
 {
@@ -10,13 +12,13 @@ public class PlayerController : Character
 
     private GameObject bulletPrefab;
     private Rigidbody2D rb;
-    private ContactFilter2D contactFilter;
 
     private Coroutine zoomingCoroutine;
 
     public override void Start()
     {
         base.Start();
+        Team = Team.Player;
 
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
         if (bulletPrefab == null)
@@ -25,7 +27,6 @@ public class PlayerController : Character
         }
 
         rb = GetComponent<Rigidbody2D>();
-        contactFilter = new ContactFilter2D();
     }
 
     public override void Update()
@@ -42,8 +43,9 @@ public class PlayerController : Character
             GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             Bullet scr = b.GetComponent<Bullet>();
             scr.Direction = mousePos - transform.position;
-            scr.Speed = 50f;
+            scr.Speed = 35f;
             scr.Creator = gameObject;
+            scr.Team = Team.Player;
             scr.CheckPath();
 
             if (zoomingCoroutine != null)
@@ -51,7 +53,16 @@ public class PlayerController : Character
             Camera.main.orthographicSize = 4.8f;
             zoomingCoroutine = StartCoroutine(ZoomIn());
 
+            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.PistolShot0 }, transform.position);
             MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene("MainGame");
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

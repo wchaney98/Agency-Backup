@@ -1,10 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 class PlayerCoverArea : MonoBehaviour
 {
     public PlayerController Player;
+
+    private PostProcessVolume volume;
+
+    private void Start()
+    {
+        volume = GameObject.Find("GlobalProcessingVolume").GetComponent<PostProcessVolume>();
+    }
 
     private void Update()
     {
@@ -17,6 +25,16 @@ class PlayerCoverArea : MonoBehaviour
         {
             collision.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
             collision.gameObject.GetComponent<CoverArea>().InPlayerRadius = true;
+        }
+        else if (collision.gameObject.tag == "Bullet")
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            Debug.Log(bullet.Team);
+            if (bullet.Team == Team.Enemy)
+            {
+                SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
+                //TODO: post processing fx 
+            }
         }
     }
 

@@ -8,7 +8,14 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        Player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        try
+        {
+            Player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+        }
+        catch
+        {
+            Debug.Log("Couldn't find player, might be a scene restart...");
+        }
     }
 
     void LateUpdate()
@@ -16,7 +23,14 @@ public class CameraController : MonoBehaviour
         // Done in late update so that player's position is changed before setting the camera pos
         if (Player == null)
         {
-            Player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+            try
+            {
+                Player = GameObject.FindObjectOfType<PlayerController>().gameObject;
+            }
+            catch
+            {
+                Debug.Log("Couldn't find player, might be a scene restart...");
+            }
         }
         Vector3 temp = Player.transform.position;
         temp.z = transform.position.z;

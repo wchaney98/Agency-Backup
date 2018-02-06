@@ -11,7 +11,15 @@ using Object = UnityEngine.Object;
 /// </summary>
 public enum SoundFile
 {
-    FileName
+    //delet
+    Steve0,
+
+    PistolShot0,
+    PistolShot1,
+
+    BulletWhizz0,
+    BulletWhizz1,
+    BulletWhizz2
 }
 # endregion
 
@@ -55,6 +63,7 @@ public class SoundManager : SingletonBehavior<SoundManager>
 
         //Creates a single sound effect source. Can play every sound in the game through this unless you want to have different effects
         //such as different pitch/volume for different sources.
+        //TODO: each object have its own audio source
         if (SoundEffectSource == null)
         {
             Debug.Log("Creating SoundEffectSource");
@@ -85,11 +94,11 @@ public class SoundManager : SingletonBehavior<SoundManager>
     /// Plays a single sound effect
     /// </summary>
     /// <param name="sound">The sound effect we want to play</param>
-    public void DoPlayOneShot(SoundFile sound, Vector3? location = null, float volumeScale = 1)
+    public void DoPlayOneShot(SoundFile[] sounds, Vector3? location = null, float volumeScale = 1)
     {
         if (location == null)
             location = Vector3.zero;
-        AudioSource.PlayClipAtPoint(SoundEffects[sound], (Vector3)location, volumeScale * volume);
+        AudioSource.PlayClipAtPoint(SoundEffects[sounds[UnityEngine.Random.Range(0, sounds.Length)]], (Vector3)location, volumeScale * volume);
     }
 
     /// <summary>
