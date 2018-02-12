@@ -22,9 +22,9 @@ GameObject:
   - component: {fileID: 212106531609284518}
   - component: {fileID: 58920149892553004}
   - component: {fileID: 50185012551848124}
-  - component: {fileID: 114744641390859948}
+  - component: {fileID: 114806379184049080}
   m_Layer: 10
-  m_Name: BasicEnemy
+  m_Name: BasicRobot
   m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.24
---- !u!114 &114744641390859948
+--- !u!114 &114806379184049080
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1101656944735984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f916642ce46e744e82a9d05e709203f, type: 3}
+  m_Script: {fileID: 11500000, guid: 28734c997e839074f9670abf76724e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   InCover: 0
@@ -124,7 +124,7 @@ SpriteRenderer:
   m_SortingLayerID: 1821684681
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3cd34fe8e4830094fb18ce9a79c84b13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 66ab80f06e5db05429cb39ca0222450c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

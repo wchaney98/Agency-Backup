@@ -19,6 +19,8 @@ public class Bullet : MonoBehaviour
     private float timer = 0f;
     private bool passedThroughCover = false;
     private RaycastHit2D[] hitPoint = new RaycastHit2D[10];
+    private List<GameObject> objectsEntered = new List<GameObject>();
+    private Vector2 posLastFrame;
 
     /// <summary>
     /// Checks if the bullet is going over cover
@@ -33,6 +35,7 @@ public class Bullet : MonoBehaviour
             if (hit.collider.gameObject.tag == "CoverBlock")
             {
                 passedThroughCover = true;
+                break;
             }
         }
     }
@@ -42,6 +45,7 @@ public class Bullet : MonoBehaviour
         GetComponent<TrailRenderer>().sortingLayerName = "FX";
         Creator = null;
         GetComponent<Rigidbody2D>().collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        posLastFrame = transform.position;
     }
 
     void FixedUpdate()
@@ -52,12 +56,36 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        ContinuousCollisionCheck();
+        foreach (RaycastHit2D hit in hitPoint)
+        {
+            if (hit.collider.gameObject != null)
+            {
+                if (!objectsEntered.Contains(hit.collider.gameObject))
+                {
+                    MyOnTriggerEnter2D(hit.collider);
+                    objectsEntered.Add(hit.collider.gameObject);
+                }
+                else
+                {
+                    objectsEntered.Remove(hit.collider.gameObject);
+                }
+            }
+            
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void ContinuousCollisionCheck()
     {
-        Debug.Log(collision.gameObject.tag);
+        Vector2 dir = posLastFrame - (Vector2)transform.position;
+        float distance = Vector2.Distance(transform.position, posLastFrame);
 
+        hitPoint = Physics2D.RaycastAll(transform.position, dir.normalized, distance);
+    }
+
+    private void MyOnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.tag == "Character")
         {
             Character chr = collision.gameObject.GetComponent<Character>();
@@ -75,12 +103,28 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
+                //SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
             }
         }
         if (collision.gameObject.tag == "Wall")
         {
             Speed = 0;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Character")
+        {
+            Character chr = collision.gameObject.GetComponent<Character>();
+
+            if (Creator != collision.gameObject && ((chr.InCover && !passedThroughCover) || !chr.InCover))
+            {
+            }
+            else
+            {
+                SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
+            }
         }
     }
 }

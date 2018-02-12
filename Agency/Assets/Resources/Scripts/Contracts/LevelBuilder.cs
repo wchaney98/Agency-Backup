@@ -9,7 +9,8 @@ public enum TileType
     Cover,
     CoverArea,
     PlayerSpawn,
-    BasicEnemySpawn
+    BasicEnemySpawn,
+    BasicRobotSpawn
 }
 
 public static class LevelBuilder
@@ -20,6 +21,7 @@ public static class LevelBuilder
     static GameObject coverAreaPrefab;
     static GameObject playerPrefab;
     static GameObject basicEnemyPrefab;
+    static GameObject basicRobotPrefab;
 
     static GameObject parent;
 
@@ -34,9 +36,11 @@ public static class LevelBuilder
         coverPrefab = Resources.Load<GameObject>("Prefabs/World/cover_grey");
         playerPrefab = Resources.Load<GameObject>("Prefabs/Characters/PlayerContainer");
         basicEnemyPrefab = Resources.Load<GameObject>("Prefabs/Characters/BasicEnemy");
+        basicRobotPrefab = Resources.Load<GameObject>("Prefabs/Characters/BasicRobot");
         coverAreaPrefab = Resources.Load<GameObject>("Prefabs/World/cover_area");
 
-        if (floorPrefab == null || wallPrefab == null || coverPrefab == null || playerPrefab == null || basicEnemyPrefab == null || coverAreaPrefab == null)
+        if (floorPrefab == null || wallPrefab == null || coverPrefab == null || playerPrefab == null || basicEnemyPrefab == null || coverAreaPrefab == null
+            || basicRobotPrefab == null)
         {
             Debug.Log("Levelbuilder failed to init");
             return false;
@@ -47,6 +51,7 @@ public static class LevelBuilder
         wallTypeToPrefab.Add(TileType.Cover, coverPrefab);
         wallTypeToPrefab.Add(TileType.PlayerSpawn, playerPrefab);
         wallTypeToPrefab.Add(TileType.BasicEnemySpawn, basicEnemyPrefab);
+        wallTypeToPrefab.Add(TileType.BasicRobotSpawn, basicRobotPrefab);
         wallTypeToPrefab.Add(TileType.CoverArea, coverAreaPrefab);
 
         parent = GameObject.Instantiate<GameObject>(new GameObject());

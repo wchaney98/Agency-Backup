@@ -50,10 +50,10 @@ class GameManager : MonoBehaviour
         testLevel[33, 4] = TileType.Cover;
 
         testLevel[14, 3] = TileType.PlayerSpawn;
-        testLevel[2, 2] = TileType.BasicEnemySpawn;
+        testLevel[2, 2] = TileType.BasicRobotSpawn;
         testLevel[2, 4] = TileType.BasicEnemySpawn;
 
-        testLevel[46, 2] = TileType.BasicEnemySpawn;
+        testLevel[46, 2] = TileType.BasicRobotSpawn;
         testLevel[46, 4] = TileType.BasicEnemySpawn;
         testLevel[41, 6] = TileType.BasicEnemySpawn;
 

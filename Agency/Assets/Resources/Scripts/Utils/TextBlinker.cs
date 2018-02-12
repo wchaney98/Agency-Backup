@@ -20,7 +20,6 @@ public class TextBlinker : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("yeah " + timer);
         timer += Time.deltaTime;
         if (timer >= Interval)
         {

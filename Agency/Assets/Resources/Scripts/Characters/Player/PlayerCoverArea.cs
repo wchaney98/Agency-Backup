@@ -29,7 +29,6 @@ class PlayerCoverArea : MonoBehaviour
         else if (collision.gameObject.tag == "Bullet")
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            Debug.Log(bullet.Team);
             if (bullet.Team == Team.Enemy)
             {
                 SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
