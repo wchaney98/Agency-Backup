@@ -14,18 +14,21 @@ public class Bullet : MonoBehaviour
     public float Speed { get; set; }
     public GameObject Creator { get; set; }
     public Team Team { get; set; }
+    public float LifeTime { get; set; }
     public LayerMask LayerMask;
 
-    private float timer = 0f;
+    protected float timer = 0f;
     private bool passedThroughCover = false;
-    private RaycastHit2D[] hitPoint = new RaycastHit2D[10];
-    private List<GameObject> objectsEntered = new List<GameObject>();
-    private Vector2 posLastFrame;
+    protected RaycastHit2D[] hitPoint = new RaycastHit2D[10];
+    protected List<GameObject> objectsEntered = new List<GameObject>();
+    protected Vector2 posLastFrame;
+
+    private bool hitWall = false;
 
     /// <summary>
     /// Checks if the bullet is going over cover
     /// </summary>
-    public void CheckPath()
+    virtual public void CheckPath()
     {
         Ray2D ray = new Ray2D(Creator.transform.position, Direction);
 
@@ -40,7 +43,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void Start()
+    protected virtual void Start()
     {
         GetComponent<TrailRenderer>().sortingLayerName = "FX";
         Creator = null;
@@ -48,11 +51,11 @@ public class Bullet : MonoBehaviour
         posLastFrame = transform.position;
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         transform.position += (Vector3)Direction.normalized * Speed * Time.deltaTime;
         timer += Time.deltaTime;
-        if (timer > 1f)
+        if (timer > LifeTime)
         {
             Destroy(gameObject);
         }
@@ -76,7 +79,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void ContinuousCollisionCheck()
+    protected virtual void ContinuousCollisionCheck()
     {
         Vector2 dir = posLastFrame - (Vector2)transform.position;
         float distance = Vector2.Distance(transform.position, posLastFrame);
@@ -84,7 +87,7 @@ public class Bullet : MonoBehaviour
         hitPoint = Physics2D.RaycastAll(transform.position, dir.normalized, distance);
     }
 
-    private void MyOnTriggerEnter2D(Collider2D collision)
+    protected virtual void MyOnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Character")
         {
@@ -106,13 +109,19 @@ public class Bullet : MonoBehaviour
                 //SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
             }
         }
-        if (collision.gameObject.tag == "Wall")
+        if (!hitWall && collision.gameObject.tag == "Wall")
         {
+            hitWall = true;
             Speed = 0;
+            Debug.Log(Team);
+            if (Team == Team.Player)
+                ParticleManager.SpawnSparksAt(ParticleSize.SMALL, transform.position, true);
+            else
+                ParticleManager.SpawnSparksAt(ParticleSize.SMALL, transform.position);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Character")
         {

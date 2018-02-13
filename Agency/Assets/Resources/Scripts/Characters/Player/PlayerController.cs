@@ -46,6 +46,7 @@ public class PlayerController : Character
             scr.Speed = 35f;
             scr.Creator = gameObject;
             scr.Team = Team.Player;
+            scr.LifeTime = 2f;
             scr.CheckPath();
 
             if (zoomingCoroutine != null)

@@ -39,6 +39,7 @@ public class Enemy : Character
             scr.Speed = 30f;
             scr.Creator = gameObject;
             scr.Team = Team.Enemy;
+            scr.LifeTime = 2f;
             scr.CheckPath();
 
             shotTimer = 0f;

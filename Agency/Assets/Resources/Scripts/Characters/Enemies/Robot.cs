@@ -39,11 +39,11 @@ public class Robot : Character
             scr.Speed = 10f;
             scr.Creator = gameObject;
             scr.Team = Team.Enemy;
-            scr.CheckPath();
+            scr.LifeTime = 15f;
 
             shotTimer = 0f;
             currShotDelay = Random.Range(MIN_SHOT_INTERVAL, MAX_SHOT_INTERVAL);
-            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.PistolShot1 }, transform.position);
+            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Laser0 }, transform.position);
         }
     }
 }

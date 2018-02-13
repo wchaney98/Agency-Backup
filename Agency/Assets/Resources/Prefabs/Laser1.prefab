@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4140187744951230}
   - component: {fileID: 96494945721982690}
-  - component: {fileID: 114146081920908334}
   - component: {fileID: 58682165915980822}
+  - component: {fileID: 114068962940258708}
   - component: {fileID: 50011510745189694}
+  - component: {fileID: 108850687886422256}
   m_Layer: 0
   m_Name: Laser1
   m_TagString: Bullet
@@ -90,11 +91,11 @@ TrailRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
-  - {fileID: 2100000, guid: 4a8c0fbaae4599948b5924b482e40bf5, type: 2}
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -172,7 +173,43 @@ TrailRenderer:
     generateLightingData: 1
   m_MinVertexDistance: 0
   m_Autodestruct: 1
---- !u!114 &114146081920908334
+--- !u!108 &108850687886422256
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231950237953180}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1.79
+  m_Range: 0
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 1
+  m_Flare: {fileID: 0}
+  m_RenderMode: 1
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 2.48
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!114 &114068962940258708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -180,9 +217,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1231950237953180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13787269f3cce954182f3663b71fcc57, type: 3}
+  m_Script: {fileID: 11500000, guid: 2f4fb16e9a5d8064f9a4206e1610da37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0

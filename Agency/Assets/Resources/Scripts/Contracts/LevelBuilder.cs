@@ -15,7 +15,7 @@ public enum TileType
 
 public static class LevelBuilder
 {
-    static GameObject floorPrefab;
+    public static GameObject floorPrefab;
     static GameObject wallPrefab;
     static GameObject coverPrefab;
     static GameObject coverAreaPrefab;
@@ -23,7 +23,7 @@ public static class LevelBuilder
     static GameObject basicEnemyPrefab;
     static GameObject basicRobotPrefab;
 
-    static GameObject parent;
+    public static GameObject parent;
 
     static Dictionary<TileType, GameObject> wallTypeToPrefab;
 

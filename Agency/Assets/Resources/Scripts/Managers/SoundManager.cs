@@ -19,7 +19,9 @@ public enum SoundFile
 
     BulletWhizz0,
     BulletWhizz1,
-    BulletWhizz2
+    BulletWhizz2,
+
+    Laser0
 }
 # endregion
 

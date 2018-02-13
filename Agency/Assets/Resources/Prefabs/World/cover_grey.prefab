@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4457159341238732}
   - component: {fileID: 212735540093380590}
   - component: {fileID: 61228600712450894}
+  - component: {fileID: 114842095527842848}
   m_Layer: 0
   m_Name: cover_grey
   m_TagString: CoverBlock
@@ -66,6 +67,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.54, y: 0.54}
   m_EdgeRadius: 0
+--- !u!114 &114842095527842848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903115898967842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c1d46b57124c9d488f201e4a1c56277, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212735540093380590
 SpriteRenderer:
   m_ObjectHideFlags: 1
