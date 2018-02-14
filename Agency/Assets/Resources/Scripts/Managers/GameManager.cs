@@ -6,6 +6,8 @@ class GameManager : MonoBehaviour
 {
     private void Start()
     {
+        ScreenShake.Init();
+
         TileType[,] testLevel = new TileType[48, 8];
 
         for (int i = 0; i != testLevel.GetLength(0); i++)
