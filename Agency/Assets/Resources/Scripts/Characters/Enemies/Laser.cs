@@ -42,7 +42,6 @@ public class Laser : Bullet
         else if (collision.gameObject.tag == "CoverBlock")
         {
             collision.gameObject.GetComponent<CoverBlock>().ManualOnDestroy();
-            StartCoroutine(ScreenShake.ShakeRoutine(0.7f, 1f));
             Destroy(gameObject);
         }
     }
