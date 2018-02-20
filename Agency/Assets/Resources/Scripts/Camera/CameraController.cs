@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,16 +12,17 @@ public class CameraController : MonoBehaviour
     private float intensity = 0.7f;
     private float timer = 0f;
 
-    public void ShakeScreen(float duration, float intensity)
+    public void ShakeScreen(EventParam e)
     {
         timer = 0f;
-        this.duration = duration;
-        this.intensity = intensity;
+        intensity = e.float1;
+        duration = e.float2;
         screenShaking = true;
     }
 
     void Start()
     {
+        EventManager.Instance.StartListening("ScreenShake", ShakeScreen);
         try
         {
             Player = GameObject.FindObjectOfType<PlayerController>().gameObject;
@@ -49,7 +51,7 @@ public class CameraController : MonoBehaviour
         temp.z = transform.position.z;
         if (screenShaking && timer < duration)
         {
-            temp += Random.insideUnitSphere * intensity;
+            temp += UnityEngine.Random.insideUnitSphere * intensity;
             timer += Time.deltaTime;
             //intensity -= Mathf.Lerp(intensity, 0f, timer / duration);
         }
@@ -60,5 +62,10 @@ public class CameraController : MonoBehaviour
         }
         
         transform.position = temp;
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.StopListening("ScreenShake", ShakeScreen);
     }
 }

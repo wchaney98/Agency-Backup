@@ -3,65 +3,71 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventArgsExtend : System.EventArgs { }
-
-public enum EventChannels
+public class EventParam
 {
-    InGame
-}
-public enum InGameChannelEvents
-{
-    Thing
-}
-
-public class ChannelEnums
-{
-    public static Dictionary<EventChannels, System.Array> GetChannelEnumList()
+    public float float1;
+    public float float2;
+    public EventParam(float float1 = 0f, float float2 = 0f)
     {
-        Dictionary<EventChannels, System.Array> enumChannelEventList = new Dictionary<EventChannels, System.Array>();
-        enumChannelEventList.Add(EventChannels.InGame, System.Enum.GetValues(typeof(InGameChannelEvents)));
-        return enumChannelEventList;
+        this.float1 = float1;
+        this.float2 = float2;
     }
 }
 
-public class EventHandlerManager : SingletonBehavior<EventHandlerManager>
+public class ScreenShakeEvent : EventParam
 {
-    public delegate void gameEventHandler(EventArgsExtend e);
-
-    static Dictionary<EventChannels, Dictionary<Enum, gameEventHandler>> ListenerFunctions = InitializeDicts();
-
-    public void BroadCast(EventChannels evType, Enum ev, EventArgsExtend e)
+    public float intensity;
+    public float duration;
+    public ScreenShakeEvent(float duration, float intensity)
     {
-        ListenerFunctions[evType][ev](e);
+        this.intensity = intensity;
+        this.duration = duration;
     }
+}
 
-    public void AddListener(EventChannels evType, Enum ev, gameEventHandler eventListener)
+public class EventManager : SingletonBehavior<EventManager>
+{
+    private Dictionary<string, Action<EventParam>> eventDictionary;
+    protected override void Init()
     {
-        ListenerFunctions[evType][ev] += eventListener;
-    }
-
-    public void RemoveListener(EventChannels evType, Enum ev, gameEventHandler eventListener)
-    {
-        ListenerFunctions[evType][ev] -= eventListener;
-    }
-
-    static Dictionary<EventChannels, Dictionary<Enum, gameEventHandler>> InitializeDicts()
-    {
-        Dictionary<EventChannels, Array> enumChannelEventList = ChannelEnums.GetChannelEnumList();
-        Dictionary<EventChannels, Dictionary<Enum, gameEventHandler>> result = new Dictionary<EventChannels, Dictionary<Enum, gameEventHandler>>();
-        foreach (var val in (EventChannels[])Enum.GetValues(typeof(EventChannels)))
+        base.Init();
+        if (eventDictionary == null)
         {
-            result.Add(val, new Dictionary<Enum, gameEventHandler>());
-            foreach (var ev in enumChannelEventList[val])
-            {
-                result[val].Add((Enum)ev, new gameEventHandler(delegate (EventArgsExtend e) { }));
-            }
+            eventDictionary = new Dictionary<string, Action<EventParam>>();
         }
-        return result;
     }
 
-    private void OnDestroy()
+    public void StartListening(string eventName, Action<EventParam> listener)
     {
-        ListenerFunctions = InitializeDicts();
+        Action<EventParam> thisEvent;
+        if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
+        {
+            thisEvent += listener;
+            instance.eventDictionary[eventName] = thisEvent;
+        }
+        else
+        {
+            thisEvent += listener;
+            instance.eventDictionary.Add(eventName, thisEvent);
+        }
+    }
+
+    public void StopListening(string eventName, Action<EventParam> listener)
+    {
+        Action<EventParam> thisEvent;
+        if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
+        {
+            thisEvent -= listener;
+            instance.eventDictionary[eventName] = thisEvent;
+        }
+    }
+
+    public void TriggerEvent(string eventName, EventParam eventParam)
+    {
+        Action<EventParam> thisEvent;
+        if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
+        {
+            thisEvent.Invoke(eventParam);
+        }
     }
 }
