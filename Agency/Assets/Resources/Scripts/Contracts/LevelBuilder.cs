@@ -10,7 +10,8 @@ public enum TileType
     CoverArea,
     PlayerSpawn,
     BasicEnemySpawn,
-    BasicRobotSpawn
+    BasicRobotSpawn,
+    Door
 }
 
 public static class LevelBuilder
@@ -22,6 +23,7 @@ public static class LevelBuilder
     static GameObject playerPrefab;
     static GameObject basicEnemyPrefab;
     static GameObject basicRobotPrefab;
+    static GameObject doorPrefab;
 
     public static GameObject parent;
 
@@ -38,9 +40,10 @@ public static class LevelBuilder
         basicEnemyPrefab = Resources.Load<GameObject>("Prefabs/Characters/BasicEnemy");
         basicRobotPrefab = Resources.Load<GameObject>("Prefabs/Characters/BasicRobot");
         coverAreaPrefab = Resources.Load<GameObject>("Prefabs/World/cover_area");
+        doorPrefab = Resources.Load<GameObject>("Prefabs/World/door");
 
         if (floorPrefab == null || wallPrefab == null || coverPrefab == null || playerPrefab == null || basicEnemyPrefab == null || coverAreaPrefab == null
-            || basicRobotPrefab == null)
+            || basicRobotPrefab == null || doorPrefab == null)
         {
             Debug.Log("Levelbuilder failed to init");
             return false;
@@ -53,6 +56,7 @@ public static class LevelBuilder
         wallTypeToPrefab.Add(TileType.BasicEnemySpawn, basicEnemyPrefab);
         wallTypeToPrefab.Add(TileType.BasicRobotSpawn, basicRobotPrefab);
         wallTypeToPrefab.Add(TileType.CoverArea, coverAreaPrefab);
+        wallTypeToPrefab.Add(TileType.Door, doorPrefab);
 
         parent = GameObject.Instantiate<GameObject>(new GameObject());
 
@@ -67,7 +71,7 @@ public static class LevelBuilder
             {
                 GameObject.Instantiate(wallTypeToPrefab[tiles[i, j]], new Vector3(i * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
 
-                if (tiles[i, j] == TileType.PlayerSpawn || tiles[i, j] == TileType.BasicEnemySpawn)
+                if (tiles[i, j] == TileType.PlayerSpawn || tiles[i, j] == TileType.BasicEnemySpawn || tiles[i, j] == TileType.Door)
                     GameObject.Instantiate(floorPrefab, new Vector3(i * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
 
                 if (tiles[i, j] == TileType.Cover)

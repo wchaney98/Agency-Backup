@@ -30,6 +30,8 @@ class GameManager : MonoBehaviour
         {
             if (i != 3 && i != 4)
                 testLevel[23, i] = TileType.Wall;
+            else
+                testLevel[23, i] = TileType.Door;
         }
 
         testLevel[3, 2] = TileType.Cover;
