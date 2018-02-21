@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Laser : Bullet
 {
-    private bool goingToHitCover = false;
+    private bool madeExplosion = false;
 
     /// <summary>
     /// Checks if the bullet is going over cover
@@ -34,10 +34,11 @@ public class Laser : Bullet
                 //SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.BulletWhizz0, SoundFile.BulletWhizz1, SoundFile.BulletWhizz2 }, transform.position);
             }
         }
-        if (collision.gameObject.tag == "Wall")
+        if (collision.gameObject.tag == "Wall" && !madeExplosion)
         {
             Speed = 0;
             ParticleManager.SpawnLaserExplosionAt(ParticleSize.SMALL, transform.position);
+            madeExplosion = true;
         }
         else if (collision.gameObject.tag == "CoverBlock")
         {

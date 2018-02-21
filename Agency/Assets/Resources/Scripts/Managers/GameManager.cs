@@ -60,7 +60,9 @@ class GameManager : MonoBehaviour
         testLevel[46, 4] = TileType.BasicEnemySpawn;
         testLevel[41, 6] = TileType.BasicEnemySpawn;
 
+        Contract testContract = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel);
+
         LevelBuilder.Inititialize();
-        LevelBuilder.BuildLevel(testLevel);
+        LevelBuilder.BuildLevel(testContract.Tiles);
     }
 }

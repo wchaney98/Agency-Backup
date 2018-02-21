@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoorBehavior : MonoBehaviour
 {
-    public float activeRadius = 0.64f;
+    public float activeRadius = 0.75f;
 
     GameObject player;
 
