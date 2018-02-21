@@ -127,4 +127,9 @@ public class PlayerController : Character
             yield return null;
         }
     }
+
+    public override void TakeDamage(int amount)
+    {
+        Debug.Log("Player hit");
+    }
 }

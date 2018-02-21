@@ -60,7 +60,7 @@ public abstract class Character : MonoBehaviour
             occupiedCoverAreas.Remove(collision);
     }
 
-    public void TakeDamage(int amount)
+    public virtual void TakeDamage(int amount)
     {
         health -= amount;
     }

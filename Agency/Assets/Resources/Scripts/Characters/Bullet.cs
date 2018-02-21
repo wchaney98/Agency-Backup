@@ -65,15 +65,15 @@ public class Bullet : MonoBehaviour
         {
             if (hit.collider.gameObject != null)
             {
-                if (!objectsEntered.Contains(hit.collider.gameObject))
-                {
+                //if (!objectsEntered.Contains(hit.collider.gameObject))
+                //{
                     MyOnTriggerEnter2D(hit.collider);
-                    objectsEntered.Add(hit.collider.gameObject);
-                }
-                else
-                {
-                    objectsEntered.Remove(hit.collider.gameObject);
-                }
+                //    objectsEntered.Add(hit.collider.gameObject);
+                //}
+                //else
+                //{
+                //    objectsEntered.Remove(hit.collider.gameObject);
+                //}
             }
             
         }
@@ -95,8 +95,6 @@ public class Bullet : MonoBehaviour
 
             if (Creator != collision.gameObject && ((chr.InCover && !passedThroughCover) || !chr.InCover))
             {
-                if (chr.Team == Team.Player)
-                    SceneManager.LoadScene("MainGame");
                 if (chr.Team != Team)
                 {
                     chr.TakeDamage(1);
@@ -113,7 +111,6 @@ public class Bullet : MonoBehaviour
         {
             hitWall = true;
             Speed = 0;
-            Debug.Log(Team);
             if (Team == Team.Player)
                 ParticleManager.SpawnSparksAt(ParticleSize.SMALL, transform.position, true);
             else
