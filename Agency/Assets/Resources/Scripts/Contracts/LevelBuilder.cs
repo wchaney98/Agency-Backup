@@ -4,14 +4,14 @@ using UnityEngine;
 
 public enum TileType
 {
-    Floor,
-    Wall,
-    Cover,
-    CoverArea,
-    PlayerSpawn,
-    BasicEnemySpawn,
-    BasicRobotSpawn,
-    Door
+    Floor = 0,
+    Wall = 1,
+    Cover = 2,
+    CoverArea = 3,
+    PlayerSpawn = 4,
+    BasicEnemySpawn = 5,
+    BasicRobotSpawn = 6,
+    Door = 7
 }
 
 public static class LevelBuilder
@@ -58,7 +58,8 @@ public static class LevelBuilder
         wallTypeToPrefab.Add(TileType.CoverArea, coverAreaPrefab);
         wallTypeToPrefab.Add(TileType.Door, doorPrefab);
 
-        parent = GameObject.Instantiate<GameObject>(new GameObject());
+        if (parent == null)
+            parent = GameObject.Instantiate<GameObject>(new GameObject());
 
         return true;
     }

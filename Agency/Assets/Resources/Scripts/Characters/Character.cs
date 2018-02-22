@@ -9,6 +9,7 @@ public abstract class Character : MonoBehaviour
 
     protected int health = 1;
     protected bool flashed = false;
+    protected bool peeking = false;
 
     protected SpriteRenderer spriteRenderer;
     protected List<Collider2D> occupiedCoverAreas = new List<Collider2D>();
@@ -27,19 +28,17 @@ public abstract class Character : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (InCover)
+        if (occupiedCoverAreas.Count == 0 || peeking)
         {
-            if (occupiedCoverAreas.Count == 0)
-            {
-                InCover = false;
-                if (spriteRenderer != null)
-                    spriteRenderer.color = Color.white;
-            }
-            else
-            {
-                if (spriteRenderer != null)
-                    spriteRenderer.color = new Color(.5f, .5f, .5f, 1f);
-            }
+            InCover = false;
+            if (spriteRenderer != null)
+                spriteRenderer.color = Color.white;
+        }
+        else
+        {
+            InCover = true;
+            if (spriteRenderer != null)
+                spriteRenderer.color = new Color(.5f, .5f, .5f, 1f);
         }
     }
 
@@ -62,6 +61,7 @@ public abstract class Character : MonoBehaviour
 
     public virtual void TakeDamage(int amount)
     {
+        SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.HumanDeath0, SoundFile.HumanDeath1, SoundFile.HumanDeath2 }, transform.position);
         health -= amount;
     }
 }

@@ -22,7 +22,7 @@ TagManager:
   - CoverArea
   - Processing
   - DontProcess
-  - 
+  - BlocksView
   - 
   - 
   - 
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: FX
     uniqueID: 895442413
+    locked: 0
+  - name: UI
+    uniqueID: 1892076875
     locked: 0

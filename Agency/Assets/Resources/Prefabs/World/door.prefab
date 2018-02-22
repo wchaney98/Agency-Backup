@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212533656742591396}
   - component: {fileID: 61567509576306768}
   - component: {fileID: 114768713314106224}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: door
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -79,6 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeRadius: 0.69
+  fadeTime: 0.4
 --- !u!212 &212533656742591396
 SpriteRenderer:
   m_ObjectHideFlags: 1

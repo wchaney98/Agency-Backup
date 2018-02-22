@@ -25,7 +25,6 @@ public class Laser : Bullet
                 if (chr.Team != Team)
                 {
                     chr.TakeDamage(1);
-                    SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
                     Destroy(gameObject);
                 }
             }

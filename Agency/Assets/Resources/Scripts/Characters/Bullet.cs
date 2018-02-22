@@ -85,6 +85,7 @@ public class Bullet : MonoBehaviour
         float distance = Vector2.Distance(transform.position, posLastFrame);
 
         hitPoint = Physics2D.RaycastAll(transform.position, dir.normalized, distance);
+        posLastFrame = transform.position;
     }
 
     protected virtual void MyOnTriggerEnter2D(Collider2D collision)
@@ -98,7 +99,6 @@ public class Bullet : MonoBehaviour
                 if (chr.Team != Team)
                 {
                     chr.TakeDamage(1);
-                    SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
                     Destroy(gameObject);
                 }
             }

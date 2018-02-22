@@ -8,12 +8,15 @@ public class PlayerController : Character
 {
     public GameObject MuzzleFlashObject;
 
-    private const float MOVE_SPEED = 3f;
+    private const float MOVE_SPEED = 3.3f;
 
     private GameObject bulletPrefab;
+    private GameObject laserPrefab;
     private Rigidbody2D rb;
 
     private Coroutine zoomingCoroutine;
+
+    private float specialCooldownTimer = 0f;
 
     public override void Start()
     {
@@ -21,6 +24,7 @@ public class PlayerController : Character
         Team = Team.Player;
 
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
+        laserPrefab = Resources.Load<GameObject>("Prefabs/Laser1");
         if (bulletPrefab == null)
         {
             Debug.Log("bulletPrefab not found");
@@ -38,7 +42,7 @@ public class PlayerController : Character
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg);
 
         // Handle shooting
-        if (Input.GetMouseButtonDown(0))
+        if (!InCover && Input.GetMouseButtonDown(0))
         {
             GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
             Bullet scr = b.GetComponent<Bullet>();
@@ -57,13 +61,44 @@ public class PlayerController : Character
             SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.PistolShot0 }, transform.position);
             MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
         }
+        if (Input.GetMouseButton(1))
+        {
+            peeking = true;
+        }
+        else
+        {
+            peeking = false;
+        }
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("MainGame");
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene("MainMenu");
+            SceneManager.LoadScene("ManagementScene");
+        }
+
+        specialCooldownTimer += Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.LeftShift) && specialCooldownTimer >= 1f)
+        {
+            specialCooldownTimer = 0f;
+
+            GameObject b = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+            Bullet scr = b.GetComponent<Bullet>();
+            scr.Direction = mousePos - transform.position;
+            scr.Speed = 10f;
+            scr.Creator = gameObject;
+            scr.Team = Team.Player;
+            scr.LifeTime = 15f;
+
+            if (zoomingCoroutine != null)
+                StopCoroutine(zoomingCoroutine);
+            Camera.main.orthographicSize = 4.6f;
+            zoomingCoroutine = StartCoroutine(ZoomIn());
+
+            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Laser0 }, transform.position);
+            MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
         }
     }
 
@@ -130,6 +165,6 @@ public class PlayerController : Character
 
     public override void TakeDamage(int amount)
     {
-        Debug.Log("Player hit");
+        base.TakeDamage(amount);
     }
 }

@@ -4,15 +4,24 @@ using UnityEngine;
 using System.Linq;
 using System;
 using Object = UnityEngine.Object;
+using UnityEngine.SceneManagement;
 
-# region Enum
+#region Enum
 /// <summary>
 /// An enumeration that holds every sound effect in the game.
 /// </summary>
 public enum SoundFile
 {
+    //Music
+    LevelTrack1,
+    MenuTrack1,
+
     //delet
     Steve0,
+
+    HumanDeath0,
+    HumanDeath1,
+    HumanDeath2,
 
     PistolShot0,
     PistolShot1,
@@ -30,6 +39,8 @@ public class SoundManager : SingletonBehavior<SoundManager>
     const string AUDIO_FILE_LOCATION = "Audio";
 
     float volume = 1f;
+
+    private string currScene = "";
 
     /// <summary>
     /// A collection of all of the sound effects in the game.
@@ -79,7 +90,7 @@ public class SoundManager : SingletonBehavior<SoundManager>
         {
             Debug.Log("Creating BGMSource");
             BGMSource = new GameObject("BGMSource", typeof(AudioSource)).GetComponent<AudioSource>();
-            BGMSource.volume = .1f;
+            BGMSource.volume = .4f;
             BGMSource.loop = true;
             DontDestroyOnLoad(BGMSource.gameObject);
         }
@@ -90,6 +101,18 @@ public class SoundManager : SingletonBehavior<SoundManager>
     /// </summary>
     public void Update()
     {
+        if (currScene != SceneManager.GetActiveScene().name)
+        {
+            currScene = SceneManager.GetActiveScene().name;
+            if (currScene != "MainGame")
+            {
+                ChangeBGM(SoundFile.MenuTrack1);
+            }
+            else
+            {
+                ChangeBGM(SoundFile.LevelTrack1);
+            }
+        }
     }
 
     /// <summary>

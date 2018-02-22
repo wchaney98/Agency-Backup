@@ -2,49 +2,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Character
+public class Enemy : AEnemy
 {
-    protected Transform playerTransform;
-
-    const float MIN_SHOT_INTERVAL = 1f;
-    const float MAX_SHOT_INTERVAL = 2.3f;
-
-    float shotTimer = 0f;
-    float currShotDelay = 0f;
-    GameObject bulletPrefab;
+    new const float MIN_SHOT_INTERVAL = 1f;
+    new const float MAX_SHOT_INTERVAL = 2.3f;
 
     public override void Start()
     {
         base.Start();
-        Team = Team.Enemy;
-
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet2");
-
-        playerTransform = GameObject.FindObjectOfType<PlayerController>().transform;
-        currShotDelay = Random.Range(MIN_SHOT_INTERVAL, MAX_SHOT_INTERVAL);
     }
 
     public override void Update()
     {
         base.Update();
-        Vector3 playerPos = playerTransform.position;
-        transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerPos.y - transform.position.y, playerPos.x - transform.position.x) * Mathf.Rad2Deg);
 
-        shotTimer += Time.deltaTime;
-        if (shotTimer >= currShotDelay)
+        if (PlayerInVision())
         {
-            GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            Bullet scr = b.GetComponent<Bullet>();
-            scr.Direction = playerPos - transform.position;
-            scr.Speed = 30f;
-            scr.Creator = gameObject;
-            scr.Team = Team.Enemy;
-            scr.LifeTime = 2f;
-            scr.CheckPath();
+            Vector3 playerPos = playerTransform.position;
+            transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(playerPos.y - transform.position.y, playerPos.x - transform.position.x) * Mathf.Rad2Deg);
 
-            shotTimer = 0f;
-            currShotDelay = Random.Range(MIN_SHOT_INTERVAL, MAX_SHOT_INTERVAL);
-            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.PistolShot1 }, transform.position);
+            shotTimer += Time.deltaTime;
+            if (shotTimer >= currShotDelay)
+            {
+                GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+                Bullet scr = b.GetComponent<Bullet>();
+                scr.Direction = playerPos - transform.position;
+                scr.Speed = 17f;
+                scr.Creator = gameObject;
+                scr.Team = Team.Enemy;
+                scr.LifeTime = 2f;
+                scr.CheckPath();
+
+                shotTimer = 0f;
+                currShotDelay = Random.Range(MIN_SHOT_INTERVAL, MAX_SHOT_INTERVAL);
+                SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.PistolShot1 }, transform.position);
+            }
         }
     }
 }

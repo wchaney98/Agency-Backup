@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 class GameManager : MonoBehaviour
 {
+    public GameObject DeathText;
+    float deadTimer = 0f;
+
     private void Start()
     {
 
@@ -60,9 +64,30 @@ class GameManager : MonoBehaviour
         testLevel[46, 4] = TileType.BasicEnemySpawn;
         testLevel[41, 6] = TileType.BasicEnemySpawn;
 
+        Debug.Log(testLevel[41, 6]);
+
         Contract testContract = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel);
 
         LevelBuilder.Inititialize();
-        LevelBuilder.BuildLevel(testContract.Tiles);
+        //LevelBuilder.BuildLevel(testContract.Tiles);
+        LevelBuilder.BuildLevel(LevelParser.TextToTiles("level1"));
+    }
+
+    private void Update()
+    {
+        if (GameObject.FindObjectOfType<PlayerController>() == null)
+        {
+            DeathText.SetActive(true);
+            deadTimer += Time.deltaTime;
+            Debug.Log("here");
+            if (deadTimer >= 1.5f)
+            {
+                SceneManager.LoadScene("MainGame");
+            }
+        }
+        else
+        {
+            DeathText.SetActive(false);
+        }
     }
 }

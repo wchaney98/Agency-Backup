@@ -7,10 +7,12 @@ using UnityEngine.UI;
 
 public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
+    protected CardSlotBehavior slot;
+
     protected Text textComponent;
     protected Vector3 draggingOffset;
 
-    protected void Start()
+    protected virtual void Start()
     {
         textComponent = GetComponent<Text>();
     }
@@ -34,7 +36,16 @@ public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        draggingOffset = Vector3.zero;
+        if (Vector2.Distance(slot.transform.position, transform.position) <= 1f)
+        {
+            slot.CardLockedIn = true;
+            transform.position = slot.transform.position;
+        }
+        else
+        {
+            slot.CardLockedIn = false;
+        }
+        transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
     public virtual void SetupCard(string title, StringBuilder description, params object[] data)
