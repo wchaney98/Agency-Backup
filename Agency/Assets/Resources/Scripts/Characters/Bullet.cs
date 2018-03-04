@@ -28,14 +28,14 @@ public class Bullet : MonoBehaviour
     /// <summary>
     /// Checks if the bullet is going over cover
     /// </summary>
-    virtual public void CheckPath()
+    public virtual void CheckPath()
     {
         Ray2D ray = new Ray2D(Creator.transform.position, Direction);
 
         hitPoint = Physics2D.RaycastAll(Creator.transform.position, Direction, Mathf.Infinity, LayerMask);
         foreach (RaycastHit2D hit in hitPoint)
         {
-            if (hit.collider.gameObject.tag == "CoverBlock")
+            if (hit.collider.gameObject.CompareTag("CoverBlock"))
             {
                 passedThroughCover = true;
                 break;
