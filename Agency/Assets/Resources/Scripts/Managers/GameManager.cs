@@ -11,7 +11,6 @@ class GameManager : MonoBehaviour
 
     private void Start()
     {
-
         TileType[,] testLevel = new TileType[48, 8];
 
         for (int i = 0; i != testLevel.GetLength(0); i++)
@@ -21,16 +20,19 @@ class GameManager : MonoBehaviour
                 testLevel[i, j] = TileType.Floor;
             }
         }
+
         for (int i = 0; i != testLevel.GetLength(0); i++)
         {
             testLevel[i, 0] = TileType.Wall;
             testLevel[i, 7] = TileType.Wall;
         }
+
         for (int i = 0; i != testLevel.GetLength(1); i++)
         {
             testLevel[0, i] = TileType.Wall;
             testLevel[47, i] = TileType.Wall;
         }
+
         for (int i = 0; i != testLevel.GetLength(1); i++)
         {
             if (i != 3 && i != 4)
@@ -66,8 +68,10 @@ class GameManager : MonoBehaviour
         testLevel[41, 6] = TileType.BasicEnemySpawn;
 
 
-        Contract testContract1 = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel);
-        Contract testContract2 = new Contract("Test1", new StringBuilder("Yeehaw"), LevelParser.TextToTiles("level1"));
+        Contract testContract1 = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel,
+            new List<WinConditions>() {WinConditions.Clear});
+        Contract testContract2 = new Contract("Test1", new StringBuilder("Yeehaw"), LevelParser.TextToTiles("level1"),
+            new List<WinConditions>() {WinConditions.Clear});
 
         LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles);
     }

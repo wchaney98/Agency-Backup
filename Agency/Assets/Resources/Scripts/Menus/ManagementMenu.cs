@@ -14,5 +14,6 @@ public class ManagementMenu : MonoBehaviour
     {
         // Create cards
         
+        // Get PlayerData
     }
 }
