@@ -19,13 +19,12 @@ public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     protected void Update()
     {
-
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(eventData.position);
-        draggingOffset = mousePos - (Vector2)transform.position;
+        draggingOffset = mousePos - (Vector2) transform.position;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -38,18 +37,18 @@ public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     {
         if (Vector2.Distance(slot.transform.position, transform.position) <= 1f)
         {
-            slot.CardLockedIn = true;
+            slot.LockInCard(this);
             transform.position = slot.transform.position;
         }
         else
         {
-            slot.CardLockedIn = false;
+            slot.UnlockCard();
         }
+
         transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
     public virtual void SetupCard(string title, StringBuilder description, params object[] data)
     {
-
     }
 }

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class ContractCardBehavior : ACardBehavior
 {
+    public Contract Contract;
+    
     protected override void Start()
     {
         base.Start();
@@ -17,5 +19,4 @@ public class ContractCardBehavior : ACardBehavior
     {
 
     }
-
 }

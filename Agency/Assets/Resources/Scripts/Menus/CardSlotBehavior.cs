@@ -6,12 +6,28 @@ using UnityEngine.UI;
 public class CardSlotBehavior : MonoBehaviour
 {
     public bool CardLockedIn = false;
-
+    public ACardBehavior LockedCard { get; private set; }
+    
     Image image;
     Text text;
 
     string textHolder;
 
+    public void LockInCard(ACardBehavior card)
+    {
+        CardLockedIn = true;
+        LockedCard = card;
+    }
+
+    public void UnlockCard()
+    {
+        if (CardLockedIn && LockedCard != null)
+        {
+            CardLockedIn = false;
+            LockedCard = null;
+        }
+    }
+    
     void Start()
     {
         image = GetComponent<Image>();

@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void Play()
     {
-        SceneManager.LoadScene("ManagementScene");
+        SceneManager.LoadScene("SaveMenu");
     }
 
     public void Help()

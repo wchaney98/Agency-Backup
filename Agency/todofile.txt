@@ -1,0 +1,17 @@
+get contracts and agents hooked up to cards
+	populate contract UI cards with Contract data
+	populate agent UI cards with Agent data
+		setup Agent class
+			Agent.update etc
+	
+stage 1 proc gen
+	create room x by y
+	trace 3x3 path from 2 random sides
+	add rooms along sides
+	populate rooms
+	modifiers?
+	
+save data
+	update PlayerData throughout game
+	save PlayerData at end
+	load PlayerData at start

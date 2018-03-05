@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -64,13 +65,11 @@ class GameManager : MonoBehaviour
         testLevel[46, 4] = TileType.BasicEnemySpawn;
         testLevel[41, 6] = TileType.BasicEnemySpawn;
 
-        Debug.Log(testLevel[41, 6]);
 
-        Contract testContract = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel);
+        Contract testContract1 = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel);
+        Contract testContract2 = new Contract("Test1", new StringBuilder("Yeehaw"), LevelParser.TextToTiles("level1"));
 
-        LevelBuilder.Inititialize();
-        //LevelBuilder.BuildLevel(testContract.Tiles);
-        LevelBuilder.BuildLevel(LevelParser.TextToTiles("level1"));
+        LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles);
     }
 
     private void Update()

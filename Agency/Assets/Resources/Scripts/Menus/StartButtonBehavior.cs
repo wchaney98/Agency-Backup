@@ -45,7 +45,8 @@ public class StartButtonBehavior : MonoBehaviour
 
     public void StartGame()
     {
-        // TODO: use actual contract stuff
+        PersistentData.Instance.CurrentAgent = ((AgentCardBehavior)agentSlotBehavior.LockedCard).Agent;
+        PersistentData.Instance.CurrentContract = ((ContractCardBehavior)contractSlotBehavior.LockedCard).Contract;
         SceneManager.LoadScene("MainGame");
     }
 }

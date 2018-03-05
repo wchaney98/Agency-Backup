@@ -1126,6 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329be960ee2a0194c9b47a8a96955e0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackScene: SaveMenu
 --- !u!1 &1977521392
 GameObject:
   m_ObjectHideFlags: 0

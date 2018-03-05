@@ -3,10 +3,10 @@
   <component name="ContentModelStore">
     <e p="C:\Users\Owner\.Rider2017.3\system\resharper-host\local\Transient\ReSharperHost\v11\SolutionCaches\_Agency.1925346834.00" t="ExcludeRecursive" />
     <e p="C:\Users\Owner\Documents\GitHub\Agency\Agency" t="IncludeRecursive">
-      <e p="Agency.csproj" t="IncludeRecursive" />
-      <e p="Agency.Editor.csproj" t="IncludeRecursive" />
-      <e p="Agency.Editor.Plugins.csproj" t="IncludeRecursive" />
       <e p="Agency.sln" t="IncludeFlat" />
+      <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="PixelFX_U5" t="Include">
           <e p="Help.txt" t="Include" />
@@ -219,6 +219,7 @@
               </e>
               <e p="Player" t="Include">
                 <e p="Agents" t="Include">
+                  <e p="Agent.cs" t="Include" />
                   <e p="ALoadout.cs" t="Include" />
                   <e p="Equipment" t="Include">
                     <e p="AEquipment.cs" t="Include" />
@@ -240,6 +241,8 @@
             <e p="Managers" t="Include">
               <e p="EventManager.cs" t="Include" />
               <e p="GameManager.cs" t="Include" />
+              <e p="PersistentData.cs" t="Include" />
+              <e p="PlayerData.cs" t="Include" />
               <e p="SoundManager.cs" t="Include" />
             </e>
             <e p="Menus" t="Include">
@@ -249,9 +252,14 @@
               <e p="CardSlotBehavior.cs" t="Include" />
               <e p="ContractCardBehavior.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />
+              <e p="ManagementMenu.cs" t="Include" />
+              <e p="SaveMenu.cs" t="Include" />
+              <e p="SaveSlotButtonBehavior.cs" t="Include" />
+              <e p="SceneSwitcher.cs" t="Include" />
               <e p="StartButtonBehavior.cs" t="Include" />
             </e>
             <e p="Utils" t="Include">
+              <e p="DataBlob.cs" t="Include" />
               <e p="LevelParser.cs" t="Include" />
               <e p="MouseRaycaster.cs" t="Include" />
               <e p="ResourcePaths.cs" t="Include" />
@@ -330,10 +338,10 @@
       <e p="com.unity.postprocessing.Editor.csproj" t="IncludeRecursive" />
       <e p="com.unity.postprocessing.Runtime.csproj" t="IncludeRecursive" />
       <e p="Library" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="Temp" t="ExcludeRecursive">
-        <e p="UnityVS_bin\Debug" t="ExcludeRecursive" />
-        <e p="UnityVS_obj\Debug" t="ExcludeRecursive" />
+        <e p="bin" t="ExcludeRecursive" />
       </e>
     </e>
   </component>

@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class AgentCardBehavior : ACardBehavior
 {
+    public Agent Agent;
+    
     protected override void Start()
     {
         base.Start();
