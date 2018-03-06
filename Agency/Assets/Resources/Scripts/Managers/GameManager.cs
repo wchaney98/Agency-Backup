@@ -69,9 +69,9 @@ class GameManager : MonoBehaviour
 
 
         Contract testContract1 = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel,
-            new List<WinConditions>() {WinConditions.Clear});
+            new List<WinConditions>() {WinConditions.Clear}, 10, 10);
         Contract testContract2 = new Contract("Test1", new StringBuilder("Yeehaw"), LevelParser.TextToTiles("level1"),
-            new List<WinConditions>() {WinConditions.Clear});
+            new List<WinConditions>() {WinConditions.Clear}, 20, 20);
 
         LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles);
     }
@@ -82,7 +82,6 @@ class GameManager : MonoBehaviour
         {
             DeathText.SetActive(true);
             deadTimer += Time.deltaTime;
-            Debug.Log("here");
             if (deadTimer >= 1.5f)
             {
                 SceneManager.LoadScene("MainGame");
@@ -92,5 +91,10 @@ class GameManager : MonoBehaviour
         {
             DeathText.SetActive(false);
         }
+    }
+
+    private void OnDestroy()
+    {
+        PlayerData.Instance.Save();
     }
 }

@@ -16,12 +16,17 @@ public class Contract
     public StringBuilder Description { get; set; }
     public TileType[,] Tiles { get; set; }
     public List<WinConditions> WinList;
+    public int MoneyAward;
+    public int ReputationAward;
+    
 
-    public Contract(string title, StringBuilder description, TileType[,] tiles, List<WinConditions> winList)
+    public Contract(string title, StringBuilder description, TileType[,] tiles, List<WinConditions> winList, int moneyAward, int reputationAward)
     {
         Title = title;
         Description = description;
         Tiles = tiles;
         WinList = winList;
+        MoneyAward = moneyAward;
+        ReputationAward = reputationAward;
     }
 }
