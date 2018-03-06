@@ -7,13 +7,24 @@ using UnityEngine.UI;
 
 public class ManagementMenu : MonoBehaviour
 {
-    private GameObject agentCardPrefab = Resources.Load<GameObject>("Prefabs/Menus/AgentCard");
-    private GameObject contractCardPrefab = Resources.Load<GameObject>("Prefabs/Menus/ContractCard");
-    
+    private GameObject agentCardPrefab;
+    private GameObject contractCardPrefab;
+
+    private void Awake()
+    {
+        agentCardPrefab = Resources.Load<GameObject>("Prefabs/Menus/AgentCard");
+        contractCardPrefab = Resources.Load<GameObject>("Prefabs/Menus/ContractCard");
+    }
+
     private void Start()
     {
-        // Create cards
-        
-        // Get PlayerData
+        foreach (Agent agent in PlayerData.Instance.Agents)
+        {
+            CardCreator.CreateAgentCard(agent);
+        }
+        foreach (Contract contract in PlayerData.Instance.Contracts)
+        {
+            CardCreator.CreateContractCard(contract);
+        }
     }
 }

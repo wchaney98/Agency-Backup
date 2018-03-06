@@ -64,7 +64,7 @@ public static class LevelBuilder
         return true;
     }
 
-    public static void BuildLevel(TileType[,] tiles)
+    public static void BuildLevel(TileType[,] tiles, Agent agent)
     {
         for (int i = 0; i < tiles.GetLength(0); i++)
         {
@@ -74,6 +74,11 @@ public static class LevelBuilder
 
                 if (tiles[i, j] == TileType.PlayerSpawn || tiles[i, j] == TileType.BasicEnemySpawn || tiles[i, j] == TileType.Door || tiles[i, j] == TileType.BasicRobotSpawn)
                     GameObject.Instantiate(floorPrefab, new Vector3(i * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
+                // Setup Player
+                if (tiles[i, j] == TileType.PlayerSpawn)
+                {
+                    // Set Agent in PlayerController
+                }
 
                 if (tiles[i, j] == TileType.Cover)
                 {

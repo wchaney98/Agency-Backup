@@ -14,7 +14,8 @@ public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     protected virtual void Start()
     {
-        textComponent = GetComponent<Text>();
+        textComponent = GetComponentInChildren<Text>();
+        Debug.Log("c: " + textComponent);
     }
 
     protected void Update()
@@ -50,5 +51,7 @@ public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
 
     public virtual void SetupCard(string title, StringBuilder description, params object[] data)
     {
+        if (textComponent != null) textComponent.text = title + ": ";
+        else Debug.Log("ow");
     }
 }

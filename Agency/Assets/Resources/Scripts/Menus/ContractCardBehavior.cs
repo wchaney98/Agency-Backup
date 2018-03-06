@@ -14,9 +14,4 @@ public class ContractCardBehavior : ACardBehavior
         base.Start();
         slot = GameObject.Find("ContractLockIn").GetComponent<CardSlotBehavior>();
     }
-
-    public override void SetupCard(string title, StringBuilder description, params object[] data)
-    {
-
-    }
 }

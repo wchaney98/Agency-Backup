@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 
+[Serializable]
 public enum WinConditions
 {
     Clear,
@@ -10,6 +12,7 @@ public enum WinConditions
     Target
 }
 
+[Serializable]
 public class Contract
 {
     public string Title { get; set; }

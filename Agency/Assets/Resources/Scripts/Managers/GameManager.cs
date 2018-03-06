@@ -68,12 +68,23 @@ class GameManager : MonoBehaviour
         testLevel[41, 6] = TileType.BasicEnemySpawn;
 
 
-        Contract testContract1 = new Contract("Test", new System.Text.StringBuilder("Description"), testLevel,
+        StringBuilder sb = new StringBuilder();
+        sb.Append("testd");
+        Contract testContract1 = new Contract("Test", sb, testLevel,
             new List<WinConditions>() {WinConditions.Clear}, 10, 10);
-        Contract testContract2 = new Contract("Test1", new StringBuilder("Yeehaw"), LevelParser.TextToTiles("level1"),
+        Contract testContract2 = new Contract("Test1", sb, LevelParser.TextToTiles("level1"),
             new List<WinConditions>() {WinConditions.Clear}, 20, 20);
+        
+        PlayerData.Instance.Contracts.Add(testContract1);
+        PlayerData.Instance.Contracts.Add(testContract2);
+        
+        Agent agent = new Agent();
+        agent.Title = "TA";
+        agent.Description = sb;
+        
+        PlayerData.Instance.Agents.Add(agent);
 
-        LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles);
+        LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles, PersistentData.Instance.CurrentAgent);
     }
 
     private void Update()
@@ -96,5 +107,6 @@ class GameManager : MonoBehaviour
     private void OnDestroy()
     {
         PlayerData.Instance.Save();
+        Debug.Log("Save");
     }
 }
