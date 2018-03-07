@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+using Resources = UnityEngine.Resources;
 
 public class PlayerController : Character
 {
@@ -10,6 +11,8 @@ public class PlayerController : Character
     
     public GameObject MuzzleFlashObject;
 
+    private AAgentController agentController;
+    
     private float moveSpeed = 3.3f;
 
     private GameObject bulletPrefab;
@@ -40,7 +43,7 @@ public class PlayerController : Character
 
     private void SetupAgent()
     {
-        
+        agentController = AgentCreator.InitAgent(Agent.AgentType);
     }
 
     public override void Update()
