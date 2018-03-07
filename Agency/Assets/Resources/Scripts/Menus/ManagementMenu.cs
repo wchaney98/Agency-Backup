@@ -22,9 +22,11 @@ public class ManagementMenu : MonoBehaviour
         {
             CardCreator.CreateAgentCard(agent);
         }
+        CardCreator.Reset();
         foreach (Contract contract in PlayerData.Instance.Contracts)
         {
             CardCreator.CreateContractCard(contract);
         }
+        CardCreator.Reset();
     }
 }

@@ -1,9 +1,32 @@
 ﻿using System;
 using System.Text;
+using UnityEngine;
+
+[Serializable]
+public enum AgentType
+{
+    Standard, // Default pistol w/ nades
+    Breacher, // Flashbangs + SMG
+    Elite,    // AR + combat roll
+    Joker,    // Grenades and shotgun
+    Riot      // Riot (reflective?) shield + pistol
+}
 
 [Serializable]
 public class Agent
 {
     public string Title;
     public StringBuilder Description;
+    public AgentType AgentType;
+
+    public int XP;
+    public int Speed;
+    public int Power;
+    
+    public float MoveSpeed = 3.3f;
+    
+    public string BulletPrefabPath;
+    public string SpecialPrefabPath; // special.Update
+    
+    public float SpecialCooldown = 1f;
 }

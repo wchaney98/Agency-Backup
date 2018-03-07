@@ -17,14 +17,26 @@ public class CardSlotBehavior : MonoBehaviour
     {
         CardLockedIn = true;
         LockedCard = card;
+        
+        Color temp = image.color;
+        temp.a = 0f;
+        image.color = temp;
+
+        text.text = "";
     }
 
-    public void UnlockCard()
+    public void UnlockCard(ACardBehavior caller)
     {
-        if (CardLockedIn && LockedCard != null)
+        if (CardLockedIn && LockedCard == caller && LockedCard != null)
         {
             CardLockedIn = false;
             LockedCard = null;
+            
+            Color temp = image.color;
+            temp.a = .5f;
+            image.color = temp;
+
+            text.text = textHolder;
         }
     }
     
@@ -33,25 +45,5 @@ public class CardSlotBehavior : MonoBehaviour
         image = GetComponent<Image>();
         text = GetComponentInChildren<Text>();
         textHolder = text.text;
-    }
-
-    void Update()
-    {
-        if (CardLockedIn)
-        {
-            Color temp = image.color;
-            temp.a = 0f;
-            image.color = temp;
-
-            text.text = "";
-        }
-        else
-        {
-            Color temp = image.color;
-            temp.a = .5f;
-            image.color = temp;
-
-            text.text = textHolder;
-        }
     }
 }

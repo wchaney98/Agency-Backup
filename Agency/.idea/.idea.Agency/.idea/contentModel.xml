@@ -220,6 +220,8 @@
               <e p="Player" t="Include">
                 <e p="Agents" t="Include">
                   <e p="Agent.cs" t="Include" />
+                  <e p="AgentController.cs" t="Include" />
+                  <e p="AgentCreator.cs" t="Include" />
                   <e p="ALoadout.cs" t="Include" />
                   <e p="Equipment" t="Include">
                     <e p="AEquipment.cs" t="Include" />
@@ -249,6 +251,7 @@
               <e p="ACardBehavior.cs" t="Include" />
               <e p="AgentCardBehavior.cs" t="Include" />
               <e p="BackButtonBehavior.cs" t="Include" />
+              <e p="CardCreator.cs" t="Include" />
               <e p="CardSlotBehavior.cs" t="Include" />
               <e p="ContractCardBehavior.cs" t="Include" />
               <e p="MainMenu.cs" t="Include" />

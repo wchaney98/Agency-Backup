@@ -17,24 +17,36 @@ public static class CardCreator
     private static GameObject agentCardPrefab = Resources.Load<GameObject>("Prefabs/Menus/AgentCard");
     private static GameObject contractCardPrefab = Resources.Load<GameObject>("Prefabs/Menus/ContractCard");
 
-    public static ACardBehavior CreateAgentCard(Agent agent)
+    private static int currentY = 0;
+
+    public static void Reset()
+    {
+        currentY = 0;
+    }
+    
+    public static AgentCardBehavior CreateAgentCard(Agent agent)
     {
         ACardBehavior card = CreateCard(CardType.Agent);
-        card.SetupCard(agent.Title, agent.Description);
-        return card;
+        ((AgentCardBehavior)card).SetupCard(agent.Title, agent.Description);
+        return (AgentCardBehavior)card;
     }
 
-    public static ACardBehavior CreateContractCard(Contract contract)
+    public static ContractCardBehavior CreateContractCard(Contract contract)
     {
         ACardBehavior card = CreateCard(CardType.Contract);
-        card.SetupCard(contract.Title, contract.Description);
-        return card;
+        ((ContractCardBehavior)card).SetupCard(contract.Title, contract.Description);
+        return (ContractCardBehavior)card;
     }
 
     private static ACardBehavior CreateCard(CardType type)
     {
         GameObject GO = GameObject.Instantiate(type == CardType.Agent ? agentCardPrefab : contractCardPrefab,
-            Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
+            new Vector3(0f, currentY, 0f), Quaternion.identity, GameObject.Find("Canvas").transform);
+        Vector3 temp = GO.GetComponent<RectTransform>().anchoredPosition;
+        temp.y += currentY;
+        temp.z = 0;
+        GO.GetComponent<RectTransform>().anchoredPosition = temp;
+        currentY += 109;
         ACardBehavior card = GO.GetComponent<ACardBehavior>();
         return card;
     }

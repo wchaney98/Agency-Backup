@@ -6,31 +6,41 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : Character
 {
+    public Agent Agent { get; set; }
+    
     public GameObject MuzzleFlashObject;
 
-    private const float MOVE_SPEED = 3.3f;
+    private float moveSpeed = 3.3f;
 
     private GameObject bulletPrefab;
-    private GameObject laserPrefab;
+    private GameObject specialPrefab;
     private Rigidbody2D rb;
 
     private Coroutine zoomingCoroutine;
 
     private float specialCooldownTimer = 0f;
+    private float specialCooldown = 1f;
 
     public override void Start()
     {
         base.Start();
+        Agent = PersistentData.Instance.CurrentAgent;
+        SetupAgent();
         Team = Team.Player;
 
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
-        laserPrefab = Resources.Load<GameObject>("Prefabs/Laser1");
+        specialPrefab = Resources.Load<GameObject>("Prefabs/Laser1");
         if (bulletPrefab == null)
         {
             Debug.Log("bulletPrefab not found");
         }
 
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    private void SetupAgent()
+    {
+        
     }
 
     public override void Update()
@@ -61,7 +71,9 @@ public class PlayerController : Character
             SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.PistolShot0 }, transform.position);
             MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
         }
-        if (Input.GetMouseButton(1))
+        
+        // Universal peeking behavior
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             peeking = true;
         }
@@ -70,6 +82,7 @@ public class PlayerController : Character
             peeking = false;
         }
 
+        // Misc
         if (Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene("MainGame");
@@ -79,12 +92,13 @@ public class PlayerController : Character
             SceneManager.LoadScene("ManagementScene");
         }
 
+        // Special
         specialCooldownTimer += Time.deltaTime;
-        if (Input.GetKeyDown(KeyCode.LeftShift) && specialCooldownTimer >= 1f)
+        if (Input.GetMouseButtonDown(1) && specialCooldownTimer >= specialCooldown)
         {
             specialCooldownTimer = 0f;
 
-            GameObject b = Instantiate(laserPrefab, transform.position, Quaternion.identity);
+            GameObject b = Instantiate(specialPrefab, transform.position, Quaternion.identity);
             Bullet scr = b.GetComponent<Bullet>();
             scr.Direction = mousePos - transform.position;
             scr.Speed = 10f;
@@ -113,19 +127,19 @@ public class PlayerController : Character
         Vector2 movementVector = Vector2.zero;
         if (Input.GetKey(KeyCode.W))
         {
-            movementVector.y += MOVE_SPEED * Time.deltaTime;
+            movementVector.y += moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            movementVector.x -= MOVE_SPEED * Time.deltaTime;
+            movementVector.x -= moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            movementVector.y -= MOVE_SPEED * Time.deltaTime;
+            movementVector.y -= moveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            movementVector.x += MOVE_SPEED * Time.deltaTime;
+            movementVector.x += moveSpeed * Time.deltaTime;
         }
         rb.position += (movementVector);
         
