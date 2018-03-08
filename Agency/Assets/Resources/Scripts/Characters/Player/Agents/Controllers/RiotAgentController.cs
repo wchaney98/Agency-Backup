@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 
-public abstract class RiotAgentController : AAgentController
+public class RiotAgentController : AAgentController
 {
-    public override void ProcessPrimary()
+    public override void ProcessPrimary(GameObject go, Vector3 mousePos)
     {
-        base.ProcessPrimary();
     }
 
-    public override void ProcessSpecial()
+    public override void ProcessSpecial(GameObject go, Vector3 mousePos)
     {
-        base.ProcessSpecial();
     }
 }

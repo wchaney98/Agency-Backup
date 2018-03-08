@@ -15,8 +15,6 @@ public class PlayerController : Character
     
     private float moveSpeed = 3.3f;
 
-    private GameObject bulletPrefab;
-    private GameObject specialPrefab;
     private Rigidbody2D rb;
 
     private Coroutine zoomingCoroutine;
@@ -31,19 +29,17 @@ public class PlayerController : Character
         SetupAgent();
         Team = Team.Player;
 
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
-        specialPrefab = Resources.Load<GameObject>("Prefabs/Laser1");
-        if (bulletPrefab == null)
-        {
-            Debug.Log("bulletPrefab not found");
-        }
-
         rb = GetComponent<Rigidbody2D>();
+        
+        EventManager.Instance.StartListening("PlayerShoot", PlayMuzzleFlash);
     }
 
     private void SetupAgent()
     {
         agentController = AgentCreator.InitAgent(Agent.AgentType);
+        agentController.Init(Agent);
+
+        specialCooldown = Agent.SpecialCooldown;
     }
 
     public override void Update()
@@ -57,26 +53,19 @@ public class PlayerController : Character
         // Handle shooting
         if (!InCover && Input.GetMouseButtonDown(0))
         {
-            GameObject b = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            Bullet scr = b.GetComponent<Bullet>();
-            scr.Direction = mousePos - transform.position;
-            scr.Speed = 35f;
-            scr.Creator = gameObject;
-            scr.Team = Team.Player;
-            scr.LifeTime = 2f;
-            scr.CheckPath();
-
-            if (zoomingCoroutine != null)
-                StopCoroutine(zoomingCoroutine);
-            Camera.main.orthographicSize = 4.8f;
-            zoomingCoroutine = StartCoroutine(ZoomIn());
-
-            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.PistolShot0 }, transform.position);
-            MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
+            agentController.ProcessPrimary(gameObject, mousePos);
+        }
+        
+        // Special
+        specialCooldownTimer += Time.deltaTime;
+        if (Input.GetMouseButtonDown(1) && specialCooldownTimer >= specialCooldown)
+        {
+            specialCooldownTimer = 0;
+            agentController.ProcessSpecial(gameObject, mousePos);
         }
         
         // Universal peeking behavior
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
             peeking = true;
         }
@@ -93,29 +82,6 @@ public class PlayerController : Character
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("ManagementScene");
-        }
-
-        // Special
-        specialCooldownTimer += Time.deltaTime;
-        if (Input.GetMouseButtonDown(1) && specialCooldownTimer >= specialCooldown)
-        {
-            specialCooldownTimer = 0f;
-
-            GameObject b = Instantiate(specialPrefab, transform.position, Quaternion.identity);
-            Bullet scr = b.GetComponent<Bullet>();
-            scr.Direction = mousePos - transform.position;
-            scr.Speed = 10f;
-            scr.Creator = gameObject;
-            scr.Team = Team.Player;
-            scr.LifeTime = 15f;
-
-            if (zoomingCoroutine != null)
-                StopCoroutine(zoomingCoroutine);
-            Camera.main.orthographicSize = 4.6f;
-            zoomingCoroutine = StartCoroutine(ZoomIn());
-
-            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Laser0 }, transform.position);
-            MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
         }
     }
 
@@ -145,26 +111,6 @@ public class PlayerController : Character
             movementVector.x += moveSpeed * Time.deltaTime;
         }
         rb.position += (movementVector);
-        
-    }
-
-    IEnumerator ZoomIn()
-    {
-        float start = Camera.main.orthographicSize;
-        float goal = 5f;
-        float length = 0.35f;
-        float time = 0f;
-        while (Camera.main.orthographicSize < 5)
-        {
-            time += Time.deltaTime;
-            float t = Mathf.Sin(time * Mathf.PI * 0.5f);
-            Camera[] cams = Camera.allCameras;
-            for (int i = 0; i < cams.Length; i++)
-            {
-                cams[i].orthographicSize = Mathf.Lerp(start, goal, t / length);
-            }
-            yield return null;
-        }
     }
 
     IEnumerator JumpToCover(Vector3 goal)
@@ -180,8 +126,19 @@ public class PlayerController : Character
         }
     }
 
+    // TODO use params to modify muzzle flash
+    public void PlayMuzzleFlash(EventParam e)
+    {
+        MuzzleFlashObject.GetComponent<ParticleSystem>().Play(true);
+    }
+
     public override void TakeDamage(int amount)
     {
         base.TakeDamage(amount);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.StopListening("PlayerShoot", PlayMuzzleFlash);
     }
 }

@@ -23,19 +23,21 @@ public static class CardCreator
     {
         currentY = 0;
     }
-    
+
     public static AgentCardBehavior CreateAgentCard(Agent agent)
     {
         ACardBehavior card = CreateCard(CardType.Agent);
-        ((AgentCardBehavior)card).SetupCard(agent.Title, agent.Description);
-        return (AgentCardBehavior)card;
+        ((AgentCardBehavior) card).SetupCard(agent.Title, agent.Description);
+        ((AgentCardBehavior) card).Agent = agent;
+        return (AgentCardBehavior) card;
     }
 
     public static ContractCardBehavior CreateContractCard(Contract contract)
     {
         ACardBehavior card = CreateCard(CardType.Contract);
-        ((ContractCardBehavior)card).SetupCard(contract.Title, contract.Description);
-        return (ContractCardBehavior)card;
+        ((ContractCardBehavior) card).SetupCard(contract.Title, contract.Description);
+        ((ContractCardBehavior) card).Contract = contract;
+        return (ContractCardBehavior) card;
     }
 
     private static ACardBehavior CreateCard(CardType type)
@@ -46,7 +48,7 @@ public static class CardCreator
         temp.y += currentY;
         temp.z = 0;
         GO.GetComponent<RectTransform>().anchoredPosition = temp;
-        currentY += 109;
+        currentY -= 109;
         ACardBehavior card = GO.GetComponent<ACardBehavior>();
         return card;
     }

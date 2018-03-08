@@ -10,9 +10,4 @@ public class PersistentData : SingletonBehavior<PersistentData>
     public Contract CurrentContract { get; set; }
     public Agent CurrentAgent { get; set; }
     public int CurrentSaveSlot;
-
-    private void Start()
-    {
-        LevelBuilder.Inititialize();
-    }
 }

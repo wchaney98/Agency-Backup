@@ -220,9 +220,16 @@
               <e p="Player" t="Include">
                 <e p="Agents" t="Include">
                   <e p="Agent.cs" t="Include" />
-                  <e p="AgentController.cs" t="Include" />
                   <e p="AgentCreator.cs" t="Include" />
                   <e p="ALoadout.cs" t="Include" />
+                  <e p="Controllers" t="Include">
+                    <e p="AAgentController.cs" t="Include" />
+                    <e p="BreacherAgentController.cs" t="Include" />
+                    <e p="EliteAgentController.cs" t="Include" />
+                    <e p="JokerAgentController.cs" t="Include" />
+                    <e p="RiotAgentController.cs" t="Include" />
+                    <e p="StandardAgentController.cs" t="Include" />
+                  </e>
                   <e p="Equipment" t="Include">
                     <e p="AEquipment.cs" t="Include" />
                     <e p="LaserLauncher.cs" t="Include" />

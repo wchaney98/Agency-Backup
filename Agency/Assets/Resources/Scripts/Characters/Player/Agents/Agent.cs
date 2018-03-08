@@ -19,6 +19,7 @@ public class Agent
     public StringBuilder Description;
     public AgentType AgentType;
 
+    // TODO impl these vars 
     public int XP;
     public int Speed;
     public int Power;

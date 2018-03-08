@@ -61,6 +61,8 @@ public static class LevelBuilder
         if (parent == null)
             parent = GameObject.Instantiate<GameObject>(new GameObject());
 
+        Debug.Log("Levelbuilder initialized successfully");
+        
         return true;
     }
 
