@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AEnemy : Character
 {
+    public float VisionLength = 0.65f * 17;
+
     protected Transform playerTransform;
 
     protected const float MIN_SHOT_INTERVAL = 1f;
@@ -32,6 +34,10 @@ public class AEnemy : Character
 
     protected virtual bool PlayerInVision()
     {
-        return !Physics2D.Linecast(transform.position, playerTransform.position, mask);
+        if (Vector2.Distance(transform.position, playerTransform.position) <= VisionLength)
+        {
+            return !Physics2D.Linecast(transform.position, playerTransform.position, mask);
+        }
+        return false;
     }
 }

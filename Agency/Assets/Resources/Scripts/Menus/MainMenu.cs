@@ -67,9 +67,9 @@ public class MainMenu : MonoBehaviour
 
         StringBuilder sb = new StringBuilder();
         sb.Append("dev");
-        Contract testContract1 = new Contract("Test", sb, testLevel,
+        Contract testContract1 = new Contract("ProtoLvl", sb, testLevel,
             new List<WinConditions>() {WinConditions.Clear}, 10, 10);
-        Contract testContract2 = new Contract("Test1", sb, LevelParser.TextToTiles("level1"),
+        Contract testContract2 = new Contract("VertSlice", sb, LevelParser.TextToTiles("level1"),
             new List<WinConditions>() {WinConditions.Clear}, 20, 20);
         
         PlayerData.Instance.Contracts.Add(testContract1);
@@ -80,14 +80,16 @@ public class MainMenu : MonoBehaviour
             Title = "Breacher",
             Description = sb,
             AgentType = AgentType.Breacher,
-            MoveSpeed = 7f
+            MoveSpeed = 7f,
+            SpecialCooldown = 1f
         };
         
         Agent agent1 = new Agent
         {
             Title = "Standard",
             Description = sb,
-            AgentType = AgentType.Standard
+            AgentType = AgentType.Standard,
+            SpecialCooldown = 1f
         };
 
         PlayerData.Instance.Agents.Add(agent);

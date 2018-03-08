@@ -65,17 +65,9 @@ public class Bullet : MonoBehaviour
         {
             if (hit.collider.gameObject != null)
             {
-                //if (!objectsEntered.Contains(hit.collider.gameObject))
-                //{
-                    MyOnTriggerEnter2D(hit.collider);
-                //    objectsEntered.Add(hit.collider.gameObject);
-                //}
-                //else
-                //{
-                //    objectsEntered.Remove(hit.collider.gameObject);
-                //}
+                MyOnTriggerEnter2D(hit.collider);
             }
-            
+
         }
     }
 

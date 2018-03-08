@@ -21,13 +21,11 @@ public class ManagementMenu : MonoBehaviour
         foreach (Agent agent in PlayerData.Instance.Agents)
         {
             AgentCardBehavior c = CardCreator.CreateAgentCard(agent);
-            Debug.Log("a: " + c.Agent.AgentType);
         }
         CardCreator.Reset();
         foreach (Contract contract in PlayerData.Instance.Contracts)
         {
             ContractCardBehavior c = CardCreator.CreateContractCard(contract);
-            Debug.Log("c: " + c.Contract.Tiles);
         }
         CardCreator.Reset();
     }

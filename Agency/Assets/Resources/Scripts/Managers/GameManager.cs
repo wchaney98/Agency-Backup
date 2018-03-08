@@ -11,7 +11,6 @@ class GameManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("About to build");
         LevelBuilder.Inititialize();
         LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles, PersistentData.Instance.CurrentAgent);
     }

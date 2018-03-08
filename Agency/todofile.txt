@@ -21,7 +21,7 @@ new agents:
 new enemies:
 
 priority for thurs:
-	finish dynamic agent gen
+	X finish dynamic agent gen
 
 	create nades for default agent
 		sprite
@@ -31,8 +31,8 @@ priority for thurs:
 	create breacher agent - SMG
 	create breacher agent - flashbang
 
-	help screen
-		update controls for peek/special
+	X help screen
+		X update controls for peek/special
 
 	enemies: shorter attack radius
 

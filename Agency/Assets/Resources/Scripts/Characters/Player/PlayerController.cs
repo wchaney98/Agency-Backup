@@ -96,19 +96,19 @@ public class PlayerController : Character
         Vector2 movementVector = Vector2.zero;
         if (Input.GetKey(KeyCode.W))
         {
-            movementVector.y += moveSpeed * Time.deltaTime;
+            movementVector.y += Agent.MoveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.A))
         {
-            movementVector.x -= moveSpeed * Time.deltaTime;
+            movementVector.x -= Agent.MoveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.S))
         {
-            movementVector.y -= moveSpeed * Time.deltaTime;
+            movementVector.y -= Agent.MoveSpeed * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            movementVector.x += moveSpeed * Time.deltaTime;
+            movementVector.x += Agent.MoveSpeed * Time.deltaTime;
         }
         rb.position += (movementVector);
     }

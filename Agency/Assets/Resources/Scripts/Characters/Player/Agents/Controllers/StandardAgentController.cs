@@ -21,6 +21,8 @@ public class StandardAgentController : AAgentController
 
     public override void ProcessPrimary(GameObject go, Vector3 mousePos)
     {
+        base.ProcessPrimary(go, mousePos);
+
         GameObject b = Object.Instantiate(bulletPrefab, go.transform.position, Quaternion.identity);
         Bullet scr = b.GetComponent<Bullet>();
         scr.Direction = mousePos - go.transform.position;
@@ -38,6 +40,8 @@ public class StandardAgentController : AAgentController
 
     public override void ProcessSpecial(GameObject go, Vector3 mousePos)
     {
+        base.ProcessSpecial(go, mousePos);
+
         GameObject b = Object.Instantiate(specialPrefab, go.transform.position, Quaternion.identity);
         Bullet scr = b.GetComponent<Bullet>();
         scr.Direction = mousePos - go.transform.position;
