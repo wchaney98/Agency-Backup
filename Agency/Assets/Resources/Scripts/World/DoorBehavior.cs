@@ -19,20 +19,23 @@ public class DoorBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (triggeredRoutine == null)
+        if (player != null)
         {
-            float distance = Vector2.Distance(transform.position, player.transform.position);
-            if (distance <= activeRadius)
+            if (triggeredRoutine == null)
             {
-                spriteRenderer.color = Color.red;
-                if (Input.GetKeyDown(KeyCode.F))
+                float distance = Vector2.Distance(transform.position, player.transform.position);
+                if (distance <= activeRadius)
                 {
-                    triggeredRoutine = StartCoroutine(FadeAndDestroy());
+                    spriteRenderer.color = Color.red;
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        triggeredRoutine = StartCoroutine(FadeAndDestroy());
+                    }
                 }
-            }
-            else
-            {
-                spriteRenderer.color = Color.white;
+                else
+                {
+                    spriteRenderer.color = Color.white;
+                }
             }
         }
     }

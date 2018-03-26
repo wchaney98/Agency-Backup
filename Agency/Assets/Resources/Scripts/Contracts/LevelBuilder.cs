@@ -11,7 +11,9 @@ public enum TileType
     PlayerSpawn = 4,
     BasicEnemySpawn = 5,
     BasicRobotSpawn = 6,
-    Door = 7
+    Door = 7,
+    TurretSpawn = 8,
+    MeleeEnemy = 9
 }
 
 public static class LevelBuilder
@@ -24,6 +26,8 @@ public static class LevelBuilder
     static GameObject basicEnemyPrefab;
     static GameObject basicRobotPrefab;
     static GameObject doorPrefab;
+    static GameObject turretPrefab;
+    static GameObject meleeEnemyPrefab;
 
     public static GameObject parent;
 
@@ -41,9 +45,11 @@ public static class LevelBuilder
         basicRobotPrefab = Resources.Load<GameObject>("Prefabs/Characters/BasicRobot");
         coverAreaPrefab = Resources.Load<GameObject>("Prefabs/World/cover_area");
         doorPrefab = Resources.Load<GameObject>("Prefabs/World/door");
+        turretPrefab = Resources.Load<GameObject>("Prefabs/Characters/BasicTurret");
+        meleeEnemyPrefab = Resources.Load<GameObject>("Prefabs/Characters/MeleeEnemy");
 
         if (floorPrefab == null || wallPrefab == null || coverPrefab == null || playerPrefab == null || basicEnemyPrefab == null || coverAreaPrefab == null
-            || basicRobotPrefab == null || doorPrefab == null)
+            || basicRobotPrefab == null || doorPrefab == null || turretPrefab == null || meleeEnemyPrefab == null)
         {
             Debug.Log("Levelbuilder failed to init");
             return false;
@@ -57,6 +63,8 @@ public static class LevelBuilder
         wallTypeToPrefab.Add(TileType.BasicRobotSpawn, basicRobotPrefab);
         wallTypeToPrefab.Add(TileType.CoverArea, coverAreaPrefab);
         wallTypeToPrefab.Add(TileType.Door, doorPrefab);
+        wallTypeToPrefab.Add(TileType.TurretSpawn, turretPrefab);
+        wallTypeToPrefab.Add(TileType.MeleeEnemy, meleeEnemyPrefab);
 
         if (parent == null)
             parent = GameObject.Instantiate<GameObject>(new GameObject());
@@ -74,7 +82,8 @@ public static class LevelBuilder
             {
                 GameObject.Instantiate(wallTypeToPrefab[tiles[i, j]], new Vector3(i * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
 
-                if (tiles[i, j] == TileType.PlayerSpawn || tiles[i, j] == TileType.BasicEnemySpawn || tiles[i, j] == TileType.Door || tiles[i, j] == TileType.BasicRobotSpawn)
+                if (tiles[i, j] == TileType.PlayerSpawn || tiles[i, j] == TileType.BasicEnemySpawn || tiles[i, j] == TileType.Door 
+                    || tiles[i, j] == TileType.BasicRobotSpawn || tiles[i, j] == TileType.TurretSpawn || tiles[i, j] == TileType.MeleeEnemy)
                     GameObject.Instantiate(floorPrefab, new Vector3(i * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
                 // Setup Player
                 if (tiles[i, j] == TileType.PlayerSpawn)

@@ -16,7 +16,10 @@ class PlayerCoverArea : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Player.transform.position;
+        if (Player != null)
+        {
+            transform.position = Player.transform.position;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

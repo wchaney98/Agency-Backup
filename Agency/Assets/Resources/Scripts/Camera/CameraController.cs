@@ -61,20 +61,23 @@ public class CameraController : MonoBehaviour
         // Done in late update so that player's position is changed before setting the camera pos
         FindPlayer();
 
-        Vector3 temp = Player.transform.position;
-        temp.z = transform.position.z;
-        if (screenShaking && timer < duration)
+        if (Player != null)
         {
-            temp += UnityEngine.Random.insideUnitSphere * intensity;
-            timer += Time.deltaTime;
+            Vector3 temp = Player.transform.position;
+            temp.z = transform.position.z;
+            if (screenShaking && timer < duration)
+            {
+                temp += UnityEngine.Random.insideUnitSphere * intensity;
+                timer += Time.deltaTime;
+            }
+            else if (screenShaking && timer >= duration)
+            {
+                screenShaking = false;
+                timer = 0f;
+            }
+
+            transform.position = temp;
         }
-        else if (screenShaking && timer >= duration)
-        {
-            screenShaking = false;
-            timer = 0f;
-        }
-        
-        transform.position = temp;
     }
 
     void FindPlayer()
@@ -94,6 +97,7 @@ public class CameraController : MonoBehaviour
 
     private void OnDestroy()
     {
+        // Commented due to "cleanup" errors in play mode
         EventManager.Instance.StopListening("ScreenShake", ShakeScreen);
         EventManager.Instance.StopListening("ZoomSlap", ZoomSlap);
     }

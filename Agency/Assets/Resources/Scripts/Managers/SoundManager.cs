@@ -30,7 +30,15 @@ public enum SoundFile
     BulletWhizz1,
     BulletWhizz2,
 
-    Laser0
+    HeavyShot0,
+
+    ExplosionMedium,
+
+    Laser0,
+
+    TurretDeploy,
+
+    MeleeEnemySeek
 }
 # endregion
 

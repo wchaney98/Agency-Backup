@@ -34,9 +34,12 @@ public class AEnemy : Character
 
     protected virtual bool PlayerInVision()
     {
-        if (Vector2.Distance(transform.position, playerTransform.position) <= VisionLength)
+        if (playerTransform != null)
         {
-            return !Physics2D.Linecast(transform.position, playerTransform.position, mask);
+            if (Vector2.Distance(transform.position, playerTransform.position) <= VisionLength)
+            {
+                return !Physics2D.Linecast(transform.position, playerTransform.position, mask);
+            }
         }
         return false;
     }
