@@ -50,7 +50,7 @@ public class MeleeEnemy : AEnemy
             chr.TakeDamage(1);
             Destroy(gameObject);
             // TODO play different explosion and sound
-            ParticleManager.SpawnLaserExplosionAt(ParticleSize.SMALL, transform.position);
+            ParticleManager.SpawnLaserExplosionAt(ParticleType.SMALL, transform.position);
         }
     }
 
@@ -62,7 +62,7 @@ public class MeleeEnemy : AEnemy
 
     private void OnDestroy()
     {
-        ParticleManager.SpawnLaserExplosionAt(ParticleSize.SMALL, transform.position);
+        ParticleManager.SpawnLaserExplosionAt(ParticleType.SMALL, transform.position);
 
     }
 }

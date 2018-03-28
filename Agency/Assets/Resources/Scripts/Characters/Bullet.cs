@@ -104,9 +104,9 @@ public class Bullet : MonoBehaviour
             hitWall = true;
             Speed = 0;
             if (Team == Team.Player)
-                ParticleManager.SpawnSparksAt(ParticleSize.SMALL, transform.position, true);
+                ParticleManager.SpawnSparksAt(ParticleType.SMALL, transform.position, true);
             else
-                ParticleManager.SpawnSparksAt(ParticleSize.SMALL, transform.position);
+                ParticleManager.SpawnSparksAt(ParticleType.SMALL, transform.position);
         }
     }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-class MeleeSwing : MonoBehaviour
+class GrenadeHitboxBehavior : MonoBehaviour
 {
     public GameObject Creator;
 
@@ -18,7 +18,8 @@ class MeleeSwing : MonoBehaviour
         if (collision.gameObject.tag == "Character")
         {
             Character chr = collision.gameObject.GetComponent<Character>();
-            chr.TakeDamage(1);
+            chr.TakeDamage(2);
+            // TODO more painful sound fx
             SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
         }
     }

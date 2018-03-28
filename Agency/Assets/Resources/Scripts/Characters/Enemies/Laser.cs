@@ -36,7 +36,7 @@ public class Laser : Bullet
         if (collision.gameObject.tag == "Wall" && !madeExplosion)
         {
             Speed = 0;
-            ParticleManager.SpawnLaserExplosionAt(ParticleSize.SMALL, transform.position);
+            ParticleManager.SpawnLaserExplosionAt(ParticleType.SMALL, transform.position);
             madeExplosion = true;
         }
         else if (collision.gameObject.tag == "CoverBlock")

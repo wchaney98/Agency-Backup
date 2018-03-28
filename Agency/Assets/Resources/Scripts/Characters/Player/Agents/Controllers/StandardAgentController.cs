@@ -14,7 +14,7 @@ public class StandardAgentController : AAgentController
     {
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
         // TODO change to grenade
-        specialPrefab = Resources.Load<GameObject>("Prefabs/Laser1");
+        specialPrefab = Resources.Load<GameObject>("Prefabs/Grenade");
 
         this.agent = agent;
     }
@@ -43,9 +43,9 @@ public class StandardAgentController : AAgentController
         base.ProcessSpecial(go, mousePos);
 
         GameObject b = Object.Instantiate(specialPrefab, go.transform.position, Quaternion.identity);
-        Bullet scr = b.GetComponent<Bullet>();
+        Bullet scr = b.GetComponent<Grenade>();
         scr.Direction = mousePos - go.transform.position;
-        scr.Speed = 10f;
+        scr.Speed = 7f;
         scr.Creator = go;
         scr.Team = Team.Player;
         scr.LifeTime = 15f;
