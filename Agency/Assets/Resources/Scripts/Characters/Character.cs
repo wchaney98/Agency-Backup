@@ -8,7 +8,11 @@ public abstract class Character : MonoBehaviour
     public Team Team { get; set; }
 
     protected int health = 1;
+
+    public float FlashTime = 1.2f;
     protected bool flashed = false;
+    protected float flashTimer = 0f;
+
     protected bool peeking = false;
 
     protected SpriteRenderer spriteRenderer;
@@ -22,6 +26,16 @@ public abstract class Character : MonoBehaviour
 
     public virtual void Update()
     {
+        if (flashed)
+        {
+            flashTimer += Time.deltaTime;
+            if (flashTimer >= FlashTime)
+            {
+                flashed = false;
+                flashTimer = 0f;
+            }
+        }
+
         if (health <= 0)
         {
             //TODO: Death anim
@@ -63,5 +77,10 @@ public abstract class Character : MonoBehaviour
     {
         SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.HumanDeath0, SoundFile.HumanDeath1, SoundFile.HumanDeath2 }, transform.position);
         health -= amount;
+    }
+
+    public virtual void Flash()
+    {
+        flashed = true;
     }
 }

@@ -40,6 +40,8 @@ public class PlayerController : Character
         agentController.Init(Agent);
 
         specialCooldown = Agent.SpecialCooldown;
+
+        spriteRenderer.sprite = agentController.GetSprite();
     }
 
     public override void Update()
@@ -51,17 +53,21 @@ public class PlayerController : Character
         transform.rotation = Quaternion.Euler(0, 0, Mathf.Atan2(mousePos.y - transform.position.y, mousePos.x - transform.position.x) * Mathf.Rad2Deg);
 
         // Handle shooting
-        if (!InCover && Input.GetMouseButtonDown(0))
-        {
-            agentController.ProcessPrimary(gameObject, mousePos);
-        }
+        agentController.ProcessPrimary(gameObject, mousePos, Time.deltaTime, InCover);
         
         // Special
         specialCooldownTimer += Time.deltaTime;
-        if (Input.GetMouseButtonDown(1) && specialCooldownTimer >= specialCooldown)
+        if (Input.GetMouseButtonDown(1))
         {
-            specialCooldownTimer = 0;
-            agentController.ProcessSpecial(gameObject, mousePos);
+            if (specialCooldownTimer >= specialCooldown)
+            {
+                if (agentController.ProcessSpecial(gameObject, mousePos))
+                    specialCooldownTimer = 0;
+            }
+            else
+            {
+                agentController.ProcessDuringSpecial(gameObject, mousePos);
+            }
         }
         
         // Universal peeking behavior

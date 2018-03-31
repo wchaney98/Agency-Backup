@@ -30,15 +30,25 @@ public class AEnemy : Character
     public override void Update()
     {
         base.Update();
+
+        if (flashed)
+        {
+            Debug.Log("oof");
+            spriteRenderer.color = new Color(0f, 0.5f, 1f);
+        }
+
     }
 
     protected virtual bool PlayerInVision()
     {
-        if (playerTransform != null)
+        if (!flashed)
         {
-            if (Vector2.Distance(transform.position, playerTransform.position) <= VisionLength)
+            if (playerTransform != null)
             {
-                return !Physics2D.Linecast(transform.position, playerTransform.position, mask);
+                if (Vector2.Distance(transform.position, playerTransform.position) <= VisionLength)
+                {
+                    return !Physics2D.Linecast(transform.position, playerTransform.position, mask);
+                }
             }
         }
         return false;

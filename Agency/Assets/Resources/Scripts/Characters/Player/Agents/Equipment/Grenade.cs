@@ -43,6 +43,11 @@ public class Grenade : Bullet
         }
     }
 
+    public void ManualDetonate()
+    {
+        SpawnGrenadeHitbox();
+    }
+
     private void SpawnGrenadeHitbox()
     {
         Instantiate(GrenadeHitboxPrefab, transform.position, Quaternion.identity);

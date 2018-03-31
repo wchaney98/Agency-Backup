@@ -2,11 +2,12 @@
 
 public class RiotAgentController : AAgentController
 {
-    public override void ProcessPrimary(GameObject go, Vector3 mousePos)
+    public override void ProcessPrimary(GameObject go, Vector3 mousePos, float delta, bool inCover)
     {
     }
 
-    public override void ProcessSpecial(GameObject go, Vector3 mousePos)
+    public override bool ProcessSpecial(GameObject go, Vector3 mousePos)
     {
+        return false;
     }
 }

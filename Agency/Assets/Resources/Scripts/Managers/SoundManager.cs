@@ -33,6 +33,7 @@ public enum SoundFile
     HeavyShot0,
 
     ExplosionMedium,
+    Flashbang0,
 
     Laser0,
 

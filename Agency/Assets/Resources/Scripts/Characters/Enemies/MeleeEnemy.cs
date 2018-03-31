@@ -5,7 +5,7 @@ using UnityEngine;
 public class MeleeEnemy : AEnemy
 {
     public float Speed = 3.5f;
-    public float seekDelay = 1f;
+    public float seekDelay = 0.5f;
 
     private float seekDelayCounter = 0f;
     private bool startingSeekSoundPlayed = false;

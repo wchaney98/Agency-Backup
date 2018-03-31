@@ -2,20 +2,26 @@
 
 public abstract class AAgentController
 {
+    public virtual Sprite GetSprite()
+    {
+        return ResourcePaths.StandardSprite;
+    }
+
     // TODO change sprites here
     public virtual void Init(Agent agent)
     {
     }
 
-    public virtual void ProcessPrimary(GameObject go, Vector3 mousePos)
+    public virtual void ProcessPrimary(GameObject go, Vector3 mousePos, float delta, bool inCover)
     {
-        if (go == null)
-            return;
     }
 
-    public virtual void ProcessSpecial(GameObject go, Vector3 mousePos)
+    public virtual bool ProcessSpecial(GameObject go, Vector3 mousePos)
     {
-        if (go == null)
-            return;
+        return false;
+    }
+
+    public virtual void ProcessDuringSpecial(GameObject go, Vector3 mousePos)
+    {
     }
 }

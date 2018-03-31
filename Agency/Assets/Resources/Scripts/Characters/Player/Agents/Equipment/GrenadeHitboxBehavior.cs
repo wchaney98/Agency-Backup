@@ -8,9 +8,14 @@ class GrenadeHitboxBehavior : MonoBehaviour
 {
     public GameObject Creator;
 
-    private void LateUpdate()
+    private int frame = 0;
+
+    private void Update()
     {
-        Destroy(gameObject);
+        if (frame != 2)
+            frame++;
+        else
+            Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,8 +24,8 @@ class GrenadeHitboxBehavior : MonoBehaviour
         {
             Character chr = collision.gameObject.GetComponent<Character>();
             chr.TakeDamage(2);
-            // TODO more painful sound fx
-            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
+            // TODO more painful sound fx... depends on robot or not etc
+            //SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
         }
     }
 }
