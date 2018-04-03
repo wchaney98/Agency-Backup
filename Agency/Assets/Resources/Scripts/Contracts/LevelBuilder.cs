@@ -19,15 +19,15 @@ public enum TileType
 public static class LevelBuilder
 {
     public static GameObject floorPrefab;
-    static GameObject wallPrefab;
-    static GameObject coverPrefab;
-    static GameObject coverAreaPrefab;
-    static GameObject playerPrefab;
-    static GameObject basicEnemyPrefab;
-    static GameObject basicRobotPrefab;
-    static GameObject doorPrefab;
-    static GameObject turretPrefab;
-    static GameObject meleeEnemyPrefab;
+    public static GameObject wallPrefab;
+    public static GameObject coverPrefab;
+    public static GameObject coverAreaPrefab;
+    public static GameObject playerPrefab;
+    public static GameObject basicEnemyPrefab;
+    public static GameObject basicRobotPrefab;
+    public static GameObject doorPrefab;
+    public static GameObject turretPrefab;
+    public static GameObject meleeEnemyPrefab;
 
     public static GameObject parent;
 
