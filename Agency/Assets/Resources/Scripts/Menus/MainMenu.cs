@@ -81,6 +81,7 @@ public class MainMenu : MonoBehaviour
             Description = sb,
             AgentType = AgentType.Breacher,
             MoveSpeed = 7f,
+            PrimaryCooldown = 0.1f,
             SpecialCooldown = 1f
         };
         
@@ -89,11 +90,24 @@ public class MainMenu : MonoBehaviour
             Title = "Standard",
             Description = sb,
             AgentType = AgentType.Standard,
+            PrimaryCooldown = 0.5f,
             SpecialCooldown = 1f
+        };
+
+        Agent agent2 = new Agent
+        {
+            Title = "Joker",
+            Description = sb,
+            AgentType = AgentType.Joker,
+            PrimaryCooldown = 0.5f,
+            SpecialCooldown = 1f,
+            Level = 2
         };
 
         PlayerData.Instance.Agents.Add(agent);
         PlayerData.Instance.Agents.Add(agent1);
+        PlayerData.Instance.Agents.Add(agent2);
+
 
         PersistentData.Instance.CurrentSaveSlot = 1;
         

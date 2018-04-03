@@ -15,7 +15,7 @@ public static class AgentCreator
         { AgentType.Riot, typeof(RiotAgentController) }          // Riot (reflective?) shield + pistol
     };
     
-    public static AAgentController InitAgent(AgentType type)
+    public static AAgentController CreateAgent(AgentType type)
     {
         return (AAgentController)Activator.CreateInstance(mapping[type]);
     }

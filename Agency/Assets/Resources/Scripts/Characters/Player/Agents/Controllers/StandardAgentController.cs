@@ -23,10 +23,11 @@ public class StandardAgentController : AAgentController
     public override void Init(Agent agent)
     {
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
-        // TODO change to grenade
         specialPrefab = Resources.Load<GameObject>("Prefabs/Grenade");
 
         this.agent = agent;
+        specialCooldown = agent.SpecialCooldown;
+        timeBetweenShots = agent.PrimaryCooldown;
     }
 
     public override void ProcessPrimary(GameObject go, Vector3 mousePos, float delta, bool inCover)
@@ -34,8 +35,6 @@ public class StandardAgentController : AAgentController
         base.ProcessPrimary(go, mousePos, delta, inCover);
 
         timeBetweenShotsTimer += delta;
-
-        Debug.Log(timeBetweenShotsTimer);
 
         if (!inCover && Input.GetMouseButton(0))
         {
@@ -46,7 +45,7 @@ public class StandardAgentController : AAgentController
                 GameObject b = Object.Instantiate(bulletPrefab, go.transform.position, Quaternion.identity);
                 Bullet scr = b.GetComponent<Bullet>();
                 scr.Direction = mousePos - go.transform.position;
-                scr.Speed = 35f;
+                scr.Speed = 25f;
                 scr.Creator = go;
                 scr.Team = Team.Player;
                 scr.LifeTime = 2f;
@@ -72,12 +71,10 @@ public class StandardAgentController : AAgentController
 
         if (grenadeObject == null)
         {
-            base.ProcessSpecial(go, mousePos);
-
             GameObject b = Object.Instantiate(specialPrefab, go.transform.position, Quaternion.identity);
             Bullet scr = b.GetComponent<Grenade>();
             scr.Direction = mousePos - go.transform.position;
-            scr.Speed = 7f;
+            scr.Speed = 20f;
             scr.Creator = go;
             scr.Team = Team.Player;
             scr.LifeTime = 15f;

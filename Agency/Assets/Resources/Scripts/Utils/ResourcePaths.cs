@@ -6,5 +6,5 @@ public static class ResourcePaths
 {
     public static Sprite StandardSprite = Resources.Load<Sprite>("Art/Kenney Topdown/Hitman 1/hitman1_gun");
     public static Sprite BreacherSprite = Resources.Load<Sprite>("Art/Kenney Topdown/Survivor 1/survivor1_machine");
-
+    public static Sprite JokerSprite = Resources.Load<Sprite>("Art/Kenney Topdown/Robot 1/joker");
 }

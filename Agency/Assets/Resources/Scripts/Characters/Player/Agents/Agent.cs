@@ -21,6 +21,7 @@ public class Agent
 
     // TODO impl these vars 
     public int XP;
+    public int Level;
     public int Speed;
     public int Power;
     
@@ -28,6 +29,7 @@ public class Agent
     
     public string BulletPrefabPath;
     public string SpecialPrefabPath; // special.Update
-    
+
+    public float PrimaryCooldown = 0.5f;
     public float SpecialCooldown = 1f;
 }

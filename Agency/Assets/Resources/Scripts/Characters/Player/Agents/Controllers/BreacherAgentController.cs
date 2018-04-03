@@ -8,6 +8,8 @@ public class BreacherAgentController : AAgentController
     private float specialCooldownTimer = 0f;
     private float specialCooldown;
 
+    private Agent agent;
+
     private float timeBetweenShots = 0.1f;
     private float timeBetweenShotsTimer = 0.1f;
 
@@ -21,7 +23,9 @@ public class BreacherAgentController : AAgentController
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet1");
         specialPrefab = Resources.Load<GameObject>("Prefabs/FlashBang");
 
+        this.agent = agent;
         specialCooldown = agent.SpecialCooldown;
+        timeBetweenShots = agent.PrimaryCooldown;
     }
 
     public override void ProcessPrimary(GameObject go, Vector3 mousePos, float delta, bool inCover)

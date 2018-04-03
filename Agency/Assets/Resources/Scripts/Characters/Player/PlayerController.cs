@@ -22,6 +22,8 @@ public class PlayerController : Character
     private float specialCooldownTimer = 0f;
     private float specialCooldown = 1f;
 
+    private bool takingCover = false;
+
     public override void Start()
     {
         base.Start();
@@ -36,7 +38,7 @@ public class PlayerController : Character
 
     private void SetupAgent()
     {
-        agentController = AgentCreator.InitAgent(Agent.AgentType);
+        agentController = AgentCreator.CreateAgent(Agent.AgentType);
         agentController.Init(Agent);
 
         specialCooldown = Agent.SpecialCooldown;
@@ -46,7 +48,34 @@ public class PlayerController : Character
 
     public override void Update()
     {
-        base.Update();
+        if (flashed)
+        {
+            flashTimer += Time.deltaTime;
+            if (flashTimer >= FlashTime)
+            {
+                flashed = false;
+                flashTimer = 0f;
+            }
+        }
+
+        if (health <= 0)
+        {
+            //TODO: Death anim
+            Destroy(gameObject);
+        }
+
+        if (occupiedCoverAreas.Count == 0 || !takingCover)
+        {
+            InCover = false;
+            if (spriteRenderer != null)
+                spriteRenderer.color = Color.white;
+        }
+        else
+        {
+            InCover = true;
+            if (spriteRenderer != null)
+                spriteRenderer.color = new Color(.5f, .5f, .5f, 1f);
+        }
 
         // Handle looking at cursor
         Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -73,11 +102,11 @@ public class PlayerController : Character
         // Universal peeking behavior
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            peeking = true;
+            takingCover = true;
         }
         else
         {
-            peeking = false;
+            takingCover = false;
         }
 
         // Misc
