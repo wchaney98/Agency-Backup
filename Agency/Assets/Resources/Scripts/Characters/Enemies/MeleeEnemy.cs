@@ -44,7 +44,7 @@ public class MeleeEnemy : AEnemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Character")
+        if (collision.gameObject.tag == "Character" && collision.gameObject.GetComponent<MeleeEnemy>() == null)
         {
             Character chr = collision.gameObject.GetComponent<Character>();
             chr.TakeDamage(1);
@@ -58,11 +58,7 @@ public class MeleeEnemy : AEnemy
     {
         SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.ExplosionMedium }, transform.position);
         health -= amount;
-    }
-
-    private void OnDestroy()
-    {
-        ParticleManager.SpawnLaserExplosionAt(ParticleType.SMALL, transform.position);
-
+        if (health <= 0)
+            ParticleManager.SpawnLaserExplosionAt(ParticleType.SMALL, transform.position);
     }
 }

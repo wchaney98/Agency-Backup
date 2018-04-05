@@ -5,20 +5,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerDownHandler
 {
     protected CardSlotBehavior slot;
 
     protected Text textComponent;
     protected Vector3 draggingOffset;
 
+    protected Vector2 startingPos;
+    protected float timeSinceLastClick = 0.2f;
+
     protected virtual void Start()
     {
         textComponent = GetComponentInChildren<Text>();
+        startingPos = transform.position;
     }
 
     protected void Update()
     {
+        timeSinceLastClick += Time.deltaTime;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -52,5 +57,21 @@ public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
     {
         if (textComponent == null) GetComponentInChildren<Text>().text = title + ": " + description;
         else textComponent.text = title + ": " + description;
+    }
+
+    // Double click stuff
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        if (timeSinceLastClick <= 0.2f)
+        {
+            if (slot.CardLockedIn)
+            {
+                slot.LockedCard.gameObject.transform.position = slot.LockedCard.startingPos;
+                slot.UnlockCard(slot.LockedCard);
+            }
+            slot.LockInCard(this);
+            transform.position = slot.transform.position;
+        }
+        timeSinceLastClick = 0f;
     }
 }

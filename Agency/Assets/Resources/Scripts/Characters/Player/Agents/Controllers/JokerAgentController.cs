@@ -10,8 +10,8 @@ public class JokerAgentController : AAgentController
 
     private Agent agent;
 
-    private float timeBetweenShots = 0.5f;
-    private float timeBetweenShotsTimer = 0.5f;
+    private float timeBetweenShots = 0.8f;
+    private float timeBetweenShotsTimer = 0.8f;
 
     public override Sprite GetSprite()
     {

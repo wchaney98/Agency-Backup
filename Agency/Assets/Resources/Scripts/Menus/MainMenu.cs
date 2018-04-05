@@ -72,8 +72,8 @@ public class MainMenu : MonoBehaviour
         Contract testContract2 = new Contract("VertSlice", sb, LevelParser.TextToTiles("level1"),
             new List<WinConditions>() {WinConditions.Clear}, 20, 20);
         
-        PlayerData.Instance.Contracts.Add(testContract1);
-        PlayerData.Instance.Contracts.Add(testContract2);
+        //PlayerData.Instance.Contracts.Add(testContract1);
+        //PlayerData.Instance.Contracts.Add(testContract2);
 
         Agent agent = new Agent
         {
@@ -96,7 +96,7 @@ public class MainMenu : MonoBehaviour
 
         Agent agent2 = new Agent
         {
-            Title = "Joker",
+            Title = "Demolition",
             Description = sb,
             AgentType = AgentType.Joker,
             PrimaryCooldown = 0.5f,

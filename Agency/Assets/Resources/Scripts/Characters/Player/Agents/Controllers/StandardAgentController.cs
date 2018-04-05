@@ -74,7 +74,7 @@ public class StandardAgentController : AAgentController
             GameObject b = Object.Instantiate(specialPrefab, go.transform.position, Quaternion.identity);
             Bullet scr = b.GetComponent<Grenade>();
             scr.Direction = mousePos - go.transform.position;
-            scr.Speed = 20f;
+            scr.Speed = 7f;
             scr.Creator = go;
             scr.Team = Team.Player;
             scr.LifeTime = 15f;

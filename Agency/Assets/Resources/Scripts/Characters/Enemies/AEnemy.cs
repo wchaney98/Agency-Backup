@@ -33,7 +33,6 @@ public class AEnemy : Character
 
         if (flashed)
         {
-            Debug.Log("oof");
             spriteRenderer.color = new Color(0f, 0.5f, 1f);
         }
 
@@ -52,5 +51,10 @@ public class AEnemy : Character
             }
         }
         return false;
+    }
+
+    protected virtual void OnDestroy()
+    {
+        CurrentMissionData.EnemiesKilled++;
     }
 }

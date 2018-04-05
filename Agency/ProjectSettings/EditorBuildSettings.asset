@@ -20,3 +20,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/ManagementScene.unity
     guid: 20ab410c356ccde49b360bfbf583d324
+  - enabled: 1
+    path: Assets/Resources/Scenes/LevelEndScene.unity
+    guid: ac906387cbec9c54e9fc74939bb6f9f4

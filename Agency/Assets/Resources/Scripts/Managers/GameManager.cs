@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 class GameManager : MonoBehaviour
 {
@@ -11,6 +12,10 @@ class GameManager : MonoBehaviour
 
     private void Start()
     {
+        CurrentMissionData.Reset();
+        CurrentMissionData.MoneyEarned = PersistentData.Instance.CurrentContract.MoneyAward;
+        CurrentMissionData.ReputationEarned = PersistentData.Instance.CurrentContract.ReputationAward;
+
         LevelBuilder.Inititialize();
         LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles, PersistentData.Instance.CurrentAgent);
     }
@@ -23,12 +28,27 @@ class GameManager : MonoBehaviour
             deadTimer += Time.deltaTime;
             if (deadTimer >= 1.5f)
             {
-                SceneManager.LoadScene("MainGame");
+                SceneManager.LoadScene("ManagementScene");
             }
         }
         else
         {
             DeathText.SetActive(false);
+        }
+
+        if (GameObject.FindObjectOfType<AEnemy>() == null)
+        {
+            DeathText.GetComponent<Text>().text = "Mission Complete";
+            DeathText.SetActive(true);
+            deadTimer += Time.deltaTime;
+            if (deadTimer >= 1.5f)
+            {
+                SceneManager.LoadScene("LevelEndScene");
+            }
+        }
+        else
+        {
+            CurrentMissionData.TimeTaken += Time.deltaTime;
         }
     }
 

@@ -334,10 +334,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'WELCOME TO THE AGENCY
-
-
-    MOVE AROUND WITH W, A, S, D
+  m_Text: 'MOVE AROUND WITH W, A, S, D
 
     AIM AND SHOOT WITH MOUSE AND CURSOR
 
@@ -357,12 +354,16 @@ MonoBehaviour:
     IF A CHARACTER IS TINTED, IT IS COVERED FROM FIRE
 
 
-    HOLD SHIFT TO PEEK FROM COVER
+    HOLD SHIFT TO GO INTO COVER
 
 
-    R RESTARTS THE LEVEL
+    AGENTS:
 
-    ESCAPE RETURNS TO THE MANAGEMENT SCENE'
+    STANDARD: PISTOL, GRENADE
+
+    BREACHER: SMG, FLASHBANG
+
+    DEMOLITION: GRENADE, SHOTGUN'
 --- !u!222 &603268991
 CanvasRenderer:
   m_ObjectHideFlags: 0

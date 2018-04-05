@@ -110,10 +110,10 @@ public class PlayerController : Character
         }
 
         // Misc
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene("MainGame");
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    SceneManager.LoadScene("MainGame");
+        //}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             SceneManager.LoadScene("ManagementScene");
@@ -170,6 +170,8 @@ public class PlayerController : Character
     public override void TakeDamage(int amount)
     {
         base.TakeDamage(amount);
+        if (health <= 0)
+            PlayerData.Instance.Agents.Remove(Agent);
     }
 
     private void OnDestroy()

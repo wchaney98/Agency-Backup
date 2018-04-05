@@ -36,7 +36,7 @@ public class Grenade : Bullet
             // Spawn grenade hitbox prefab
             SpawnGrenadeHitbox();
         }
-        else if (collision.gameObject.tag == "Wall" || collision.gameObject.tag == "CoverBlock")
+        else if (collision.gameObject.tag == "Wall")
         {
             // Spawn grenade hitbox prefab
             SpawnGrenadeHitbox();
