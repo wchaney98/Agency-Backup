@@ -67,6 +67,11 @@ public static class LevelGenerator
 
     private static void BuildRoom(TileType [,] level, ref Vector2 botLeft)
     {
+        int roomType = UnityEngine.Random.Range(0, 5);
+        // 0-1 small room
+        // 2 big room
+        // 3-4 hall
+
         int size = UnityEngine.Random.Range(7, 11);
         int x = (int)botLeft.x;
         int y = (int)botLeft.y;
@@ -86,14 +91,17 @@ public static class LevelGenerator
             level[x + size, i] = TileType.Wall;
         }
 
-        Array values = Enum.GetValues(typeof(TileType));
-        TileType randEnemy = (TileType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
-        while (randEnemy != TileType.BasicEnemySpawn && randEnemy != TileType.BasicRobotSpawn && randEnemy != TileType.MeleeEnemy && randEnemy != TileType.TurretSpawn)
+        if (botLeft != Vector2.zero)
         {
-            randEnemy = (TileType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+            Array values = Enum.GetValues(typeof(TileType));
+            TileType randEnemy = (TileType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+            while (randEnemy != TileType.BasicEnemySpawn && randEnemy != TileType.BasicRobotSpawn && randEnemy != TileType.MeleeEnemy && randEnemy != TileType.TurretSpawn)
+            {
+                randEnemy = (TileType)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+            }
+            level[x + size / 2 + 2, y + size / 2] = randEnemy;
         }
 
-        level[x + size / 2 + 2, y + size / 2] = randEnemy;
         level[x + size / 2 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + size / 2] = TileType.Cover;
 
         level[x + size, y + size / 2] = TileType.Door;
