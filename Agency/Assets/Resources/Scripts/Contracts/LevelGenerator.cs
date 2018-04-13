@@ -70,7 +70,7 @@ public static class LevelGenerator
         int roomType = UnityEngine.Random.Range(0, 5);
         // 0-1 small room
         // 2 big room
-        // 3-4 hall
+        // 3-4 hall (3 vertical, 4 horizontal)
 
         int size = UnityEngine.Random.Range(7, 11);
         int x = (int)botLeft.x;
@@ -106,5 +106,20 @@ public static class LevelGenerator
 
         level[x + size, y + size / 2] = TileType.Door;
         botLeft.x += size;
+    }
+
+    private static void BuildSmallRoom(int size)
+    {
+
+    }
+
+    private static void BuildHall(int size, bool vertical)
+    {
+
+    }
+
+    private static void BuildBigRoom(int size)
+    {
+
     }
 }
