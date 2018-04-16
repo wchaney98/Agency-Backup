@@ -5,7 +5,7 @@ using System.Text;
 
 public class ContractModifiers
 {
-    public static int DefaultMapSize = 50;
+    public static int DefaultMapSize = 16;
     public static int DefaultEnemyDensity = 5; // per room
 
     public int NumFloors { get; set; }

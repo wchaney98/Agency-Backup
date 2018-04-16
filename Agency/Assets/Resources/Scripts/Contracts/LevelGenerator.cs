@@ -7,6 +7,8 @@ public static class LevelGenerator
 {
     private static Array tileTypes = Enum.GetValues(typeof(TileType));
     private static int currHighestHeight = 0;
+    private static int lastRoomInRowHeight = 0;
+    private static bool buildingRight = true;
 
     enum Direction
     {
@@ -20,12 +22,14 @@ public static class LevelGenerator
     {
         // reset vars
         currHighestHeight = 0;
+        lastRoomInRowHeight = 0;
+        buildingRight = true;
 
         // Create array
         bool tallOrWide = UnityEngine.Random.Range(0, 2) == 0;
-        int width = (int)(ContractModifiers.DefaultMapSize * mods.MapSize * (tallOrWide ? 1 : 2)) + UnityEngine.Random.Range(1, 10);
-        int height = (int)(ContractModifiers.DefaultMapSize * mods.MapSize * (tallOrWide ? 2 : 1)) + UnityEngine.Random.Range(1, 10);// (int)(ContractModifiers.DefaultMapSize * mods.MapSize);
-        TileType[,] level = new TileType[width + 1 , height + 1];
+        int width = (int)(ContractModifiers.DefaultMapSize * mods.MapSize * (tallOrWide ? 1 : 1.5)) + UnityEngine.Random.Range(1, 4);
+        int height = (int)(ContractModifiers.DefaultMapSize * mods.MapSize * (tallOrWide ? 2 : 1.5)) + UnityEngine.Random.Range(1, 4);// (int)(ContractModifiers.DefaultMapSize * mods.MapSize);
+        TileType[,] level = new TileType[width + 1, height + 1];
 
         for (int i = 0; i != level.GetLength(0); i++)
         {
@@ -58,7 +62,7 @@ public static class LevelGenerator
         level[1, 1] = TileType.PlayerSpawn;
 
         // Create halls (of width), store chunks of room
-        
+
 
         // Split chunks of room into half by chance
 
@@ -72,7 +76,7 @@ public static class LevelGenerator
         return level;
     }
 
-    private static void BuildRoom(TileType [,] level, ref Vector2 botLeft)
+    private static void BuildRoom(TileType[,] level, ref Vector2 botLeft)
     {
         int roomType = UnityEngine.Random.Range(0, 5);
         // 0-1 small room
@@ -81,9 +85,9 @@ public static class LevelGenerator
 
         int size = UnityEngine.Random.Range(4, 8);
 
-        BuildSmallRoom(level, size, ref botLeft);
+        //BuildSmallRoom(level, size, ref botLeft);
 
-        return;
+        //return;
 
         if (roomType <= 1)
             BuildSmallRoom(level, size, ref botLeft);
@@ -102,7 +106,7 @@ public static class LevelGenerator
 
         bool buildDoorUp = false;
 
-        if (x + size >= level.GetLength(0))
+        if (x + size >= level.GetLength(0) - 1)
         {
             buildDoorUp = true;
             while (x + size >= level.GetLength(0))
@@ -137,13 +141,19 @@ public static class LevelGenerator
 
         if (buildDoorUp)
         {
-            level[x + size, y + size] = TileType.Door;
+            level[x + size / 2, y + size] = TileType.Door;
             botLeft = new Vector2(0, currHighestHeight);
         }
         else
         {
             level[x + size, y + size / 2] = TileType.Door;
             botLeft.x += size;
+        }
+
+        // build door down
+        if (botLeft.x == 0 && botLeft.y > 0)
+        {
+            level[x + size / 2, y] = TileType.Door;
         }
     }
 
@@ -157,7 +167,7 @@ public static class LevelGenerator
 
         bool buildDoorUp = false;
 
-        if (x + sizeX >= level.GetLength(0))
+        if (x + sizeX >= level.GetLength(0) - 1)
         {
             buildDoorUp = true;
             while (x + sizeX >= level.GetLength(0))
@@ -192,13 +202,19 @@ public static class LevelGenerator
 
         if (buildDoorUp)
         {
-            level[x + sizeX, y + sizeY] = TileType.Door;
+            level[x + sizeX / 2, y + sizeY] = TileType.Door;
             botLeft = new Vector2(0, currHighestHeight);
         }
         else
         {
-            level[x + sizeX, y + sizeY / 2] = TileType.Door;
+            level[x + sizeX, y + sizeY / 3] = TileType.Door;
             botLeft.x += sizeX;
+        }
+
+        // build door down
+        if (botLeft.x == 0 && botLeft.y > 0)
+        {
+            level[x + size / 2, y] = TileType.Door;
         }
     }
 
@@ -211,9 +227,16 @@ public static class LevelGenerator
 
         bool buildDoorUp = false;
 
-        if (x + size >= level.GetLength(0))
+        // build door down
+        if (botLeft.x == 0 && botLeft.y > 0)
+        {
+            level[x + size / 2, y] = TileType.Door;
+        }
+
+        if (x + size >= level.GetLength(0) - 1)
         {
             buildDoorUp = true;
+            buildingRight = !buildingRight;
             while (x + size >= level.GetLength(0))
                 size--;
         }
@@ -226,8 +249,8 @@ public static class LevelGenerator
 
         for (int i = x; i < x + size; i++)
         {
-            if (level[x, i] != TileType.Door)
-                level[x, i] = TileType.Wall;
+            if (level[i, y] != TileType.Door)
+                level[i, y] = TileType.Wall;
             level[i, y + size] = TileType.Wall;
         }
         for (int i = y; i < y + size; i++)
@@ -240,25 +263,32 @@ public static class LevelGenerator
         if (botLeft != Vector2.zero)
         {
             int numEnemies = UnityEngine.Random.Range(2, 4);
-            for(int i = 0; i < numEnemies; i++)
+            for (int i = 0; i < numEnemies; i++)
             {
                 SpawnRandomEnemy(level, new Vector2Int
-                    (x + size / 2 + UnityEngine.Random.Range(1, size/3), y + size / 2 + UnityEngine.Random.Range(1, size / 3)));
+                    (x + size / 2 + UnityEngine.Random.Range(1, size / 3), y + size / 2 + UnityEngine.Random.Range(1, size / 3)));
             }
         }
 
         level[x + size / 2 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + size / 2] = TileType.Cover;
         level[x + size / 2 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + size / 2 - 1] = TileType.Cover;
 
-        if (buildDoorUp)
+        if (buildDoorUp || !buildingRight)
         {
-            level[x + size, y + size] = TileType.Door;
+            level[x + size / 2, y + size] = TileType.Door;
             botLeft = new Vector2(0, currHighestHeight);
+            buildingRight = !buildingRight;
         }
         else
         {
-            level[x + size, y + size / 2] = TileType.Door;
+            level[x + size, y + size / 3] = TileType.Door;
             botLeft.x += size;
+        }
+
+        // build door down
+        if (botLeft.x == 0 && botLeft.y > 0)
+        {
+            level[x + size / 2, y] = TileType.Door;
         }
     }
 
@@ -269,6 +299,14 @@ public static class LevelGenerator
         {
             randEnemy = (TileType)tileTypes.GetValue(UnityEngine.Random.Range(0, tileTypes.Length));
         }
-        level[position.x, position.y] = randEnemy;
+        try
+        {
+            level[position.x, position.y] = randEnemy;
+        }
+        catch
+        {
+            Debug.Log("Enemy was placed in invalid loc");
+        }
+
     }
 }
