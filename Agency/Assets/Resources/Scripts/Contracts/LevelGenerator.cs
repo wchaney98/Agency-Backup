@@ -160,6 +160,15 @@ public static class LevelGenerator
             botLeft.x += size;
         }
 
+        // chance of putting 4 turrets down in corners
+        if (UnityEngine.Random.Range(0f, 1f) < 0.4f)
+        {
+            level[x + 1, y + 1] = TileType.TurretSpawn;
+            level[x + 1, y + size - 1] = TileType.TurretSpawn;
+            level[x + size - 1, y + 1] = TileType.TurretSpawn;
+            level[x + size - 1, y + size - 1] = TileType.TurretSpawn;
+        }
+
         // build door down
         if (botLeft.y > 0)
         {
@@ -168,7 +177,10 @@ public static class LevelGenerator
             {
                 xPlacement++;
             }
-            level[xPlacement, y] = TileType.Door;
+            if (level[xPlacement, y - 1] != TileType.Wall)
+            {
+                level[xPlacement, y] = TileType.Door;
+            }
         }
     }
 
@@ -229,12 +241,21 @@ public static class LevelGenerator
         // build door down
         if (botLeft.y > 0)
         {
-            int xPlacement = x + sizeX / 2;
+            int xPlacement = x + size / 2;
             if (level[xPlacement, y - 1] == TileType.Wall)
             {
                 xPlacement++;
             }
-            level[xPlacement, y] = TileType.Door;
+            if (level[xPlacement, y - 1] != TileType.Wall)
+            {
+                level[xPlacement, y] = TileType.Door;
+            }
+        }
+        // build extra door for vertical
+        if (vertical)
+        {
+            int yPlacement = y + (sizeY * 3 / 4);
+            level[x, yPlacement] = TileType.Door;
         }
     }
 
@@ -305,6 +326,15 @@ public static class LevelGenerator
             botLeft.x += size;
         }
 
+        // chance of putting 4 turrets down in corners
+        if (UnityEngine.Random.Range(0f, 1f) < 0.4f)
+        {
+            level[x + 1, y + 1] = TileType.TurretSpawn;
+            level[x + 1, y + size - 1] = TileType.TurretSpawn;
+            level[x + size - 1, y + 1] = TileType.TurretSpawn;
+            level[x + size - 1, y + size - 1] = TileType.TurretSpawn;
+        }
+
         // build door down
         if (botLeft.y > 0)
         {
@@ -313,8 +343,15 @@ public static class LevelGenerator
             {
                 xPlacement++;
             }
-            level[xPlacement, y] = TileType.Door;
+            if (level[xPlacement, y - 1] != TileType.Wall)
+            {
+                level[xPlacement, y] = TileType.Door;
+            }
         }
+
+        // build extra door for vertical
+        int yPlacement = y + (size - 1);
+        level[x, yPlacement] = TileType.Door;
     }
 
     private static void SpawnRandomEnemy(TileType[,] level, Vector2Int position)
