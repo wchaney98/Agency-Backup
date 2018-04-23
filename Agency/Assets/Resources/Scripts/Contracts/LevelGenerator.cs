@@ -9,6 +9,8 @@ public static class LevelGenerator
     private static int currHighestHeight = 0;
     private static int lastRoomInRowHeight = 0;
     private static bool buildingRight = true;
+    private static int generationIter = 0;
+    private static TileType[,] backup;
 
     enum Direction
     {
@@ -24,11 +26,12 @@ public static class LevelGenerator
         currHighestHeight = 0;
         lastRoomInRowHeight = 0;
         buildingRight = true;
+        generationIter = 0;
 
         // Create array
         bool tallOrWide = UnityEngine.Random.Range(0, 2) == 0;
         int width = (int)(ContractModifiers.DefaultMapSize * mods.MapSize * (tallOrWide ? 1 : 1.5)) + UnityEngine.Random.Range(1, 4);
-        int height = (int)(ContractModifiers.DefaultMapSize * mods.MapSize * (tallOrWide ? 2 : 1.5)) + UnityEngine.Random.Range(1, 4);// (int)(ContractModifiers.DefaultMapSize * mods.MapSize);
+        int height = (int)(ContractModifiers.DefaultMapSize * mods.MapSize * (tallOrWide ? 1 : 1.5)) + UnityEngine.Random.Range(1, 4);// (int)(ContractModifiers.DefaultMapSize * mods.MapSize);
         TileType[,] level = new TileType[width + 1, height + 1];
 
         for (int i = 0; i != level.GetLength(0); i++)
@@ -54,24 +57,25 @@ public static class LevelGenerator
 
         Vector2 currRoomBotLeft = new Vector2(0, 0);
 
-        for (int i = 0; i < numRooms; i++)
+        while (generationIter < numRooms)
         {
             BuildRoom(level, ref currRoomBotLeft);
+            generationIter++;
+        }
+
+        // fix broken edge cases lol
+        for (int i = 0; i < level.GetLength(0); i++)
+        {
+            level[i, 0] = TileType.Wall;
+            level[i, level.GetLength(1) - 1] = TileType.Wall;
+        }
+        for (int i = 0; i < level.GetLength(1); i++)
+        {
+            level[0, i] = TileType.Wall;
+            level[level.GetLength(0) - 1, i] = TileType.Wall;
         }
 
         level[1, 1] = TileType.PlayerSpawn;
-
-        // Create halls (of width), store chunks of room
-
-
-        // Split chunks of room into half by chance
-
-
-        // Connect rooms with doors
-
-
-        // Place enemies
-
 
         return level;
     }
@@ -85,18 +89,24 @@ public static class LevelGenerator
 
         int size = UnityEngine.Random.Range(4, 8);
 
-        //BuildSmallRoom(level, size, ref botLeft);
-
-        //return;
-
-        if (roomType <= 1)
-            BuildSmallRoom(level, size, ref botLeft);
-        if (roomType == 2)
-            BuildBigRoom(level, size, ref botLeft);
-        if (roomType == 3)
-            BuildHall(level, size, true, ref botLeft);
-        else
-            BuildHall(level, size, false, ref botLeft);
+        try
+        {
+            backup = level;
+            if (roomType <= 1)
+                BuildSmallRoom(level, size, ref botLeft);
+            if (roomType == 2)
+                BuildBigRoom(level, size, ref botLeft);
+            if (roomType == 3)
+                BuildHall(level, size, true, ref botLeft);
+            else
+                BuildHall(level, size, false, ref botLeft);
+        }
+        catch
+        {
+            level = backup;
+            backup = level;
+            generationIter--;
+        }
     }
 
     private static void BuildSmallRoom(TileType[,] level, int size, ref Vector2 botLeft)
@@ -151,9 +161,14 @@ public static class LevelGenerator
         }
 
         // build door down
-        if (botLeft.x == 0 && botLeft.y > 0)
+        if (botLeft.y > 0)
         {
-            level[x + size / 2, y] = TileType.Door;
+            int xPlacement = x + size / 2;
+            if (level[xPlacement, y - 1] == TileType.Wall)
+            {
+                xPlacement++;
+            }
+            level[xPlacement, y] = TileType.Door;
         }
     }
 
@@ -212,9 +227,14 @@ public static class LevelGenerator
         }
 
         // build door down
-        if (botLeft.x == 0 && botLeft.y > 0)
+        if (botLeft.y > 0)
         {
-            level[x + size / 2, y] = TileType.Door;
+            int xPlacement = x + sizeX / 2;
+            if (level[xPlacement, y - 1] == TileType.Wall)
+            {
+                xPlacement++;
+            }
+            level[xPlacement, y] = TileType.Door;
         }
     }
 
@@ -286,9 +306,14 @@ public static class LevelGenerator
         }
 
         // build door down
-        if (botLeft.x == 0 && botLeft.y > 0)
+        if (botLeft.y > 0)
         {
-            level[x + size / 2, y] = TileType.Door;
+            int xPlacement = x + size / 2;
+            if (level[xPlacement, y - 1] == TileType.Wall)
+            {
+                xPlacement++;
+            }
+            level[xPlacement, y] = TileType.Door;
         }
     }
 

@@ -93,16 +93,16 @@ public static class LevelBuilder
 
                 if (tiles[i, j] == TileType.Cover)
                 {
-                    if (tiles[i + 1, j] != TileType.Wall && tiles[i + 1, j] != TileType.Cover && tiles[i + 1, j] != TileType.CoverArea)
+                    if (i + 1 < tiles.GetLength(0) - 1 && tiles[i + 1, j] != TileType.Wall && tiles[i + 1, j] != TileType.Cover && tiles[i + 1, j] != TileType.CoverArea)
                         GameObject.Instantiate(wallTypeToPrefab[TileType.CoverArea], new Vector3((i + 1) * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
 
-                    if (tiles[i - 1, j] != TileType.Wall && tiles[i - 1, j] != TileType.Cover && tiles[i - 1, j] != TileType.CoverArea)
+                    if (i != 0 && tiles[i - 1, j] != TileType.Wall && tiles[i - 1, j] != TileType.Cover && tiles[i - 1, j] != TileType.CoverArea)
                         GameObject.Instantiate(wallTypeToPrefab[TileType.CoverArea], new Vector3((i - 1) * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
 
-                    if (tiles[i, j + 1] != TileType.Wall && tiles[i, j + 1] != TileType.Cover && tiles[i, j + 1] != TileType.CoverArea)
+                    if (j + 1 < tiles.GetLength(1) - 1 && tiles[i, j + 1] != TileType.Wall && tiles[i, j + 1] != TileType.Cover && tiles[i, j + 1] != TileType.CoverArea)
                         GameObject.Instantiate(wallTypeToPrefab[TileType.CoverArea], new Vector3(i * 0.64f, (j + 1) * 0.64f), Quaternion.identity, parent.transform);
 
-                    if (tiles[i, j - 1] != TileType.Wall && tiles[i, j - 1] != TileType.Cover && tiles[i, j - 1] != TileType.CoverArea)
+                    if (j != 0 && tiles[i, j - 1] != TileType.Wall && tiles[i, j - 1] != TileType.Cover && tiles[i, j - 1] != TileType.CoverArea)
                         GameObject.Instantiate(wallTypeToPrefab[TileType.CoverArea], new Vector3(i * 0.64f, (j - 1) * 0.64f), Quaternion.identity, parent.transform);
                 }
             }
