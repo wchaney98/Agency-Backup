@@ -11,6 +11,7 @@ public class Robot : AEnemy
     {
         base.Start();
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Laser1");
+        health = 8;
     }
 
     public override void Update()

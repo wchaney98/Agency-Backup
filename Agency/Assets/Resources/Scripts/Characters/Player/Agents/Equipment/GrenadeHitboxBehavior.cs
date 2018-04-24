@@ -23,7 +23,7 @@ class GrenadeHitboxBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Character")
         {
             Character chr = collision.gameObject.GetComponent<Character>();
-            chr.TakeDamage(2);
+            chr.TakeDamage(6);
             // TODO more painful sound fx... depends on robot or not etc
             //SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
         }

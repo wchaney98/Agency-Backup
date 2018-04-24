@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class PlayerData : SingletonBehavior<PlayerData>
 {
-    public DataBlob DataBlob;
+    private DataBlob dataBlob;
     
     public List<Contract> Contracts { get; private set; }
     public List<Agent> Agents { get; private set; }
@@ -22,7 +22,7 @@ public class PlayerData : SingletonBehavior<PlayerData>
     protected override void Init()
     {
         base.Init();
-        DataBlob = new DataBlob();
+        dataBlob = new DataBlob();
         Contracts = new List<Contract>();
         Agents = new List<Agent>();
     }
@@ -35,7 +35,7 @@ public class PlayerData : SingletonBehavior<PlayerData>
             string fileName = "slot" + PersistentData.Instance.CurrentSaveSlot;
             using (StreamWriter streamWriter = new StreamWriter(Application.dataPath + "/StreamingAssets/SaveData/" + fileName))
             {
-                formatter.Serialize(streamWriter.BaseStream, DataBlob);
+                formatter.Serialize(streamWriter.BaseStream, dataBlob);
             }
         }
         catch (Exception e)
@@ -52,7 +52,7 @@ public class PlayerData : SingletonBehavior<PlayerData>
             string fileName = "slot" + PersistentData.Instance.CurrentSaveSlot;
             using (StreamReader streamWriter = new StreamReader(Application.dataPath + "/StreamingAssets/SaveData/" + fileName))
             {
-                DataBlob = (DataBlob)formatter.Deserialize(streamWriter.BaseStream);
+                dataBlob = (DataBlob)formatter.Deserialize(streamWriter.BaseStream);
             }
             TransferDataFromBlob();
         }
@@ -63,22 +63,47 @@ public class PlayerData : SingletonBehavior<PlayerData>
         }
     }
 
+    public void DeleteCurrentSlotData()
+    {
+        try
+        {
+            string fileName = "slot" + PersistentData.Instance.CurrentSaveSlot;
+            File.Delete(Application.dataPath + "/StreamingAssets/SaveData/" + fileName);
+        }
+        catch (Exception e)
+        {
+            Debug.Log("PlayerData couldn't delete with exception: " + e);
+            throw;
+        }
+        UnloadCurrentData();
+    }
+
+    public void UnloadCurrentData()
+    {
+        dataBlob = new DataBlob();
+        Agents.Clear();
+        Contracts.Clear();
+        Money = 0;
+        Reputation = 0;
+        Day = 0;
+    }
+
     private void TransferDataToBlob()
     {
-        DataBlob.Agents = Agents;
-        DataBlob.Contracts = Contracts;
-        DataBlob.Money = Money;
-        DataBlob.Reputation = Reputation;
-        DataBlob.Day = Day;
+        dataBlob.Agents = Agents;
+        dataBlob.Contracts = Contracts;
+        dataBlob.Money = Money;
+        dataBlob.Reputation = Reputation;
+        dataBlob.Day = Day;
     }
 
     private void TransferDataFromBlob()
     {
-        Agents = DataBlob.Agents;
-        Contracts = DataBlob.Contracts;
-        Money = DataBlob.Money;
-        Reputation = DataBlob.Reputation;
-        Day = DataBlob.Day;
+        Agents = dataBlob.Agents;
+        Contracts = dataBlob.Contracts;
+        Money = dataBlob.Money;
+        Reputation = dataBlob.Reputation;
+        Day = dataBlob.Day;
     }
     
     // Emergency exit?

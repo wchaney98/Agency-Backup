@@ -66,7 +66,7 @@ public class MainMenu : MonoBehaviour
 
 
         StringBuilder sb = new StringBuilder();
-        sb.Append("dev");
+        sb.Append("Full-time");
         Contract testContract1 = new Contract("ProtoLvl", sb, testLevel,
             new List<WinConditions>() {WinConditions.Clear}, 10, 10);
         Contract testContract2 = new Contract("VertSlice", sb, LevelParser.TextToTiles("level1"),
@@ -75,43 +75,43 @@ public class MainMenu : MonoBehaviour
         //PlayerData.Instance.Contracts.Add(testContract1);
         //PlayerData.Instance.Contracts.Add(testContract2);
 
-        Agent agent = new Agent
-        {
-            Title = "Breacher",
-            Description = sb,
-            AgentType = AgentType.Breacher,
-            MoveSpeed = 7f,
-            PrimaryCooldown = 0.1f,
-            SpecialCooldown = 1f
-        };
+        //Agent agent = new Agent
+        //{
+        //    Title = "Agent",
+        //    Description = new StringBuilder("The Breacher"),
+        //    AgentType = AgentType.Breacher,
+        //    MoveSpeed = 7f,
+        //    PrimaryCooldown = 0.1f,
+        //    SpecialCooldown = 1f
+        //};
         
-        Agent agent1 = new Agent
-        {
-            Title = "Standard",
-            Description = sb,
-            AgentType = AgentType.Standard,
-            PrimaryCooldown = 0.5f,
-            SpecialCooldown = 1f
-        };
+        //Agent agent1 = new Agent
+        //{
+        //    Title = "Agent",
+        //    Description = new StringBuilder("Standard Issue"),
+        //    AgentType = AgentType.Standard,
+        //    PrimaryCooldown = 0.5f,
+        //    SpecialCooldown = 1f
+        //};
 
-        Agent agent2 = new Agent
-        {
-            Title = "Demolition",
-            Description = sb,
-            AgentType = AgentType.Joker,
-            PrimaryCooldown = 0.5f,
-            SpecialCooldown = 1f,
-            Level = 2
-        };
+        //Agent agent2 = new Agent
+        //{
+        //    Title = "Agent",
+        //    Description = new StringBuilder("Demolitions"),
+        //    AgentType = AgentType.Joker,
+        //    PrimaryCooldown = 0.5f,
+        //    SpecialCooldown = 1f,
+        //    Level = 2
+        //};
 
-        PlayerData.Instance.Agents.Add(agent);
-        PlayerData.Instance.Agents.Add(agent1);
-        PlayerData.Instance.Agents.Add(agent2);
+        //PlayerData.Instance.Agents.Add(agent);
+        //PlayerData.Instance.Agents.Add(agent1);
+        //PlayerData.Instance.Agents.Add(agent2);
 
 
-        PersistentData.Instance.CurrentSaveSlot = 1;
+        //PersistentData.Instance.CurrentSaveSlot = 1;
         
-        PlayerData.Instance.Save();
+        //PlayerData.Instance.Save();
     }
 
     public void Play()

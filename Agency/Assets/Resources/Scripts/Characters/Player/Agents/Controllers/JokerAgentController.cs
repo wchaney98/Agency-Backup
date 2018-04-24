@@ -78,6 +78,7 @@ public class JokerAgentController : AAgentController
             scr.Creator = go;
             scr.Team = Team.Player;
             scr.LifeTime = 0.5f;
+            scr.Damage = 1;
         }
         
         return true;

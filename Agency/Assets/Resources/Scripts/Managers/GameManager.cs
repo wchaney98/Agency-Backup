@@ -8,6 +8,7 @@ using UnityEngine.UI;
 class GameManager : MonoBehaviour
 {
     public GameObject DeathText;
+    public Text EnemiesRemainingText;
     float deadTimer = 0f;
 
     private void Start()
@@ -18,6 +19,9 @@ class GameManager : MonoBehaviour
 
         LevelBuilder.Inititialize();
         LevelBuilder.BuildLevel(PersistentData.Instance.CurrentContract.Tiles, PersistentData.Instance.CurrentAgent);
+
+        EnemiesRemainingText.text = GameObject.FindObjectsOfType<AEnemy>().Length.ToString();
+        EventManager.Instance.StartListening("EnemyDied", ProcessEnemyDied);
     }
 
     private void Update()
@@ -52,8 +56,14 @@ class GameManager : MonoBehaviour
         }
     }
 
+    private void ProcessEnemyDied(EventParam e)
+    {
+        EnemiesRemainingText.text = GameObject.FindObjectsOfType<AEnemy>().Length.ToString();
+    }
+
     private void OnDestroy()
     {
+        EventManager.Instance.StopListening("EnemyDied", ProcessEnemyDied);
         PlayerData.Instance.Save();
         Debug.Log("Save");
     }

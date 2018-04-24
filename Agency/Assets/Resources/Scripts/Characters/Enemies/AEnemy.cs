@@ -56,5 +56,6 @@ public class AEnemy : Character
     protected virtual void OnDestroy()
     {
         CurrentMissionData.EnemiesKilled++;
+        EventManager.Instance.TriggerEvent("EnemyDied", new EventParam());
     }
 }

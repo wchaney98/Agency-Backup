@@ -85,11 +85,6 @@ public static class LevelBuilder
                 if (tiles[i, j] == TileType.PlayerSpawn || tiles[i, j] == TileType.BasicEnemySpawn || tiles[i, j] == TileType.Door 
                     || tiles[i, j] == TileType.BasicRobotSpawn || tiles[i, j] == TileType.TurretSpawn || tiles[i, j] == TileType.MeleeEnemy)
                     GameObject.Instantiate(floorPrefab, new Vector3(i * 0.64f, j * 0.64f), Quaternion.identity, parent.transform);
-                // Setup Player
-                if (tiles[i, j] == TileType.PlayerSpawn)
-                {
-                    // Set Agent in PlayerController
-                }
 
                 if (tiles[i, j] == TileType.Cover)
                 {

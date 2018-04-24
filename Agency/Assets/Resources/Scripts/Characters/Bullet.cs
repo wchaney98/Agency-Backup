@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
     protected RaycastHit2D[] hitPoint = new RaycastHit2D[10];
     protected List<GameObject> objectsEntered = new List<GameObject>();
     protected Vector2 posLastFrame;
+    public int Damage = 1;
 
     private bool hitWall = false;
 
@@ -90,7 +91,8 @@ public class Bullet : MonoBehaviour
             {
                 if (chr.Team != Team)
                 {
-                    chr.TakeDamage(1);
+                    chr.TakeDamage(Damage);
+                    ParticleManager.SpawnBloodFleshAt(transform.position, Direction);
                     Destroy(gameObject);
                 }
             }

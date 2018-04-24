@@ -15,6 +15,7 @@ public class MeleeEnemy : AEnemy
     public override void Start()
     {
         base.Start();
+        health = 3;
     }
 
     public override void Update()

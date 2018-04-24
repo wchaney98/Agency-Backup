@@ -23,3 +23,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Resources/Scenes/LevelEndScene.unity
     guid: ac906387cbec9c54e9fc74939bb6f9f4
+  - enabled: 1
+    path: Assets/Resources/Scenes/GameEndScene.unity
+    guid: b2b7a6bf12587b549b1923b1f6a9ae38

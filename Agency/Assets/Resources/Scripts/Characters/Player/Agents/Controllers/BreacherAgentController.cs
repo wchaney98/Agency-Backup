@@ -47,6 +47,7 @@ public class BreacherAgentController : AAgentController
                 scr.Creator = go;
                 scr.Team = Team.Player;
                 scr.LifeTime = 2f;
+                scr.Damage = 1;
                 scr.CheckPath();
 
                 EventManager.Instance.TriggerEvent("ZoomSlap", new EventParam());

@@ -22,6 +22,8 @@ public class Turret : AEnemy
 
         spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
         holeSpriteRenderer.color = new Color(1f, 1f, 1f, 0f);
+
+        health = 6;
     }
 
     public override void Update()

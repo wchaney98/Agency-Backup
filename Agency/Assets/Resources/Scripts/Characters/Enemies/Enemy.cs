@@ -11,6 +11,7 @@ public class Enemy : AEnemy
     {
         base.Start();
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet2");
+        health = 5;
     }
 
     public override void Update()
