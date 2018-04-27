@@ -14,4 +14,14 @@ public class ContractCardBehavior : ACardBehavior
         base.Start();
         slot = GameObject.Find("ContractLockIn").GetComponent<CardSlotBehavior>();
     }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        EventManager.Instance.TriggerEvent("ActivateHoverInfo", new EventParam(gameObject));
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        EventManager.Instance.TriggerEvent("DeactivateHoverInfo", new EventParam(gameObject));
+    }
 }

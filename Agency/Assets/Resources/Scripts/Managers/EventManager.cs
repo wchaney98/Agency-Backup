@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class EventParam
 {
+    public GameObject go;
     public float float1;
     public float float2;
-    public EventParam(float float1 = 0f, float float2 = 0f)
+    public EventParam(GameObject go = null, float float1 = 0f, float float2 = 0f)
     {
+        this.go = go;
         this.float1 = float1;
         this.float2 = float2;
     }

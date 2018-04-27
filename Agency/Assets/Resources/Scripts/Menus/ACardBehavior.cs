@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerDownHandler
+public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     protected CardSlotBehavior slot;
 
@@ -73,5 +73,13 @@ public class ACardBehavior : MonoBehaviour, IDragHandler, IBeginDragHandler, IEn
             transform.position = slot.transform.position;
         }
         timeSinceLastClick = 0f;
+    }
+
+    public virtual void OnPointerEnter(PointerEventData eventData)
+    {
+    }
+
+    public virtual void OnPointerExit(PointerEventData eventData)
+    {
     }
 }

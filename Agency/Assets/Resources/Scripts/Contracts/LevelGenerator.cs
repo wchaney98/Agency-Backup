@@ -168,7 +168,7 @@ public static class LevelGenerator
         }
 
         // chance of putting 4 turrets down in corners
-        if (UnityEngine.Random.Range(0f, 1f) < 0.4f)
+        if (generationIter > 1 && UnityEngine.Random.Range(0f, 1f) < 0.4f)
         {
             level[x + 1, y + 1] = TileType.TurretSpawn;
             level[x + 1, y + size - 1] = TileType.TurretSpawn;
@@ -363,7 +363,7 @@ public static class LevelGenerator
         }
 
         // chance of putting 4 turrets down in corners
-        if (UnityEngine.Random.Range(0f, 1f) < 0.4f)
+        if (generationIter > 1 && UnityEngine.Random.Range(0f, 1f) < 0.4f)
         {
             level[x + 1, y + 1] = TileType.TurretSpawn;
             level[x + 1, y + size - 1] = TileType.TurretSpawn;

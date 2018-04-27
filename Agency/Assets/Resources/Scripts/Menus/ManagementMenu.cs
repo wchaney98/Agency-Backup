@@ -10,6 +10,7 @@ public class ManagementMenu : MonoBehaviour
 {
     public Text MoneyText;
     public Text RepText;
+    public GameObject HoverInfoPanel;
 
     private GameObject agentCardPrefab;
     private GameObject contractCardPrefab;
@@ -51,5 +52,41 @@ public class ManagementMenu : MonoBehaviour
             ContractCardBehavior c = CardCreator.CreateContractCard(contract);
         }
         CardCreator.Reset();
+
+        EventManager.Instance.StartListening("ActivateHoverInfo", ProcessActivateHoverInfo);
+        EventManager.Instance.StartListening("DeactivateHoverInfo", ProcessDeactivateHoverInfo);
+    }
+
+    private void ProcessActivateHoverInfo(EventParam e)
+    {
+        StringBuilder sb = new StringBuilder();
+        if (e.go.GetComponent<AgentCardBehavior>() != null)
+        {
+            Agent a = e.go.GetComponent<AgentCardBehavior>().Agent;
+            sb.AppendLine("Agent");
+        }
+        if (e.go.GetComponent<ContractCardBehavior>() != null)
+        {
+            Contract c = e.go.GetComponent<ContractCardBehavior>().Contract;
+            sb.AppendLine("Contract");
+        }
+        HoverInfoPanel.GetComponentInChildren<Text>().text = sb.ToString();
+        HoverInfoPanel.SetActive(true);
+    }
+
+    private void ProcessDeactivateHoverInfo(EventParam e)
+    {
+        HoverInfoPanel.SetActive(false);
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.Instance.StopListening("ActivateHoverInfo", ProcessActivateHoverInfo);
+        EventManager.Instance.StopListening("DeactivateHoverInfo", ProcessDeactivateHoverInfo);
     }
 }

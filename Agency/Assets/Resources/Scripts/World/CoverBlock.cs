@@ -9,7 +9,7 @@ public class CoverBlock : MonoBehaviour
 
     public void ManualOnDestroy()
     {
-        EventManager.Instance.TriggerEvent("ScreenShake", new EventParam(0.08f, 0.35f));
+        EventManager.Instance.TriggerEvent("ScreenShake", new EventParam(null, 0.08f, 0.35f));
         Instantiate(LevelBuilder.floorPrefab, transform.position, Quaternion.identity, LevelBuilder.parent.transform);
 
         CheckForCoverArea(Vector2.up);
