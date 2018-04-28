@@ -19,6 +19,9 @@ public class Agent
     public StringBuilder Description;
     public AgentType AgentType;
 
+    public string PrimaryName;
+    public string SpecialName;
+
     // TODO impl these vars 
     public int XP;
     public int Level;

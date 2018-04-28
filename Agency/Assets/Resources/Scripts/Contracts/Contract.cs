@@ -21,7 +21,7 @@ public class Contract
     public List<WinConditions> WinList;
     public int MoneyAward;
     public int ReputationAward;
-    
+    public int DifficultyScore;
 
     public Contract(string title, StringBuilder description, TileType[,] tiles, List<WinConditions> winList, int moneyAward, int reputationAward)
     {

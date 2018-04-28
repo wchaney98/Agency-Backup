@@ -43,7 +43,9 @@ public class SaveSlotButtonBehavior : MonoBehaviour
                 AgentType = AgentType.Breacher,
                 MoveSpeed = 7f,
                 PrimaryCooldown = 0.1f,
-                SpecialCooldown = 1f
+                SpecialCooldown = 3f,
+                PrimaryName = "Rapid-fire SMG",
+                SpecialName = "Flashbang"
             };
 
             Agent agent1 = new Agent
@@ -52,7 +54,9 @@ public class SaveSlotButtonBehavior : MonoBehaviour
                 Description = new StringBuilder("Standard Issue"),
                 AgentType = AgentType.Standard,
                 PrimaryCooldown = 0.5f,
-                SpecialCooldown = 1f
+                SpecialCooldown = 1f,
+                PrimaryName = "High-Caliber Pistol",
+                SpecialName = "Explosive Disk"
             };
 
             Agent agent2 = new Agent
@@ -60,9 +64,11 @@ public class SaveSlotButtonBehavior : MonoBehaviour
                 Title = "Agent",
                 Description = new StringBuilder("Demolitions"),
                 AgentType = AgentType.Joker,
-                PrimaryCooldown = 0.5f,
+                PrimaryCooldown = 0.7f,
                 SpecialCooldown = 1f,
-                Level = 2
+                Level = 2,
+                PrimaryName = "Explosive Disk",
+                SpecialName = "Fanning Shotgun"
             };
 
             PlayerData.Instance.Agents.Add(agent);

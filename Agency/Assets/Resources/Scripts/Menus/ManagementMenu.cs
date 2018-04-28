@@ -44,7 +44,12 @@ public class ManagementMenu : MonoBehaviour
             ContractModifiers cm = new ContractModifiers();
             cm.MapSize = Random.Range(0.8f, 2f);
             TileType[,] level = LevelGenerator.Generate(cm);
-            Contract c = new Contract("Contract Case:", new StringBuilder("#" + UnityEngine.Random.Range(0, 300).ToString()), level, new List<WinConditions>() { WinConditions.Clear }, Random.Range(50, 250), Random.Range(50, 250));
+            Contract c = new Contract("Contract Case:", new StringBuilder("#" + UnityEngine.Random.Range(0, 300).ToString()), 
+                level, 
+                new List<WinConditions>() { WinConditions.Clear }, 
+                Random.Range(50, 250), 
+                Random.Range(50, 250));
+            c.DifficultyScore = LevelGenerator.CurrLevelDifficultyScore;
             PlayerData.Instance.Contracts.Add(c);
         }
         foreach (Contract contract in PlayerData.Instance.Contracts)
@@ -63,12 +68,18 @@ public class ManagementMenu : MonoBehaviour
         if (e.go.GetComponent<AgentCardBehavior>() != null)
         {
             Agent a = e.go.GetComponent<AgentCardBehavior>().Agent;
-            sb.AppendLine("Agent");
+            sb.AppendLine("Intel:");
+            sb.AppendLine("Primary: " + a.PrimaryName);
+            sb.AppendLine("Special: " + a.SpecialName);
+            sb.AppendLine("Level: " + a.Level);
         }
         if (e.go.GetComponent<ContractCardBehavior>() != null)
         {
             Contract c = e.go.GetComponent<ContractCardBehavior>().Contract;
-            sb.AppendLine("Contract");
+            sb.AppendLine("Intel:");
+            sb.AppendLine("Money: " + c.MoneyAward);
+            sb.AppendLine("Reputation: " + c.ReputationAward);
+            sb.AppendLine("Difficulty Score: " + c.DifficultyScore);
         }
         HoverInfoPanel.GetComponentInChildren<Text>().text = sb.ToString();
         HoverInfoPanel.SetActive(true);

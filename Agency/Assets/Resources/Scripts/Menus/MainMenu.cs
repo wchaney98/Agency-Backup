@@ -71,47 +71,6 @@ public class MainMenu : MonoBehaviour
             new List<WinConditions>() {WinConditions.Clear}, 10, 10);
         Contract testContract2 = new Contract("VertSlice", sb, LevelParser.TextToTiles("level1"),
             new List<WinConditions>() {WinConditions.Clear}, 20, 20);
-        
-        //PlayerData.Instance.Contracts.Add(testContract1);
-        //PlayerData.Instance.Contracts.Add(testContract2);
-
-        //Agent agent = new Agent
-        //{
-        //    Title = "Agent",
-        //    Description = new StringBuilder("The Breacher"),
-        //    AgentType = AgentType.Breacher,
-        //    MoveSpeed = 7f,
-        //    PrimaryCooldown = 0.1f,
-        //    SpecialCooldown = 1f
-        //};
-        
-        //Agent agent1 = new Agent
-        //{
-        //    Title = "Agent",
-        //    Description = new StringBuilder("Standard Issue"),
-        //    AgentType = AgentType.Standard,
-        //    PrimaryCooldown = 0.5f,
-        //    SpecialCooldown = 1f
-        //};
-
-        //Agent agent2 = new Agent
-        //{
-        //    Title = "Agent",
-        //    Description = new StringBuilder("Demolitions"),
-        //    AgentType = AgentType.Joker,
-        //    PrimaryCooldown = 0.5f,
-        //    SpecialCooldown = 1f,
-        //    Level = 2
-        //};
-
-        //PlayerData.Instance.Agents.Add(agent);
-        //PlayerData.Instance.Agents.Add(agent1);
-        //PlayerData.Instance.Agents.Add(agent2);
-
-
-        //PersistentData.Instance.CurrentSaveSlot = 1;
-        
-        //PlayerData.Instance.Save();
     }
 
     public void Play()

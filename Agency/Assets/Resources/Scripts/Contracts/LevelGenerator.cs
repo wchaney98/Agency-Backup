@@ -5,6 +5,8 @@ using UnityEngine;
 
 public static class LevelGenerator
 {
+    public static int CurrLevelDifficultyScore = 0;
+
     private static Array tileTypes = Enum.GetValues(typeof(TileType));
     private static int currHighestHeight = 0;
     private static int lastRoomInRowHeight = 0;
@@ -27,6 +29,7 @@ public static class LevelGenerator
         lastRoomInRowHeight = 0;
         buildingRight = true;
         generationIter = 0;
+        CurrLevelDifficultyScore = 0;
 
         // Create array
         bool tallOrWide = UnityEngine.Random.Range(0, 2) == 0;
@@ -54,6 +57,7 @@ public static class LevelGenerator
         }
 
         int numRooms = UnityEngine.Random.Range(3, 7);
+        CurrLevelDifficultyScore += numRooms * 2;
 
         Vector2 currRoomBotLeft = new Vector2(0, 0);
 
@@ -145,6 +149,7 @@ public static class LevelGenerator
         {
             SpawnRandomEnemy(level, new Vector2Int
                     (x + size / 2 + UnityEngine.Random.Range(1, size / 3), y + size / 2 + UnityEngine.Random.Range(1, size / 3)));
+            CurrLevelDifficultyScore++;
         }
 
         //level[x + size / 2 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + size / 2] = TileType.Cover;
@@ -164,8 +169,9 @@ public static class LevelGenerator
         while (attempts < 5 && TryPlacingCover(level, new Vector2Int(x + size / 2 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + size / 2)) == false)
         {
             attempts++;
-            Debug.Log("small " + attempts);
         }
+        if (attempts >= 5)
+            CurrLevelDifficultyScore++;
 
         // chance of putting 4 turrets down in corners
         if (generationIter > 1 && UnityEngine.Random.Range(0f, 1f) < 0.4f)
@@ -174,6 +180,7 @@ public static class LevelGenerator
             level[x + 1, y + size - 1] = TileType.TurretSpawn;
             level[x + size - 1, y + 1] = TileType.TurretSpawn;
             level[x + size - 1, y + size - 1] = TileType.TurretSpawn;
+            CurrLevelDifficultyScore += 3;
         }
 
         // build door down
@@ -193,7 +200,6 @@ public static class LevelGenerator
         if (generationIter == 2)
         {
             level[x + size / 2, y + size] = TileType.Door;
-            Debug.Log("Door please");
         }
     }
 
@@ -236,6 +242,7 @@ public static class LevelGenerator
         {
             SpawnRandomEnemy(level, new Vector2Int
                     (x + sizeX / 2 + UnityEngine.Random.Range(1, sizeX / 3), y + sizeY / 2 + UnityEngine.Random.Range(1, sizeY / 3)));
+            CurrLevelDifficultyScore++;
         }
 
         //level[x + sizeX / 2 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + sizeY / 2] = TileType.Cover;
@@ -257,6 +264,8 @@ public static class LevelGenerator
             attempts++;
             Debug.Log("hall " + attempts);
         }
+        if (attempts >= 5)
+            CurrLevelDifficultyScore++;
 
         // build door down
         if (botLeft.y > 0)
@@ -281,7 +290,6 @@ public static class LevelGenerator
         if (generationIter == 2)
         {
             level[x + sizeX / 2, y + sizeY] = TileType.Door;
-            Debug.Log("Door please");
         }
     }
 
@@ -332,6 +340,7 @@ public static class LevelGenerator
             int numEnemies = UnityEngine.Random.Range(2, 4);
             for (int i = 0; i < numEnemies; i++)
             {
+                CurrLevelDifficultyScore++;
                 SpawnRandomEnemy(level, new Vector2Int
                     (x + size / 2 + UnityEngine.Random.Range(1, size / 3), y + size / 2 + UnityEngine.Random.Range(1, size / 3)));
             }
@@ -353,13 +362,11 @@ public static class LevelGenerator
         while (attempts < 5 && TryPlacingCover(level, new Vector2Int(x + size / 4 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + size / 2)) == false)
         {
             attempts++;
-            Debug.Log("big " + attempts);
         }
         attempts = 0;
         while (attempts < 5 && TryPlacingCover(level, new Vector2Int(x + size / 2 + (UnityEngine.Random.Range(0, 1f) >= 0.5f ? -1 : 1), y + size / 3 - 1)) == false)
         {
             attempts++;
-            Debug.Log("big " + attempts);
         }
 
         // chance of putting 4 turrets down in corners
@@ -369,6 +376,7 @@ public static class LevelGenerator
             level[x + 1, y + size - 1] = TileType.TurretSpawn;
             level[x + size - 1, y + 1] = TileType.TurretSpawn;
             level[x + size - 1, y + size - 1] = TileType.TurretSpawn;
+            CurrLevelDifficultyScore += 3;
         }
 
         // build door down
@@ -392,7 +400,6 @@ public static class LevelGenerator
         if (generationIter == 2)
         {
             level[x + size / 2, y + size] = TileType.Door;
-            Debug.Log("Door please");
         }
     }
 
@@ -410,6 +417,7 @@ public static class LevelGenerator
         catch
         {
             Debug.Log("Enemy was placed in invalid loc");
+            CurrLevelDifficultyScore--;
         }
     }
 
