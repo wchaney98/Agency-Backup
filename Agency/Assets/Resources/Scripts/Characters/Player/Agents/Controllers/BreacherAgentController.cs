@@ -5,9 +5,6 @@ public class BreacherAgentController : AAgentController
     private GameObject bulletPrefab;
     private GameObject specialPrefab;
 
-    private float specialCooldownTimer = 0f;
-    private float specialCooldown;
-
     private Agent agent;
 
     private float timeBetweenShots = 0.1f;
@@ -51,7 +48,7 @@ public class BreacherAgentController : AAgentController
                 scr.CheckPath();
 
                 EventManager.Instance.TriggerEvent("ZoomSlap", new EventParam());
-                SoundManager.Instance.DoPlayOneShot(new[] { SoundFile.PistolShot0 }, go.transform.position);
+                SoundManager.Instance.DoPlayOneShot(new[] { SoundFile.SMG0, SoundFile.SMG1 }, go.transform.position);
 
                 EventManager.Instance.TriggerEvent("PlayerShoot", new EventParam());
             }

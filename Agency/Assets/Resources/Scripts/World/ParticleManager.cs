@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SplatterSystem;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ public enum ParticleType
 
 public static class ParticleManager
 {
+    public static AbstractSplatterManager SplatterManager = null;
+
     public static GameObject BigExplosion2 = Resources.Load<GameObject>("Prefabs/World/Particle FX/ExplosionBig2");
     public static GameObject BigLaserExplosion = Resources.Load<GameObject>("Prefabs/World/Particle FX/ExplosionBig");
     public static GameObject SmallLaserExplosion = Resources.Load<GameObject>("Prefabs/World/Particle FX/ExplosionSmall");
@@ -23,9 +26,17 @@ public static class ParticleManager
 
     public static void SpawnBloodFleshAt(Vector2 position, Vector2 dir)
     {
+        if (SplatterManager == null)
+        {
+            SplatterManager = GameObject.Find("SplatterSystemMesh").GetComponent<AbstractSplatterManager>();
+        }
+
         float degrees = (Mathf.Atan2(dir.y, dir.x)) * Mathf.Rad2Deg;
         GameObject boom = GameObject.Instantiate(BloodFlesh, position, Quaternion.identity);
         boom.transform.Rotate(new Vector3(0f, 0f, degrees), Space.Self);
+
+        SplatterManager.Spawn(position, dir);
+
         GameObject.Destroy(boom, 3f);
     }
 

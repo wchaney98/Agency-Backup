@@ -8,8 +8,13 @@ using UnityEngine.UI;
 class GameManager : MonoBehaviour
 {
     public GameObject DeathText;
+    public GameObject SpecialCooldownPanel;
     public Text EnemiesRemainingText;
     float deadTimer = 0f;
+
+    private PlayerController player;
+    private Image specialFillImage;
+    private Text specialText;
 
     private void Start()
     {
@@ -22,11 +27,16 @@ class GameManager : MonoBehaviour
 
         EnemiesRemainingText.text = GameObject.FindObjectsOfType<AEnemy>().Length.ToString();
         EventManager.Instance.StartListening("EnemyDied", ProcessEnemyDied);
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        specialFillImage = SpecialCooldownPanel.GetComponent<Image>();
+        specialText = SpecialCooldownPanel.transform.Find("SpecialText").gameObject.GetComponent<Text>();
     }
 
     private void Update()
     {
-        if (GameObject.FindObjectOfType<PlayerController>() == null)
+        UpdateSpecialCooldownVisual();
+
+        if (player == null)
         {
             DeathText.SetActive(true);
             deadTimer += Time.deltaTime;
@@ -56,9 +66,30 @@ class GameManager : MonoBehaviour
         }
     }
 
+    private void UpdateSpecialCooldownVisual()
+    {
+        if (player == null)
+        {
+            return;
+        }
+
+        float fill = Mathf.Clamp01(player.specialCooldownTimer / player.specialCooldown);
+        specialFillImage.fillAmount = fill;
+
+        if (fill == 1)
+        {
+            specialText.color = Color.green;
+        }
+        else
+        {
+            specialText.color = Color.red;
+        }
+    }
+
     private void ProcessEnemyDied(EventParam e)
     {
-        EnemiesRemainingText.text = GameObject.FindObjectsOfType<AEnemy>().Length.ToString();
+        if (EnemiesRemainingText != null)
+            EnemiesRemainingText.text = GameObject.FindObjectsOfType<AEnemy>().Length.ToString();
     }
 
     private void OnDestroy()

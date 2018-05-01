@@ -5,9 +5,6 @@ public class StandardAgentController : AAgentController
     private GameObject bulletPrefab;
     private GameObject specialPrefab;
 
-    private float specialCooldownTimer = 0f;
-    private float specialCooldown;
-
     private Agent agent;
 
     private float timeBetweenShots = 0.5f;

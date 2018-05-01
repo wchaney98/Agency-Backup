@@ -14,6 +14,7 @@ public enum SoundFile
 {
     //Music
     LevelTrack1,
+    LevelTrack2,
     MenuTrack1,
 
     //delet
@@ -23,14 +24,22 @@ public enum SoundFile
     HumanDeath1,
     HumanDeath2,
 
+    ArmorHit0,
+    FleshHit0,
+    FleshHit1,
+
     PistolShot0,
     PistolShot1,
+
+    SMG0,
+    SMG1,
 
     BulletWhizz0,
     BulletWhizz1,
     BulletWhizz2,
 
     HeavyShot0,
+    Shotgun0,
 
     ExplosionMedium,
     Flashbang0,
@@ -99,7 +108,7 @@ public class SoundManager : SingletonBehavior<SoundManager>
         {
             Debug.Log("Creating BGMSource");
             BGMSource = new GameObject("BGMSource", typeof(AudioSource)).GetComponent<AudioSource>();
-            BGMSource.volume = .4f;
+            BGMSource.volume = .22f;
             BGMSource.loop = true;
             DontDestroyOnLoad(BGMSource.gameObject);
         }
@@ -119,7 +128,10 @@ public class SoundManager : SingletonBehavior<SoundManager>
             }
             else
             {
-                ChangeBGM(SoundFile.LevelTrack1);
+                if (UnityEngine.Random.Range(0f, 1f) > 0.5f)
+                    ChangeBGM(SoundFile.LevelTrack1);
+                else
+                    ChangeBGM(SoundFile.LevelTrack2);
             }
         }
     }

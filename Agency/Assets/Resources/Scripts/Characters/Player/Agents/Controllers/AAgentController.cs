@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class AAgentController
 {
+    public float specialCooldownTimer = 0f;
+    public float specialCooldown;
+
     public virtual Sprite GetSprite()
     {
         return ResourcePaths.StandardSprite;

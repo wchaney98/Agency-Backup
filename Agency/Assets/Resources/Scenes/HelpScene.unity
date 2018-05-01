@@ -322,12 +322,12 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_Font: {fileID: 12800000, guid: cd601464add5b39418e873a30c150ce1, type: 3}
+    m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 1
     m_MinSize: 10
-    m_MaxSize: 40
+    m_MaxSize: 70
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -367,7 +367,10 @@ MonoBehaviour:
 
     BREACHER: SMG, FLASHBANG
 
-    DEMOLITION: GRENADE, SHOTGUN'
+    DEMOLITION: GRENADE, SHOTGUN
+
+
+    <color=red>IF A LEVEL IS IMPOSSIBLE (MISSING DOOR, MISPLACED ENEMY), PRESS ESCAPE</color>'
 --- !u!222 &603268991
 CanvasRenderer:
   m_ObjectHideFlags: 0

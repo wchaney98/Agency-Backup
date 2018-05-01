@@ -23,7 +23,7 @@ public class Turret : AEnemy
         spriteRenderer.color = new Color(1f, 1f, 1f, 0f);
         holeSpriteRenderer.color = new Color(1f, 1f, 1f, 0f);
 
-        health = 6;
+        health = 4;
     }
 
     public override void Update()
@@ -93,7 +93,13 @@ public class Turret : AEnemy
 
     public override void TakeDamage(int amount)
     {
-        SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.ExplosionMedium }, transform.position);
         health -= amount;
+        if (health <= 0)
+        {
+            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.ExplosionMedium }, transform.position);
+            ParticleManager.SpawnLaserExplosionAt(ParticleType.SMALL, transform.position);
+        }
+        else
+            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.ArmorHit0, SoundFile.FleshHit0, SoundFile.FleshHit1 }, transform.position);
     }
 }

@@ -5,9 +5,6 @@ public class JokerAgentController : AAgentController
     private GameObject bulletPrefab;
     private GameObject specialPrefab;
 
-    private float specialCooldownTimer = 0f;
-    private float specialCooldown;
-
     private Agent agent;
 
     private float timeBetweenShots = 0.8f;
@@ -49,7 +46,7 @@ public class JokerAgentController : AAgentController
                 scr.LifeTime = 15f;
 
                 EventManager.Instance.TriggerEvent("ZoomSlap", new EventParam());
-                SoundManager.Instance.DoPlayOneShot(new[] { SoundFile.PistolShot0 }, go.transform.position);
+                SoundManager.Instance.DoPlayOneShot(new[] { SoundFile.HeavyShot0 }, go.transform.position);
 
                 EventManager.Instance.TriggerEvent("PlayerShoot", new EventParam());
             }
@@ -66,8 +63,9 @@ public class JokerAgentController : AAgentController
     {
         base.ProcessSpecial(go, mousePos);
 
+        SoundManager.Instance.DoPlayOneShot(new[] { SoundFile.Shotgun0 }, go.transform.position);
 
-        for (int i = 0; i < agent.Level * 5; i++)
+        for (int i = 0; i < 10; i++)
         {
             GameObject b = Object.Instantiate(specialPrefab, go.transform.position, Quaternion.identity);
             Bullet scr = b.GetComponent<Bullet>();

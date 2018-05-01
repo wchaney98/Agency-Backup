@@ -41,7 +41,7 @@ public class SaveSlotButtonBehavior : MonoBehaviour
                 Title = "Agent",
                 Description = new StringBuilder("The Breacher"),
                 AgentType = AgentType.Breacher,
-                MoveSpeed = 7f,
+                MoveSpeed = 6f,
                 PrimaryCooldown = 0.1f,
                 SpecialCooldown = 3f,
                 PrimaryName = "Rapid-fire SMG",
@@ -53,6 +53,7 @@ public class SaveSlotButtonBehavior : MonoBehaviour
                 Title = "Agent",
                 Description = new StringBuilder("Standard Issue"),
                 AgentType = AgentType.Standard,
+                MoveSpeed = 4.4f,
                 PrimaryCooldown = 0.5f,
                 SpecialCooldown = 1f,
                 PrimaryName = "High-Caliber Pistol",
@@ -64,9 +65,9 @@ public class SaveSlotButtonBehavior : MonoBehaviour
                 Title = "Agent",
                 Description = new StringBuilder("Demolitions"),
                 AgentType = AgentType.Joker,
+                MoveSpeed = 3.8f,
                 PrimaryCooldown = 0.7f,
                 SpecialCooldown = 1f,
-                Level = 2,
                 PrimaryName = "Explosive Disk",
                 SpecialName = "Fanning Shotgun"
             };

@@ -17,6 +17,11 @@ public class CoverBlock : MonoBehaviour
         CheckForCoverArea(Vector2.right);
         CheckForCoverArea(Vector2.left);
 
+        CheckForCoverArea(Vector2.up + Vector2.right);
+        CheckForCoverArea(Vector2.up + Vector2.left);
+        CheckForCoverArea(Vector2.down + Vector2.left);
+        CheckForCoverArea(Vector2.down + Vector2.right);
+
         ParticleManager.SpawnLaserExplosionAt(ParticleType.BIG, transform.position);
         Destroy(gameObject);
     }

@@ -68,18 +68,18 @@ public class ManagementMenu : MonoBehaviour
         if (e.go.GetComponent<AgentCardBehavior>() != null)
         {
             Agent a = e.go.GetComponent<AgentCardBehavior>().Agent;
-            sb.AppendLine("Intel:");
-            sb.AppendLine("Primary: " + a.PrimaryName);
-            sb.AppendLine("Special: " + a.SpecialName);
-            sb.AppendLine("Level: " + a.Level);
+            sb.AppendLine("<color=green>Intel:</color>");
+            sb.AppendLine("<color=grey>Primary:</color> " + a.PrimaryName);
+            sb.AppendLine("<color=grey>Special:</color> " + a.SpecialName);
+            sb.AppendLine("<color=grey>Speed:</color> " + a.MoveSpeed);
         }
         if (e.go.GetComponent<ContractCardBehavior>() != null)
         {
             Contract c = e.go.GetComponent<ContractCardBehavior>().Contract;
-            sb.AppendLine("Intel:");
-            sb.AppendLine("Money: " + c.MoneyAward);
-            sb.AppendLine("Reputation: " + c.ReputationAward);
-            sb.AppendLine("Difficulty Score: " + c.DifficultyScore);
+            sb.AppendLine("<color=green>Intel:</color>");
+            sb.AppendLine("<color=grey>Money:</color> " + c.MoneyAward);
+            sb.AppendLine("<color=grey>Reputation:</color> " + c.ReputationAward);
+            sb.AppendLine("<color=red>Difficulty Score:</color> " + c.DifficultyScore);
         }
         HoverInfoPanel.GetComponentInChildren<Text>().text = sb.ToString();
         HoverInfoPanel.SetActive(true);

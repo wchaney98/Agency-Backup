@@ -24,6 +24,10 @@ class GrenadeHitboxBehavior : MonoBehaviour
         {
             Character chr = collision.gameObject.GetComponent<Character>();
             chr.TakeDamage(6);
+            ParticleManager.SpawnBloodFleshAt(collision.gameObject.transform.position, Vector2.zero);
+            ParticleManager.SpawnBloodFleshAt(collision.gameObject.transform.position, Vector2.zero);
+            ParticleManager.SpawnBloodFleshAt(collision.gameObject.transform.position, Vector2.zero);
+
             // TODO more painful sound fx... depends on robot or not etc
             //SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.Steve0 }, transform.position);
         }

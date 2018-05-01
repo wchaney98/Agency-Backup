@@ -3,26 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Resources = UnityEngine.Resources;
 
 public class PlayerController : Character
 {
     public Agent Agent { get; set; }
-    
+
     public GameObject MuzzleFlashObject;
 
+    public AAgentController AgentController { get { return agentController; } }
+
     private AAgentController agentController;
-    
-    private float moveSpeed = 3.3f;
+
+    private float moveSpeed = 4.3f;
 
     private Rigidbody2D rb;
 
     private Coroutine zoomingCoroutine;
 
-    private float specialCooldownTimer = 0f;
-    private float specialCooldown = 1f;
+    public float specialCooldownTimer = 0f;
+    public float specialCooldown = 1f;
 
     private bool takingCover = false;
+
+    private Image specialFillImage;
+    private Text specialText;
 
     public override void Start()
     {
@@ -32,7 +38,10 @@ public class PlayerController : Character
         Team = Team.Player;
 
         rb = GetComponent<Rigidbody2D>();
-        
+
+        specialFillImage = GameObject.Find("SpecialPanel").GetComponent<Image>();
+        specialText = GameObject.Find("SpecialText").GetComponent<Text>();
+
         EventManager.Instance.StartListening("PlayerShoot", PlayMuzzleFlash);
     }
 
@@ -83,7 +92,7 @@ public class PlayerController : Character
 
         // Handle shooting
         agentController.ProcessPrimary(gameObject, mousePos, Time.deltaTime, InCover);
-        
+
         // Special
         specialCooldownTimer += Time.deltaTime;
         if (Input.GetMouseButtonDown(1))
@@ -98,7 +107,7 @@ public class PlayerController : Character
                 agentController.ProcessDuringSpecial(gameObject, mousePos);
             }
         }
-        
+
         // Universal peeking behavior
         if (Input.GetKey(KeyCode.LeftShift))
         {

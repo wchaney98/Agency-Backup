@@ -75,8 +75,12 @@ public abstract class Character : MonoBehaviour
 
     public virtual void TakeDamage(int amount)
     {
-        SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.HumanDeath0, SoundFile.HumanDeath1, SoundFile.HumanDeath2 }, transform.position);
         health -= amount;
+        if (health <= 0)
+            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.HumanDeath0, SoundFile.HumanDeath1, SoundFile.HumanDeath2 }, transform.position);
+        else
+            SoundManager.Instance.DoPlayOneShot(new SoundFile[] { SoundFile.ArmorHit0, SoundFile.FleshHit0, SoundFile.FleshHit1 }, transform.position);
+
     }
 
     public virtual void Flash()

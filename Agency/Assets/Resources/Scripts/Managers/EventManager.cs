@@ -69,7 +69,8 @@ public class EventManager : SingletonBehavior<EventManager>
         Action<EventParam> thisEvent;
         if (instance.eventDictionary.TryGetValue(eventName, out thisEvent))
         {
-            thisEvent.Invoke(eventParam);
+            if (thisEvent != null)
+                thisEvent.Invoke(eventParam);
         }
     }
 }
